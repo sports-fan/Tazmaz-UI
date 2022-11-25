@@ -14,6 +14,7 @@ const FormCheckbox = () => {
       onChange={handleChange}
       inputProps={{ 'aria-label': 'controlled' }}
       size="small"
+      style={{padding: 0}}
     />
   );
 }

@@ -3,69 +3,88 @@ import { makeStyles } from "@mui/styles"
 export default makeStyles(theme => ({
   main: {
     width: '100%',
-    height: 1080,
+    height: '100vh',
   },
-  logo: {
+  leftSide: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none'
+    },
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    // width: 1217,
-    // height: 1080,
+    justifyContent: 'center',
+    width: '100%',
+    height: '100vh',
     backgroundColor: theme.palette.primary.main,
   },
   titleDiv: {
     width: 523,
     height: 24,
-    marginTop: 149
   },
   title: {
     textAlign: 'center',
     color: '#FFFFFF',
   },
   imageDiv: {
-    marginTop: 72.78,
-    paddingLeft: 81,
-    paddingRight: 108,
-    paddingBottom: 154,
-    paddingTop: 21
+    paddingLeft: '7%',
+    paddingRight: '7%',
   },
   image: {
+    display: 'block',
     width: '100%',
     height: '100%'
   },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 38,
+  loginForm: {
+    [theme.breakpoints.down('lg')]: {
+      marginTop: 26
+    },
+    marginTop: theme.spacing(8)
   },
-  headerLeft: {
+  backToHome: {
+    [theme.breakpoints.down('md')]: {
+      top: 54
+    },
+    position: 'absolute',
     display: 'flex',
-    marginLeft: 28
+    marginLeft: 28,
+    top: 44
   },
-  headerRight: {
-    marginRight: 117.24
+  logo: {
+    display: "flex",
+    justifyContent: 'flex-end'
   },
   title2: {
-    marginTop: 95,
     marginRight: 117
   },
-  loginForm: {
+  mb6: {
+    [theme.breakpoints.down('lg')]: {
+      marginBottom: 31
+    },
+    marginBottom: theme.spacing(6)
+  },
+  bottomLogo: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'end',
-    marginRight: 117,
-    marginTop: 55
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  register: {
+    [theme.breakpoints.down('lg')]: {
+      marginTop: 22,
+      marginBottom: 6
+    },
+    marginTop: 48,
+    marginBottom: 30
   },
   loginWithApple: {
-    width: 470,
+    width: '100%',
     height: 50,
     color: '#000000',
     border: '1, solid',
     borderRadius: 10
   },
   loginWithGoogle: {
-    width: 470,
+    width: '100%',
     height: 50,
     color: '#000000',
     border: '1, solid',
@@ -73,30 +92,40 @@ export default makeStyles(theme => ({
     marginTop: 11
   },
   loginWithInput: {
-    width: 470,
+    width: '100%',
     height: 50,
     border: '1, solid',
     borderRadius: 10,
     marginTop: 18
   },
   loginField: {
-    width: 470,
+    width: '100%',
     height: 50,
     border: '1, solid',
     borderRadius: 10,
   },
   divider: {
-    width: 470,
-    marginTop: 26,
-    marginBottom: 17
+    width: '100%',
+    marginTop: 20,
+    marginBottom: 20
   },
-  formRedirect: {
+  forgotPassword: {
+    [theme.breakpoints.down('lg')]: {
+      alignItems: 'flex-start'
+    },
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginRight: 108,
+    marginTop: 15
   },
-  formRedirect2: {
+  forgotText: {
+    [theme.breakpoints.down('lg')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end'
+    },
+    display: 'flex',
+  },
+  formRedirect: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',

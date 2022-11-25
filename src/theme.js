@@ -10,7 +10,8 @@ const theme = createTheme({
     secondary: {
       main: secondary
     },
-  }
+  },
+  direction: 'rtl',
 });
 
 export default theme

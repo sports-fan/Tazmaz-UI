@@ -10,12 +10,13 @@ const FormInput = ({adorementText, icon, styles}) => {
 
   return (
     <TextField
+      dir='rtl'
       className={styles}
       value={value}
       onChange={e => handleChange(e)}
       InputProps={{
-        startAdornment: (<InputAdornment position="start">{icon}</InputAdornment>),
-        endAdornment: <InputAdornment position="end">{adorementText}</InputAdornment>,
+        startAdornment: (<InputAdornment position="start">{icon}{adorementText}</InputAdornment>),
+        endAdornment: <InputAdornment position="end"></InputAdornment>,
       }}
       color='secondary'
       variant="outlined"
