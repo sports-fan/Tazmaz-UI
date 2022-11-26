@@ -1,41 +1,24 @@
 import { Typography, Grid, Divider } from '@mui/material'
 
 import FormButton from '../../../../../components/FormButton'
-import Container from '../../../../../components/Container'
+import Container from '../../../components/Container'
 import FormInput from '../../../../../components/FormInput'
-import LoginHeader from '../../../../../components/LoginHeader'
 import FormCheckbox from '../../../../../components/FormCheckbox'
-import LoginIcon from '../../../../../assets/loginLogo.svg'
-import IosArrow from '../../../../../assets/iosArrow.svg'
+import AuthLeftSide from '../../../components/AuthLeftSide'
+
+import SignupLeftFG from '../../../../../assets/loginLogo.svg'
 import AppleIcon from '../../../../../assets/apple.svg'
 import GoogleIcon from '../../../../../assets/google.svg'
 import LeftArrow from '../../../../../assets/leftArrow.svg'
-import GirlIcon from '../../../../../assets/girlIcon.svg'
 import useStyles from './styles'
+import AuthRightSide from '../../../components/AuthRightSide'
 
 const RegistrationOptions = () => {
   const classes = useStyles()
   return (
-    <div className={classes.main}>
-      <Grid container>
-        <Grid item md={7.5} className={classes.leftSide}>
-          <div className={classes.leftSide}>
-            <div className={classes.titleDiv}>
-              <Typography variant='h5' className={classes.title}>3-5 דקות ביום ואתם מסודרים</Typography>
-            </div>
-            <div className={classes.imageDiv}>
-              <img className={classes.image} src={LoginIcon} alt='logo' />
-            </div>
-          </div>
-        </Grid>
-        <Grid item md={4.5} sm={12} sx={12}>
-          <div className={classes.backToHome}>
-            <img src={IosArrow} alt='logo'/>
-            <div>
-              <Typography variant='body1' ml={1}>חזרה לדף הבית</Typography>
-            </div>
-          </div>
-          <LoginHeader />
+    <Grid container>
+      <Grid item md={4.5} sm={12} sx={12}>
+        <AuthRightSide>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
@@ -71,26 +54,23 @@ const RegistrationOptions = () => {
                 <div className={classes.forgotPassword}>
                   <div className={classes.forgotText}>
                     <Typography variant='body2'>
-                      השירות ומדיניות הפרטיות   
+                      בהרשמה אני מאשר/ת שאני מקבל/ת 
                     </Typography>
                     <Typography variant='body2'>
-                      בהרשמה אני מאשר/ת שאני מקבל/ת 
+                      השירות ומדיניות הפרטיות   
                     </Typography>
                   </div>
                   <FormCheckbox />
                 </div>
-                <div className={classes.bottomLogo}>
-                  <div className={classes.register}>
-                    <Typography variant='body2'> נרשמת כבר בעבר<u>? להתחברות</u></Typography>
-                  </div>
-                  <img src={GirlIcon} alt='girl' />
-                </div>
               </Container>
             </Grid>
           </Grid>
-        </Grid>
+        </AuthRightSide>
       </Grid>
-    </div>
+      <Grid item md={7.5}>
+        <AuthLeftSide icon={SignupLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
+      </Grid>
+    </Grid>
   )
 }
 

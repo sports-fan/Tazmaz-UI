@@ -6,11 +6,31 @@ const info = '#1A94B6'
 
 const theme = createTheme({
   components: {
-    MuiButtonBase: {
+    MuiButton: {
       styleOverrides: {
-        
+        root: ({ ownerState, theme }) => ({
+          ...(ownerState.variant === 'outlined' &&
+            ownerState.color === 'secondary' && {
+              color: '#000',
+            }),
+          ...(ownerState.variant === 'contained' &&
+            ownerState.color === 'primary' && {
+            color: '#fff',
+          }),
+          borderRadius: theme.spacing(1),
+          fontSize: theme.spacing(2)
+        }),
+        startIcon: ({ ownerState, theme }) => ({
+          ...(ownerState.variant === 'outlined' &&
+            ownerState.color === 'secondary' && {
+              marginLeft: 8
+            }),
+          ...(ownerState.variant === 'contained' && {
+              marginLeft: 5
+            }),
+        })
       }
-    }
+    },
   },
   palette: {
     primary: {

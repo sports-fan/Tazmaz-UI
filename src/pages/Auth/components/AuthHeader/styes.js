@@ -10,5 +10,14 @@ export default makeStyles(theme => ({
     justifyContent: 'flex-end',
     paddingTop: 38,
     position: 'relative'
-  }
+  },
+  backToHome: {
+    [theme.breakpoints.down('md')]: {
+      top: 54
+    },
+    position: 'absolute',
+    display: 'flex',
+    marginLeft: 28,
+    top: 44
+  },
 }))
