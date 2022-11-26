@@ -9,7 +9,7 @@ const FormButton = ({startIcon, endIcon, text, variant, color, styles}) => {
       color={color}
       startIcon={startIcon}
       endIcon={endIcon}
-      sx={{fontSize: 16}}
+      sx={{fontSize: 16, }}
     >
       {text}
     </Button>

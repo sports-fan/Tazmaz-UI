@@ -73,8 +73,8 @@ export default makeStyles(theme => ({
       marginTop: 22,
       marginBottom: 6
     },
-    marginTop: 48,
-    marginBottom: 30
+    marginTop: 38,
+    marginBottom: 20
   },
   loginWithApple: {
     width: '100%',
