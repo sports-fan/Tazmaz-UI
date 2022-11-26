@@ -1,13 +1,12 @@
 import React from 'react'
 import { CssBaseline } from '@mui/material'
-
-import LoginPage from './pages/Login'
+import Pages from './pages'
 
 function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <LoginPage />
+      <Pages />
     </React.Fragment>
   );
 }

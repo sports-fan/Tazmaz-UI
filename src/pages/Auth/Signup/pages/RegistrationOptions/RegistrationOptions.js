@@ -1,19 +1,19 @@
 import { Typography, Grid, Divider } from '@mui/material'
 
-import FormButton from '../../components/FormButton'
+import FormButton from '../../../../../components/FormButton'
+import Container from '../../../../../components/Container'
+import FormInput from '../../../../../components/FormInput'
+import LoginHeader from '../../../../../components/LoginHeader'
+import FormCheckbox from '../../../../../components/FormCheckbox'
+import LoginIcon from '../../../../../assets/loginLogo.svg'
+import IosArrow from '../../../../../assets/iosArrow.svg'
+import AppleIcon from '../../../../../assets/apple.svg'
+import GoogleIcon from '../../../../../assets/google.svg'
+import LeftArrow from '../../../../../assets/leftArrow.svg'
+import GirlIcon from '../../../../../assets/girlIcon.svg'
 import useStyles from './styles'
-import LoginIcon from '../../assets/loginLogo.svg'
-import IosArrow from '../../assets/iosArrow.svg'
-import AppleIcon from '../../assets/apple.svg'
-import GoogleIcon from '../../assets/google.svg'
-import LeftArrow from '../../assets/leftArrow.svg'
-import GirlIcon from '../../assets/girlIcon.svg'
-import FormInput from '../../components/FormInput'
-import FormCheckbox from '../../components/FormCheckbox'
-import LoginHeader from '../../components/LoginHeader'
-import Container from '../../components/Container'
 
-const Login = () => {
+const RegistrationOptions = () => {
   const classes = useStyles()
   return (
     <div className={classes.main}>
@@ -94,4 +94,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default RegistrationOptions

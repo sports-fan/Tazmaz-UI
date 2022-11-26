@@ -86,9 +86,9 @@ export default makeStyles(theme => ({
   loginWithGoogle: {
     width: '100%',
     height: 50,
-    color: '#000000',
-    border: '1, solid',
-    borderRadius: 10,
+    color: '#000000 !important',
+    border: '1 solid',
+    borderRadius: '10px !important',
     marginTop: 11
   },
   loginWithInput: {
