@@ -1,7 +1,7 @@
 import { useState, useCallback  } from "react"
-import { TextField, InputAdornment } from "@mui/material"
+import { InputAdornment, OutlinedInput, FormControl, InputLabel } from "@mui/material"
 
-const FormInput = ({adorementText, icon, styles}) => {
+const FormInput = ({label, startAdornment, endAdornment, icon, className, id, ...props}) => {
   const [value, setValue] = useState(null)
 
   const handleChange = useCallback((e) => {
@@ -9,18 +9,21 @@ const FormInput = ({adorementText, icon, styles}) => {
   }, [])
 
   return (
-    <TextField
-      dir='rtl'
-      className={styles}
-      value={value}
-      onChange={e => handleChange(e)}
-      InputProps={{
-        startAdornment: (<InputAdornment position="start">{icon}{adorementText}</InputAdornment>),
-        endAdornment: <InputAdornment position="end"></InputAdornment>,
-      }}
-      color='secondary'
-      variant="outlined"
-    />
+    <FormControl fullWidth>
+      {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
+      <OutlinedInput
+        id={id}
+        className={className}
+        dir='rtl'
+        value={value}
+        onChange={e => handleChange(e)}
+        startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>}
+        endAdornment={<InputAdornment position="end">{icon}{endAdornment}</InputAdornment>}
+        color='secondary'
+        label={label}
+        {...props}
+      />
+    </FormControl>
   )
 }
 

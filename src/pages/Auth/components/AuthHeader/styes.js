@@ -1,23 +1,28 @@
 import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
-  main: {
+  logo: {
     [theme.breakpoints.down('lg')]: {
       paddingTop: 91,
-      paddingRight: '5%'
     },
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     paddingTop: 38,
-    position: 'relative'
+    
   },
   backToHome: {
-    [theme.breakpoints.down('md')]: {
-      top: 54
-    },
-    position: 'absolute',
+    // [theme.breakpoints.down('lg')]: {
+    //   left: 20,
+    //   top: 54
+    // },
+    // position: 'absolute',
     display: 'flex',
-    marginLeft: 28,
-    top: 44
+    justifyContent:'flex-end',
+    alignItems: 'center',
+    paddingTop: 44,
+
+    // flexDirection: 'row-reverse',
+    // right: 540,
+    // top: 44
   },
 }))

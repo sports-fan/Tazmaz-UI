@@ -7,7 +7,9 @@ export default makeStyles(theme => ({
     },
     marginTop: theme.spacing(8)
   },
-
+  leftBGColor: {
+    backgroundColor: theme.palette.primary.main,
+  },
   logo: {
     display: "flex",
     justifyContent: 'flex-end'
@@ -21,25 +23,11 @@ export default makeStyles(theme => ({
     },
     marginBottom: theme.spacing(6)
   },
-  loginWithApple: {
-    width: '100%',
-    height: 50,
-  },
   loginWithGoogle: {
-    width: '100%',
-    height: 50,
     marginTop: '11px ! important'
   },
   loginWithInput: {
-    width: '100%',
-    height: 50,
     marginTop: '18px ! important'
-  },
-  loginField: {
-    width: '100%',
-    height: 50,
-    border: '1, solid',
-    borderRadius: 10,
   },
   divider: {
     width: '100%',

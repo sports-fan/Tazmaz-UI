@@ -18,12 +18,14 @@ const theme = createTheme({
             color: '#fff',
           }),
           borderRadius: theme.spacing(1),
-          fontSize: theme.spacing(2)
+          fontSize: theme.spacing(2),
+          width: '100%',
+          height: 50
         }),
         startIcon: ({ ownerState, theme }) => ({
           ...(ownerState.variant === 'outlined' &&
             ownerState.color === 'secondary' && {
-              marginLeft: 8
+              marginLeft: theme.spacing(1)
             }),
           ...(ownerState.variant === 'contained' && {
               marginLeft: 5
@@ -31,6 +33,23 @@ const theme = createTheme({
         })
       }
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          width: '100%',
+          height: 50,
+          borderRadius: 8,
+        }
+      }
+    },
+    MuiStepLabel: {
+      styleOverrides: {
+        iconContainer: {
+          width: 40,
+          height: 40
+        }
+      }
+    }
   },
   palette: {
     primary: {

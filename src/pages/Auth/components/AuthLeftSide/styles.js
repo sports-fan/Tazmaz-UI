@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
-  leftSide: {
+  main: {
     [theme.breakpoints.down('md')]: {
       display: 'none'
     },
@@ -11,7 +11,6 @@ export default makeStyles(theme => ({
     justifyContent: 'center',
     width: '100%',
     height: '100vh',
-    backgroundColor: theme.palette.primary.main,
   },
   titleDiv: {
     width: 523,
@@ -19,7 +18,7 @@ export default makeStyles(theme => ({
   },
   title: {
     textAlign: 'center',
-    color: '#FFFFFF',
+    color: theme.palette.primary.main,
   },
   imageDiv: {
     paddingLeft: '7%',

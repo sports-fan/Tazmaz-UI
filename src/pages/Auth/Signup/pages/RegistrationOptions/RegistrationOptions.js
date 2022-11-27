@@ -6,6 +6,7 @@ import FormInput from '../../../../../components/FormInput'
 import FormCheckbox from '../../../../../components/FormCheckbox'
 import AuthLeftSide from '../../../components/AuthLeftSide'
 
+import TazmazLogo from '../../../../../assets/tazmazLogo.svg'
 import SignupLeftFG from '../../../../../assets/loginLogo.svg'
 import AppleIcon from '../../../../../assets/apple.svg'
 import GoogleIcon from '../../../../../assets/google.svg'
@@ -17,8 +18,8 @@ const RegistrationOptions = () => {
   const classes = useStyles()
   return (
     <Grid container>
-      <Grid item md={4.5} sm={12} sx={12}>
-        <AuthRightSide>
+      <Grid item md={4} sm={12} sx={12}>
+        <AuthRightSide logo={TazmazLogo}>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
@@ -26,27 +27,25 @@ const RegistrationOptions = () => {
                 <Typography variant='h6' align='left'>TazMaz היועצת הפיננסית לעסק שלך</Typography>
                 <div className={classes.mb6} ></div>
                 <FormButton
-                  styles={classes.loginWithApple}
-                  startIcon={<img src={AppleIcon} alt="logo"/>}
+                  endIcon={<img src={AppleIcon} alt="logo"/>}
                   text='התחברות באמצעות'
                   color="secondary"
                   variant="outlined"
                 />
                 <FormButton
-                  styles={classes.loginWithGoogle}
-                  startIcon={<img src={GoogleIcon} alt="logo"/>}
+                  className={classes.loginWithGoogle}
+                  endIcon={<img src={GoogleIcon} alt="logo"/>}
                   text='התחברות באמצעות'
                   color="secondary"
                   variant="outlined"
                 />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <FormInput
-                  styles={classes.loginField}
                   adorementText='הזנת אימייל'
                 />
                 <FormButton
-                  styles={classes.loginWithInput}
-                  startIcon={<img src={LeftArrow} alt="logo"/>}
+                  className={classes.loginWithInput}
+                  endIcon={<img src={LeftArrow} alt="logo"/>}
                   text='שלב הבא'
                   color="primary"
                   variant="contained"
@@ -67,8 +66,8 @@ const RegistrationOptions = () => {
           </Grid>
         </AuthRightSide>
       </Grid>
-      <Grid item md={7.5}>
-        <AuthLeftSide icon={SignupLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
+      <Grid item md={8}>
+        <AuthLeftSide className={classes.leftBGColor} icon={SignupLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
       </Grid>
     </Grid>
   )
