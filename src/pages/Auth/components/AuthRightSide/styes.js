@@ -14,19 +14,10 @@ export default makeStyles(theme => ({
     position: 'relative',
   },
   backToHome: {
-    // [theme.breakpoints.down('lg')]: {
-    //   left: 20,
-    //   top: 54
-    // },
-    // position: 'absolute',
     display: 'flex',
     justifyContent:'flex-end',
     alignItems: 'center',
     paddingTop: 44,
-
-    // flexDirection: 'row-reverse',
-    // right: 540,
-    // top: 44
   },
   bottomLogo: {
     display: 'flex',

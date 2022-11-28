@@ -1,15 +1,10 @@
 import { Grid, Typography } from '@mui/material'
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 
 import IosArrow from '../../../../assets/iosArrow.svg'
 import useStyles from './styes'
 
 const AuthHeader = ({logo}) => {
   const classes = useStyles()
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
-  console.log({matches})
   return (
     <Grid container justifyContent='center' direction="row-reverse">
       <Grid item lg={4} className={classes.backToHome}>
