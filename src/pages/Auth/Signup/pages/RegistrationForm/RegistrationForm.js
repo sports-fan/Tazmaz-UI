@@ -18,19 +18,20 @@ const RegistrationForm = () => {
   const classes = useStyles()
   return (
     <Grid container>
-      <Grid item md={4} sm={12} sx={12}>
+      <Grid item md={4} sm={12} xs={12}>
         <AuthRightSide
+          theme="light"
           bottomDisabled={true}
           logo={TazmazLogo}
           className={classes.logoBGColor}
-          steper={<CustomStepper />}
+          steper={<CustomStepper stepNum={1}/>}
         >
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={10} sm={12}>
               <Container>
                 <div className={classes.formTitle}>
-                  <Typography>יאללה מתחילים!</Typography>
-                  <Typography>בוא נכיר</Typography>
+                  <Typography variant='h5'>יאללה מתחילים!</Typography>
+                  <Typography variant='h5'>בוא נכיר</Typography>
                 </div>
                 <FormInput //Email text field disabled
                   disabled
@@ -84,6 +85,7 @@ const RegistrationForm = () => {
                   startAdornment="שם העסק"
                 />
                 <FormSelect // area
+                  className={classes.mtb8}
                   options={['Israel', 'Ukraine']}
                   adorementText="ענף/תחום"
                 />
@@ -111,7 +113,7 @@ const RegistrationForm = () => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} icon={SignupLeftFG} title="היועצת הפיננסית מוכנה לפעולה!"/>
+        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title="היועצת הפיננסית מוכנה לפעולה!"/>
       </Grid>
     </Grid>
   )

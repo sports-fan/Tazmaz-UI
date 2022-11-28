@@ -12,11 +12,14 @@ export default makeStyles((theme) => ({
       width: 353,
       height: 194
     },
-    marginTop: 14
+    marginTop: 24
   },
   title: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  actions: {
+    paddingBottom: 17
   }
 }))

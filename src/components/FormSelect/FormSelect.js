@@ -3,7 +3,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import {Select, InputAdornment} from '@mui/material';
 
-const FormSelect = ({options, adorementText}) => {
+const FormSelect = ({options, adorementText, className}) => {
   const [value, setValue] = React.useState('')
 
   const handleChange = (event) => {
@@ -13,6 +13,7 @@ const FormSelect = ({options, adorementText}) => {
   return (
     <FormControl sx={{width: '100%' }}>
       <Select
+        className={className}
         value={value}
         onChange={handleChange}
         startAdornment={
@@ -20,7 +21,7 @@ const FormSelect = ({options, adorementText}) => {
         }
       >
         {options.map((option, id) => (
-          <MenuItem value={id}>{option}</MenuItem>
+          <MenuItem key={id} value={id}>{option}</MenuItem>
         ))}
       </Select>
     </FormControl>

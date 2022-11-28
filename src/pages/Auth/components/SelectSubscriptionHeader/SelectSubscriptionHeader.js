@@ -2,12 +2,14 @@ import useStyles from './styles'
 import TazmazIcon from '../../../../assets/tazmazLogWhite.svg'
 import CustomStepper from 'components/CustomStepper'
 
-const SelectSubscriptionHeader = () => {
+const SelectSubscriptionHeader = ({stepNum}) => {
   const classes = useStyles()
   return (
     <div className={classes.main}>
-      <img src={TazmazIcon} alt="Tazmaz log icon white" />
-      <CustomStepper />
+      <div className={classes.logo}>
+        <img src={TazmazIcon} alt="Tazmaz log icon white" />
+      </div>
+      <CustomStepper stepNum={stepNum} />
     </div>
   )
 }

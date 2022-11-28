@@ -3,7 +3,8 @@ import { makeStyles } from "@mui/styles"
 export default makeStyles(theme => ({
   container: {
     [theme.breakpoints.down('sm')]: {
-      height: 513
+      display: 'flex',
+      alignItems: 'flex-end'
     },
     position: 'relative'
   },

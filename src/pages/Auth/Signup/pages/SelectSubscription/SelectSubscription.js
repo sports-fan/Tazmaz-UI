@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Grid, Typography } from "@mui/material"
+import useMediaQuery from '@mui/material/useMediaQuery'
 import CustomSwitch from "components/CustomSwitch"
 import FormButton from "components/FormButton"
 import FormInput from "components/FormInput"
@@ -24,6 +25,7 @@ const subcriptions = [
 const SelectSubscription = () => {
   const classes = useStyles()
   const [subscriptionId, setSubcriptionId] = useState(null)
+  const matches = useMediaQuery('(max-width:600px)')
   
   const handleSubscriptionClick = useCallback((id) => {
     setSubcriptionId(id)
@@ -31,26 +33,26 @@ const SelectSubscription = () => {
 
   return (
     <div>
-      <SelectSubscriptionHeader />
+      <SelectSubscriptionHeader stepNum={2}/>
       <SelectSubscriptionLayout>
         <Grid container justifyContent="center">
           <Grid item lg={4} xs={12}>
             <div className={classes.title}>
-              <Typography textAlign="center" variant="h5">תבחרו את המנוי המתאים ביותר עבורכם</Typography>
+              <Typography textAlign="center" variant="h4">תבחרו את המנוי המתאים ביותר עבורכם</Typography>
             </div>
           </Grid>
         </Grid>
-        <Grid container rowSpacing={{xs:5}}  direction="row-reverse" alignItems="flex-end">
+        <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-end">
           <Grid item lg={4} xs={12}/>
           <Grid item lg={4} xs={12} className={classes.switch}>
             <CustomSwitch
               right={
-                <Typography variant="h6" color="primary">חודשי</Typography>
+                <Typography variant="subtitle1" color="primary">חודשי</Typography>
               }
               left={
                 <div className={classes.switchLeft}>
-                  <Typography variant="h6" color="primary">שנתי</Typography>
-                  <Typography variant="p" color="primary">חיסכו 30%</Typography>
+                  <Typography variant="subtitle1" color="primary">שנתי</Typography>
+                  <Typography variant="caption" color="primary">חיסכו 30%</Typography>
                 </div>
               }
             />
@@ -59,7 +61,7 @@ const SelectSubscription = () => {
             <Grid container columnSpacing={2} rowSpacing={{xs:1}} alignItems="flex-end">
               <Grid item lg={8}  xs={12}>
                 <div className={classes.formTitle}>
-                  <Typography variant="body2">רגע, יש לך אולי קוד הטבה?</Typography>
+                  <Typography variant="body1">רגע, יש לך אולי קוד הטבה?</Typography>
                 </div>
                 <div className={classes.formInput}>
                   <FormInput
@@ -81,9 +83,9 @@ const SelectSubscription = () => {
           </Grid>
         </Grid>
         <div className={classes.mt}/>
-        <Grid container rowSpacing={{xs:3}} columnSpacing={4.1} alignItems="flex-end" className={classes.subscriptions}>
+        <Grid container rowSpacing={matches ? 1 : 3} columnSpacing={matches ? 1:4.1} alignItems="flex-end" className={classes.subscriptions}>
           {subcriptions.map((subcription, id) => (
-            <Grid item lg={2.4} xs={12} sm={12} md={12}>
+            <Grid key={id} item lg={2.4} xs={12} sm={12} md={12}>
               <Subscription
                 key={id}
                 className={id === subscriptionId ? classes.clicked : null}

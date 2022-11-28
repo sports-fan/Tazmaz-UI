@@ -18,12 +18,12 @@ const RegistrationOptions = () => {
   const classes = useStyles()
   return (
     <Grid container>
-      <Grid item md={4} sm={12} sx={12}>
-        <AuthRightSide logo={TazmazLogo}>
+      <Grid item md={4} sm={12} xs={12}>
+        <AuthRightSide theme="dark" logo={TazmazLogo}>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' align='left'><b>הרשמה למערכת </b></Typography>
+                <Typography variant='h5' mb={2} align='left'><b>הרשמה למערכת </b></Typography>
                 <Typography variant='h6' align='left'>TazMaz היועצת הפיננסית לעסק שלך</Typography>
                 <div className={classes.mb6} ></div>
                 <FormButton
@@ -41,7 +41,7 @@ const RegistrationOptions = () => {
                 />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <FormInput
-                  adorementText='הזנת אימייל'
+                  startAdornment='הזנת אימייל'
                 />
                 <FormButton
                   className={classes.loginWithInput}
@@ -67,7 +67,7 @@ const RegistrationOptions = () => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} icon={SignupLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
+        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
       </Grid>
     </Grid>
   )

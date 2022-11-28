@@ -15,9 +15,16 @@ export default makeStyles(theme => ({
   },
   back: {
     [theme.breakpoints.down('sm')]: {
-      display: 'none' // should be fixed
+      position: 'absolute',
+      top: 60,
+      left: 20
     },
     display: 'flex',
     justifyContent: 'flex-end'
+  },
+  backLetter: {
+    [theme.breakpoints.down('sm')]: {
+      color: '#FFFFFF'
+    },
   }
 }))

@@ -8,7 +8,10 @@ export default makeStyles(theme => ({
     marginTop: theme.spacing(8)
   },
   leftBGColor: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#413B71',
+  },
+  titleColor: {
+    color: '#FFFFFF'
   },
   logo: {
     display: "flex",
@@ -57,5 +60,5 @@ export default makeStyles(theme => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginTop: 69
-  }
+  },
 }))

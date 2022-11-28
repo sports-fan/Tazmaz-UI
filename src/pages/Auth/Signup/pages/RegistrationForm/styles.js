@@ -10,11 +10,14 @@ export default makeStyles(theme => ({
     flexDirection:'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 61,
-    marginBottom: 61
+    marginTop: 49,
+    marginBottom: 49
   },
   leftBGColor: {
     backgroundColor: '#F9F9F9'
+  },
+  titleColor: {
+    color: theme.palette.primary.main,
   },
   logoBGColor: {
     backgroundColor: theme.palette.primary.main,
@@ -32,9 +35,9 @@ export default makeStyles(theme => ({
   },
   formActions: {
     [theme.breakpoints.down('sm')]: {
-      marginTop: 58,
+      marginTop: 50,
     },
-    marginTop: 70,
-    marginBottom: 30
+    marginTop: 64,
+    marginBottom: 40
   }
 }))

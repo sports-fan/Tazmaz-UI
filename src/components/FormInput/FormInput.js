@@ -2,7 +2,7 @@ import { useState, useCallback  } from "react"
 import { InputAdornment, OutlinedInput, FormControl, InputLabel } from "@mui/material"
 
 const FormInput = ({label, startAdornment, endAdornment, icon, className, id, ...props}) => {
-  const [value, setValue] = useState(null)
+  const [value, setValue] = useState('')
 
   const handleChange = useCallback((e) => {
     setValue(e.target.value)

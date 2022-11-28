@@ -8,12 +8,12 @@ import LeftArrow from '../../../../../assets/leftArrow.svg'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from './styles'
 
-const Welcome = () => { 
+const Welcome = () => {
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)');
   return (
     <div>
-      <SelectSubscriptionHeader />
+      <SelectSubscriptionHeader stepNum={3}/>
       <SelectSubscriptionLayout>
         <div className={classes.main}>
           <div className={classes.title}>
@@ -25,7 +25,7 @@ const Welcome = () => {
             <img src={matches ? WelcomeMobileLogo : WelcomeLogo} alt="welcome-log" />
           </div>
         </div>
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" className={classes.actions}>
           <Grid item lg={4} xs={12}>
             <Grid container columnSpacing={3} rowSpacing={3}>
               <Grid item lg={6} xs={12}>

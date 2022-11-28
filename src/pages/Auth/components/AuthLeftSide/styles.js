@@ -16,10 +16,6 @@ export default makeStyles(theme => ({
     width: 523,
     height: 24,
   },
-  title: {
-    textAlign: 'center',
-    color: theme.palette.primary.main,
-  },
   imageDiv: {
     paddingLeft: '7%',
     paddingRight: '7%',

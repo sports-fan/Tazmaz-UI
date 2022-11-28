@@ -1,8 +1,9 @@
 import { createTheme } from '@mui/material/styles';
 
-const primary = '#413B71'
+const primary = '#474E9F'
 const secondary = '#D1D6E7'
 const info = '#1A94B6'
+const success = '#FFFFFF'
 
 const theme = createTheme({
   components: {
@@ -41,14 +42,6 @@ const theme = createTheme({
           borderRadius: 8,
         }
       }
-    },
-    MuiStepLabel: {
-      styleOverrides: {
-        iconContainer: {
-          width: 40,
-          height: 40
-        }
-      }
     }
   },
   palette: {
@@ -60,6 +53,43 @@ const theme = createTheme({
     },
     info: {
       main: info
+    },
+    success: {
+      main: success
+    }
+  },
+  typography: {
+    h3: {
+      fontSize: '50px',
+      lineHeight: '61px'
+    },
+    h4: {
+      fontSize: '34px',
+      lineHeight: '24px'
+    },
+    h5: {
+      fontSize: '30px',
+      lineHeight: '24px'
+    },
+    h6: {
+      fontSize: '20px',
+      lineHeight: '24px'
+    },
+    body1: {
+      fontSize: '18px',
+      lineHeight: '21px'
+    },
+    body2: {
+      fontSize: '14px',
+      lineHeight: '21px'
+    },
+    caption: {
+      fontSize: '16px',
+      lineHeight: '18px'
+    },
+    subtitle1: {
+      fontSize: '24px',
+      lineHeight: '18px'
     }
   },
   direction: 'rtl',
