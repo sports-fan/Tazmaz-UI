@@ -1,4 +1,11 @@
+import { useCallback } from 'react';
 import { Typography, Grid, Divider } from '@mui/material'
+import { withTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import axios from "axios";
 
 import FormButton from '../../../../../components/FormButton'
 import Container from '../../../components/Container'
@@ -14,8 +21,37 @@ import LeftArrow from '../../../../../assets/leftArrow.svg'
 import useStyles from './styles'
 import AuthRightSide from '../../../components/AuthRightSide'
 
+const schema = yup.object({
+  email: yup.string().required("מספר עוסק/ת.ז. שגוי")
+})
+
 const RegistrationOptions = () => {
   const classes = useStyles()
+  const navigate = useNavigate()
+  const {control, handleSubmit, formState: {errors}} = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: { email: ''}
+  })
+
+  const handleEmailVerification = useCallback((data) => {
+    axios({
+      url: '/public/validate-email',
+      method: "POST",
+      headers: {
+        "accept": 'application/json',
+        "content-type": 'application/json'
+      },
+      data: {email: data.email},
+    })
+    .then(res => {
+      if (res.data.success) {
+        navigate("/auth/signup/2")
+        localStorage.setItem('verifiedEmail', data.email);
+      }
+    })
+    .catch(err => {console.log(err)})
+  }, [navigate])
+
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
@@ -23,7 +59,7 @@ const RegistrationOptions = () => {
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={2} align='left'><b>הרשמה למערכת </b></Typography>
+                <Typography variant='h5' mb={1.5} align='left'><b>הרשמה למערכת </b></Typography>
                 <Typography variant='h6' align='left'>TazMaz היועצת הפיננסית לעסק שלך</Typography>
                 <div className={classes.mb6} ></div>
                 <FormButton
@@ -40,16 +76,31 @@ const RegistrationOptions = () => {
                   variant="outlined"
                 />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
-                <FormInput
-                  startAdornment='הזנת אימייל'
-                />
-                <FormButton
-                  className={classes.loginWithInput}
-                  endIcon={<img src={LeftArrow} alt="logo"/>}
-                  text='שלב הבא'
-                  color="primary"
-                  variant="contained"
-                />
+                <form onSubmit={handleSubmit(handleEmailVerification)}>
+                  <Controller 
+                    name="email"
+                    control={control}
+                    render={({field, formState}) =>
+                      <FormInput
+                        name="email"
+                        startAdornment='הזנת אימייל'
+                        id="signup-email"
+                        helperClass={classes.email}
+                        error={errors?.email}
+                        field={field}
+                        form={formState}
+                      />
+                    }
+                  />
+                  <FormButton
+                    className={classes.loginWithInput}
+                    endIcon={<img src={LeftArrow} alt="logo"/>}
+                    type="submit"
+                    text='שלב הבא'
+                    color="primary"
+                    variant="contained"
+                  />
+                </form>
                 <div className={classes.forgotPassword}>
                   <div className={classes.forgotText}>
                     <Typography variant='body2'>
@@ -73,4 +124,4 @@ const RegistrationOptions = () => {
   )
 }
 
-export default RegistrationOptions
+export default withTranslation()(RegistrationOptions)

@@ -5,8 +5,8 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       height: 70,
       width: '100%',
-      paddingTop: 55,
-      paddingBottom: 80
+      paddingTop: 85,
+      paddingBottom: 60
     },
     width: 640,
     paddingTop: 40,

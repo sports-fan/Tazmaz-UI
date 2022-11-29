@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button } from '@mui/material'
 
-const FormButton = ({startIcon, endIcon, text, className, ...props}) => {
+const FormButton = ({onClick, startIcon, endIcon, text, className, ...props}) => {
   return (
     <Button
       className={className}
       startIcon={startIcon}
       endIcon={endIcon}
+      onClick={onClick}
       {...props}
     >
       {text}

@@ -11,7 +11,7 @@ export default makeStyles(theme => ({
     paddingTop: 26,
     paddingLeft: 44,
     paddingRight: 44,
-    paddingBottom: 48
+    paddingBottom: 33
   },
   back: {
     [theme.breakpoints.down('sm')]: {

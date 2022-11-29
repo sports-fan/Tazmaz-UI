@@ -7,7 +7,7 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { BrowserRouter } from 'react-router-dom';
 
-
+// import './i18n'
 import App from './App';
 import theme from './theme';
 

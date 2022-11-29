@@ -1,11 +1,13 @@
 import { Typography, Grid } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { withTranslation } from 'react-i18next';
+
 import FormButton from 'components/FormButton'
 import SelectSubscriptionHeader from 'pages/Auth/components/SelectSubscriptionHeader'
 import SelectSubscriptionLayout from 'pages/Auth/components/SelectSubscriptionLayout'
 import WelcomeLogo from '../../../../../assets/welcomeLogo.svg'
 import WelcomeMobileLogo from '../../../../../assets/welcomeMobileLogo.svg'
 import LeftArrow from '../../../../../assets/leftArrow.svg'
-import useMediaQuery from '@mui/material/useMediaQuery';
 import useStyles from './styles'
 
 const Welcome = () => {
@@ -17,8 +19,8 @@ const Welcome = () => {
       <SelectSubscriptionLayout>
         <div className={classes.main}>
           <div className={classes.title}>
-            <Typography variant={matches ? 'h5': 'h4'} color="primary">יוהוו!</Typography>
-            <Typography variant={matches ? 'h6': 'h5'}>סיימנו את כל השלבים</Typography>
+            <Typography variant={matches ? 'h5': 'h4'} color="primary" mb={1}>יוהוו!</Typography>
+            <Typography variant={matches ? 'h6': 'h5'} mb={1}>סיימנו את כל השלבים</Typography>
             <Typography variant={matches ? 'h6': 'h5'}>היועצת מוכנה לצאת לפעולה!</Typography>
           </div>
           <div className={classes.logo}>
@@ -52,4 +54,4 @@ const Welcome = () => {
   )
 }
 
-export default Welcome
+export default withTranslation()(Welcome)

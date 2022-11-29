@@ -1,29 +1,29 @@
 import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import {Select, InputAdornment} from '@mui/material';
+import { MenuItem, FormControl, Select, InputAdornment, FormHelperText } from '@mui/material';
 
-const FormSelect = ({options, adorementText, className}) => {
-  const [value, setValue] = React.useState('')
+import useStyles from './styles'
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  }
-
+const FormSelect = ({error, options, adorementText, className, field}) => {
+  const classes = useStyles()
   return (
-    <FormControl sx={{width: '100%' }}>
+    <FormControl sx={{width: '100%' }} className={classes.main}>
       <Select
         className={className}
-        value={value}
-        onChange={handleChange}
         startAdornment={
           <InputAdornment position="start">{adorementText}</InputAdornment>
         }
+        {...field}
+        error={Boolean(error)}
       >
-        {options.map((option, id) => (
-          <MenuItem key={id} value={id}>{option}</MenuItem>
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
         ))}
       </Select>
+      {error && 
+        <FormHelperText className={classes.helperText} error={Boolean(error)}>
+          {error.message}
+        </FormHelperText>
+      }
     </FormControl>
   )
 }

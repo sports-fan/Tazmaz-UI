@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: 66
+    marginBottom: 49
   },
   logo: {
     [theme.breakpoints.down('sm')]: {
@@ -20,6 +20,6 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
   },
   actions: {
-    paddingBottom: 17
+    paddingBottom: 1
   }
 }))

@@ -42,6 +42,23 @@ const theme = createTheme({
           borderRadius: 8,
         }
       }
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+          lineHeight: 0,
+          marginTop: 0,
+          marginBottom: 0
+        }
+      }
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+        }
+      }
     }
   },
   palette: {

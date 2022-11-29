@@ -1,28 +1,37 @@
-import { useState, useCallback  } from "react"
-import { InputAdornment, OutlinedInput, FormControl, InputLabel } from "@mui/material"
+import { FormHelperText, InputAdornment, OutlinedInput, FormControl, InputLabel } from "@mui/material"
+import cn from 'classnames'
+import useStyles from './styles'
+// import * as R from 'ramda'
 
-const FormInput = ({label, startAdornment, endAdornment, icon, className, id, ...props}) => {
-  const [value, setValue] = useState('')
-
-  const handleChange = useCallback((e) => {
-    setValue(e.target.value)
-  }, [])
-
+const FormInput = ({helperClass, field, error, name, form, label, startAdornment, endAdornment, icon, className, id, readOnly, ...props}) => {
+  const classes = useStyles()
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth  className={classes.main}>
       {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
       <OutlinedInput
         id={id}
-        className={className}
         dir='rtl'
-        value={value}
-        onChange={e => handleChange(e)}
+        label={label}
+        color='secondary'
+        error={Boolean(error)}
+        className={cn(classes.input, className)}
         startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>}
         endAdornment={<InputAdornment position="end">{icon}{endAdornment}</InputAdornment>}
-        color='secondary'
-        label={label}
+        inputProps={
+          readOnly
+            ? {
+                readOnly: true
+              }
+            : {}
+        }
+        {...field}
         {...props}
       />
+      {error && 
+        <FormHelperText className={cn(classes.helperText, helperClass)} error={Boolean(error)}>
+          {error.message}
+        </FormHelperText>
+      }
     </FormControl>
   )
 }

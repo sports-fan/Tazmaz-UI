@@ -10,8 +10,19 @@ export default makeStyles(theme => ({
     flexDirection:'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 49,
-    marginBottom: 49
+    marginTop: 39,
+    marginBottom: 39
+  },
+  phoneNumber: {
+    top: '58px !important',
+    left: '84px !important'
+  },
+  firstName: {
+    top: '57px !important',
+    left: '-463px !important'
+  },
+  lastName: {
+    top: '57px !important',
   },
   leftBGColor: {
     backgroundColor: '#F9F9F9'
@@ -32,6 +43,10 @@ export default makeStyles(theme => ({
   mb16t8: {
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(1)
+  },
+  names: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2.5)
   },
   formActions: {
     [theme.breakpoints.down('sm')]: {

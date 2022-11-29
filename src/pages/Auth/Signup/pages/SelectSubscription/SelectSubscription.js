@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react'
+// import { useCallback, useState } from 'react'
 import { Grid, Typography } from "@mui/material"
+import { withTranslation } from 'react-i18next';
 import useMediaQuery from '@mui/material/useMediaQuery'
 import CustomSwitch from "components/CustomSwitch"
 import FormButton from "components/FormButton"
@@ -24,12 +25,12 @@ const subcriptions = [
 
 const SelectSubscription = () => {
   const classes = useStyles()
-  const [subscriptionId, setSubcriptionId] = useState(null)
+  // const [subscriptionId, setSubcriptionId] = useState(null)
   const matches = useMediaQuery('(max-width:600px)')
   
-  const handleSubscriptionClick = useCallback((id) => {
-    setSubcriptionId(id)
-  }, [])
+  // const handleSubscriptionClick = useCallback((id) => {
+  //   setSubcriptionId(id)
+  // }, [])
 
   return (
     <div>
@@ -88,11 +89,11 @@ const SelectSubscription = () => {
             <Grid key={id} item lg={2.4} xs={12} sm={12} md={12}>
               <Subscription
                 key={id}
-                className={id === subscriptionId ? classes.clicked : null}
-                clicked={id === subscriptionId ? true : false}
+                className={id === 2 ? classes.clicked : null}
+                clicked={id === 2 ? true : false}
                 icon={subcription.icon}
                 price={subcription.price}
-                onClick={() => handleSubscriptionClick(id)}
+                // onClick={() => handleSubscriptionClick(id)}
               />
             </Grid>
           ))}
@@ -102,4 +103,4 @@ const SelectSubscription = () => {
   )
 }
 
-export default SelectSubscription
+export default withTranslation()(SelectSubscription)
