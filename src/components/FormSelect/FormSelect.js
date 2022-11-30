@@ -1,9 +1,10 @@
 import * as React from 'react';
+import cn from 'classnames'
 import { MenuItem, FormControl, Select, InputAdornment, FormHelperText } from '@mui/material';
 
 import useStyles from './styles'
 
-const FormSelect = ({error, options, adorementText, className, field}) => {
+const FormSelect = ({helperClass, error, options, adorementText, className, field}) => {
   const classes = useStyles()
   return (
     <FormControl sx={{width: '100%' }} className={classes.main}>
@@ -20,7 +21,7 @@ const FormSelect = ({error, options, adorementText, className, field}) => {
         ))}
       </Select>
       {error && 
-        <FormHelperText className={classes.helperText} error={Boolean(error)}>
+        <FormHelperText className={cn(classes.helperText, helperClass)} error={Boolean(error)}>
           {error.message}
         </FormHelperText>
       }

@@ -10,8 +10,10 @@ const theme = createTheme({
   components: {
     Mui:{ 
       styleOverrides: {
-        error: {
-          color: error
+        "root": {
+          "&.Mui-error": {
+            "color": "#FF5151"
+          }
         }
       }
     },
@@ -67,7 +69,7 @@ const theme = createTheme({
           fontSize: 14,
         }
       }
-    }
+    },
   },
   palette: {
     primary: {
