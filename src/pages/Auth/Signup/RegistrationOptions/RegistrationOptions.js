@@ -104,13 +104,23 @@ const RegistrationOptions = () => {
                 <div className={classes.forgotPassword}>
                   <div className={classes.forgotText}>
                     <Typography variant='body2'>
-                      בהרשמה אני מאשר/ת שאני מקבל/ת 
+                      בהרשמה אני מאשר/ת שאני מקבל/ת את 
                     </Typography>
                     <Typography variant='body2'>
-                      השירות ומדיניות הפרטיות   
+                      <u className={classes.u}>
+                        תנאיהשירות 
+                      </u>                      
+                    </Typography>
+                    <Typography variant='body2'>
+                      <u className={classes.u}>
+                        ומדיניות הפרטיות   
+                      </u>                      
                     </Typography>
                   </div>
                   <FormCheckbox />
+                </div>
+                <div className={classes.register}>
+                  <Typography variant='body1'> נרשמת כבר בעבר<u  className={classes.u}>? להתחברות</u></Typography>
                 </div>
               </Container>
             </Grid>

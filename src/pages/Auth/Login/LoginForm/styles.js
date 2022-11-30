@@ -39,5 +39,14 @@ export default makeStyles(theme => ({
   password: {
     top: '68px !important',
     left: '84px !important'
-  }
+  },
+  register: {
+    display: 'flex',
+    justifyContent: 'center',
+    [theme.breakpoints.down('lg')]: {
+      marginTop: 22,
+      marginBottom: 6
+    },
+    marginTop: 22,
+  },
 }))

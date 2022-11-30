@@ -64,5 +64,19 @@ export default makeStyles(theme => ({
   email: {
     top: '56px !important',
     left: '90px !important',
-  }
+  },
+  u: {
+    color: theme.palette.primary.main,
+    paddingRight: 5
+  },
+  register: {
+    display: 'flex',
+    justifyContent: 'center',
+    [theme.breakpoints.down('lg')]: {
+      marginTop: 22,
+      marginBottom: 6
+    },
+    marginTop: 38,
+    marginBottom: 20
+  },
 }))

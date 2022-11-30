@@ -33,4 +33,8 @@ export default makeStyles(theme => ({
     marginTop: 38,
     marginBottom: 20
   },
+  u: {
+    color: theme.palette.primary.main,
+    paddingRight: 5
+  }
 }))

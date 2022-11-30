@@ -1,5 +1,5 @@
-import { useCallback } from 'react';
-import { Typography, Grid, Divider } from '@mui/material'
+import { useCallback, useState } from 'react';
+import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
 
+import Notification from 'components/Notification';
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import FormInput from 'components/FormInput'
@@ -28,13 +29,35 @@ const schema = yup.object({
 const LoginForm = () => {
   const classes = useStyles()
   const navigate = useNavigate()
-  const {control, handleSubmit, formState: {errors}} = useForm({
+  const {control, watch, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       email: '',
       password: ''
     }
   })
+
+  const [loginRes, setLoginRes] = useState({})
+  const [open, setOpen] = useState(false)
+  
+  const handleForgetPassword = useCallback(() => {
+    const email  = watch('email')
+    axios({
+      url: '/public/forgot-password',
+      method: "POST",
+      headers: {
+        "accept": 'application/json',
+        "content-type": 'application/json'
+      },
+      data: {
+        email: email
+      },
+    })
+    .then(res => {
+      console.log(res.data)
+    })
+    .catch(err => {console.log(err)})
+  }, [watch])
 
   const handleLogin = useCallback((data) => {
     axios({
@@ -51,13 +74,16 @@ const LoginForm = () => {
       },
     })
     .then(res => {
-      console.log(res.data)
       if (res.data.success) {
         localStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       }
     })
-    .catch(err => {console.log(err)})
+    .catch(err => {
+      console.log(err)
+      setOpen(true)
+      setLoginRes(err.response.data)
+    })
   }, [navigate])
 
   return (
@@ -129,9 +155,12 @@ const LoginForm = () => {
                   />
                 </form>
                 <div className={classes.forgetText}>
-                  <Typography align='center' variant='caption'>
+                  <Button onClick={handleForgetPassword}>
                     שכחת את הסיסמא שלך?
-                  </Typography>
+                  </Button>
+                </div>
+                <div className={classes.register}>
+                  <Typography variant='body1'> נרשמת כבר בעבר<u  className={classes.u}>? להתחברות</u></Typography>
                 </div>
               </Container>
             </Grid>
@@ -141,6 +170,11 @@ const LoginForm = () => {
       <Grid item md={8}>
         <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={LoginLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
       </Grid>
+      <Notification
+        open={open}
+        data={loginRes}
+        onClose={() => setOpen(false)}
+      />
     </Grid>
   )
 }

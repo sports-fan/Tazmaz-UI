@@ -98,7 +98,6 @@ const RegistrationForm = () => {
 
   const handleBack = useCallback(() => {
     navigate("/auth/signup/1")
-    localStorage.removeItem('verifiedEmail')
   }, [navigate])
 
   return (
