@@ -8,6 +8,13 @@ const error = '#FF5151'
 
 const theme = createTheme({
   components: {
+    Mui:{ 
+      styleOverrides: {
+        error: {
+          color: error
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
