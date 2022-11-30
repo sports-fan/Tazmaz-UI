@@ -5,8 +5,6 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       position: 'relative'
     },
-    width: '100%',
-    height: 194,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -20,5 +18,5 @@ export default makeStyles(theme => ({
       right: 20,
     },
     paddingTop: 35
-  }
+  },
 }))

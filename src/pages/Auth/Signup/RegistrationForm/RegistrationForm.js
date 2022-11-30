@@ -60,12 +60,14 @@ const RegistrationForm = () => {
         firstName : data.firstName,
         lastName: data.lastName,
         email: data.email,
+        password: data.password,
         tosVersionSigned: 1.0,
         privacyPolicySigned: 1.0,
         phoneNumber:"+".concat(data.phonePrefix).concat(data.phoneNumber),
         businessId:"528325833",
         businessName: data.businessName,
-        rolePosition: data.role
+        rolePosition: data.role,
+        registerType: 'DEFAULT'
     },
     })
     .then(res => {
