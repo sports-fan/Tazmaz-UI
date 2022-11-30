@@ -4,9 +4,19 @@ const primary = '#474E9F'
 const secondary = '#D1D6E7'
 const info = '#1A94B6'
 const success = '#FFFFFF'
+const error = '#FF5151'
 
 const theme = createTheme({
   components: {
+    Mui:{ 
+      styleOverrides: {
+        "root": {
+          "&.Mui-error": {
+            "color": "#FF5151"
+          }
+        }
+      }
+    },
     MuiButton: {
       styleOverrides: {
         root: ({ ownerState, theme }) => ({
@@ -59,7 +69,7 @@ const theme = createTheme({
           fontSize: 14,
         }
       }
-    }
+    },
   },
   palette: {
     primary: {
@@ -70,6 +80,9 @@ const theme = createTheme({
     },
     info: {
       main: info
+    },
+    error: {
+      main: error
     },
     success: {
       main: success

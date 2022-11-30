@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from "react-hook-form";
@@ -36,6 +36,7 @@ const schema = yup.object({
  
 const RegistrationForm = () => {
   const classes = useStyles()
+  const [roleOptions, setRoleOptions] = useState([])
   const navigate = useNavigate()
   const { handleSubmit, formState: {errors}, control } = useForm({
     resolver: yupResolver(schema),
@@ -52,6 +53,21 @@ const RegistrationForm = () => {
     }
   })
 
+  useEffect(() => {
+    axios({
+      url: '/business/roles-options',
+      method: "GET",
+    })
+    .then(res => {
+      const options = res.data.data.map(item => ({
+        value: item.key,
+        label: item.key
+      }))
+      setRoleOptions(options)
+    })
+    .catch(err => {console.log(err)})
+  })
+
   const handleRegister = useCallback(data => {
     axios({
       url: '/public/register',
@@ -60,13 +76,15 @@ const RegistrationForm = () => {
         firstName : data.firstName,
         lastName: data.lastName,
         email: data.email,
+        password: data.password,
         tosVersionSigned: 1.0,
         privacyPolicySigned: 1.0,
         phoneNumber:"+".concat(data.phonePrefix).concat(data.phoneNumber),
         businessId:"528325833",
         businessName: data.businessName,
-        rolePosition: data.role
-    },
+        rolePosition: data.role,
+        registerType: 'DEFAULT'
+      },
     })
     .then(res => {
       if (res.data.success) {
@@ -160,9 +178,13 @@ const RegistrationForm = () => {
                         render={({field, formState}) =>
                           <FormSelect // area
                             options={[
-                              {value: '051', label: '053'},
-                              {value: '1', label: '1'}
+                              {value: '050', label: '050'},
+                              {value: '051', label: '051'},
+                              {value: '052', label: '052'},
+                              {value: '053', label: '053'},
+                              {value: '054', label: '054'}
                             ]}
+                            helperClass={classes.role}
                             error={errors?.phonePrefix}
                             field={field}
                             form={formState}
@@ -171,7 +193,7 @@ const RegistrationForm = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid container columnSpacing={2} className={classes.names}>
+                  <Grid container rowSpacing={{xs:2}} columnSpacing={2} className={classes.names}>
                     <Grid item lg={6} xs={12}>
                       <Controller 
                         name="firstName"
@@ -211,11 +233,11 @@ const RegistrationForm = () => {
                     name="role"
                     control={control}
                     render={({field, formState}) =>
-                      <FormInput
+                      <FormSelect // role
                         name="role"
                         id="signup role"
                         className={classes.mtb8}
-                        placeholder="תפקיד"
+                        options={roleOptions}
                         error={errors?.role}
                         field={field}
                         form={formState}

@@ -1,4 +1,4 @@
-import { Box, Stepper, Step, StepLabel, Typography } from "@mui/material";
+import { Grid, Stepper, Step, StepLabel, Typography } from "@mui/material";
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import { styled } from '@mui/material/styles';
 import useStyles, { useLabelStyles } from './styles'
@@ -36,15 +36,17 @@ const CustomStepper = ({stepNum}) => {
   }
 
   return (
-    <Box className={classes.main}>
-      <Stepper alternativeLabel activeStep={stepNum} connector={<CustomStepConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel classes={labelStyles} StepIconComponent={StepButton}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
+    <Grid container justifyContent='center' className={classes.main}>
+      <Grid item lg={12} md={12} sm={12} xs={12}>
+        <Stepper alternativeLabel activeStep={stepNum} connector={<CustomStepConnector />}>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel classes={labelStyles} StepIconComponent={StepButton}>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </Grid>
+    </Grid>
   )
 }
 

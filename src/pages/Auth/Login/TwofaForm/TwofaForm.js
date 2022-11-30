@@ -52,8 +52,8 @@ const TwofaForm = () => {
                 </Typography>
               </Container>
               <form onSubmit={handleSubmit(handleTwofa)}>
-                <Grid container justifyContent='center' columnSpacing={4} className={classes.codes}>
-                  <Grid item lg={1.7}>
+                <Grid container justifyContent='center' columnSpacing={{lg:4, xs: 1}} className={classes.codes}>
+                  <Grid item lg={1.7} xs={1.7}>
                     <Controller 
                       name="code1"
                       control={control}
@@ -68,7 +68,7 @@ const TwofaForm = () => {
                       }
                     />
                   </Grid>
-                  <Grid item lg={1.7}>
+                  <Grid item lg={1.7} xs={1.7}>
                     <Controller 
                       name="code2"
                       control={control}
@@ -83,7 +83,7 @@ const TwofaForm = () => {
                       }
                     />
                   </Grid>
-                  <Grid item lg={1.7}>
+                  <Grid item lg={1.7} xs={1.7}>
                     <Controller 
                       name="code3"
                       control={control}
@@ -98,7 +98,7 @@ const TwofaForm = () => {
                       }
                     />
                   </Grid>
-                  <Grid item lg={1.7}>
+                  <Grid item lg={1.7} xs={1.7}>
                     <Controller 
                       name="code4"
                       control={control}
@@ -113,7 +113,7 @@ const TwofaForm = () => {
                       }
                     />
                   </Grid>
-                  <Grid item lg={1.7}>
+                  <Grid item lg={1.7} xs={1.7}>
                     <Controller 
                       name="code5"
                       control={control}
@@ -128,7 +128,7 @@ const TwofaForm = () => {
                       }
                     />
                   </Grid>
-                  <Grid item lg={1.7} sm={12}>
+                  <Grid item lg={1.7} sm={12} xs={1.7}>
                     <Controller 
                       name="code6"
                       control={control}
@@ -145,15 +145,16 @@ const TwofaForm = () => {
                   </Grid>
                 </Grid>
                 <Grid container  justifyContent='center' columnSpacing={1.5} className={classes.actions}>
-                  <Grid item lg={2}>
+                  <Grid item lg={2} xs={2}>
                     <FormButton
                       text="חזור"
                       variant="contained"
                       color="black"
                     />
                   </Grid>
-                  <Grid item lg={8}>
+                  <Grid item lg={8} xs={8}>
                     <FormButton
+                      type="submit"
                       text="אישור והתחברות"
                       variant="contained"
                       color="primary"

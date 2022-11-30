@@ -6,6 +6,9 @@ export default makeStyles(theme => ({
     paddingBottom: 49
   },
   headerDark: {
+    [theme.breakpoints.down('lg')]: {
+      paddingBottom: 100
+    },
     [theme.breakpoints.down('sm')]: {
       paddingBottom: 144
     },
@@ -13,6 +16,12 @@ export default makeStyles(theme => ({
     paddingBottom: 73
   },
   logo: {
+    [theme.breakpoints.down('lg')]: {
+      right: 30
+    },
+    [theme.breakpoints.down('xl')]: {
+      right: 60
+    },
     [theme.breakpoints.down('sm')]: {
       top: 50,
       right: 20
@@ -22,6 +31,18 @@ export default makeStyles(theme => ({
     right: 86
   },
   logoDark: {
+    [theme.breakpoints.down('xl')]: {
+      top: 38,
+      right: 86
+    },
+    [theme.breakpoints.down('lg')]: {
+      top: 38,
+      right: 16
+    },
+    [theme.breakpoints.down('md')]: {
+      top: 38,
+      right: 50
+    },
     [theme.breakpoints.down('sm')]: {
       top: 91,
       right: 16
@@ -32,8 +53,13 @@ export default makeStyles(theme => ({
   },
   backToHome: {
     [theme.breakpoints.down('sm')]: {
-      left: 20,
       top: 56
+    },
+    [theme.breakpoints.down('lg')]: {
+      left: 30,
+    },
+    [theme.breakpoints.down('xl')]: {
+      left: 50,
     },
     position: 'absolute',
     display: 'flex',

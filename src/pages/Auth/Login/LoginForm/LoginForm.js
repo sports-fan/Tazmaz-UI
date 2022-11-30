@@ -53,8 +53,8 @@ const LoginForm = () => {
     .then(res => {
       console.log(res.data)
       if (res.data.success) {
-        navigate("/auth/signup/2fa")
-        localStorage.setItem('verifiedEmail', data.email);
+        localStorage.setItem('twofaId', res.data.data.twofaId);
+        navigate("/auth/login/2fa")
       }
     })
     .catch(err => {console.log(err)})
