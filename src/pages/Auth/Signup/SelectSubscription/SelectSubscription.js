@@ -8,11 +8,11 @@ import FormInput from "components/FormInput"
 import SelectSubscriptionHeader from "pages/Auth/components/SelectSubscriptionHeader"
 import SelectSubscriptionLayout from "pages/Auth/components/SelectSubscriptionLayout"
 import Subscription from "pages/Auth/components/Subscription"
-import SubscriptionLogo1 from '../../../../../assets/subscritionLogo1.svg'
-import SubscriptionLogo2 from '../../../../../assets/subscritionLogo2.svg'
-import SubscriptionLogo3 from '../../../../../assets/subscritionLogo3.svg'
-import SubscriptionLogo4 from '../../../../../assets/subscritionLogo5.svg'
-import SubscriptionLogo5 from '../../../../../assets/subscritionLogo5.svg'
+import SubscriptionLogo1 from 'assets/subscritionLogo1.svg'
+import SubscriptionLogo2 from 'assets/subscritionLogo2.svg'
+import SubscriptionLogo3 from 'assets/subscritionLogo3.svg'
+import SubscriptionLogo4 from 'assets/subscritionLogo5.svg'
+import SubscriptionLogo5 from 'assets/subscritionLogo5.svg'
 import useStyles from './styles'
 
 const subcriptions = [
@@ -67,7 +67,7 @@ const SelectSubscription = () => {
                 <div className={classes.formInput}>
                   <FormInput
                     id="signup-subscrition-input"
-                    startAdornment="הזנת קוד הטבה"
+                    placeholder="הזנת קוד הטבה"
                   />
                 </div>
               </Grid>

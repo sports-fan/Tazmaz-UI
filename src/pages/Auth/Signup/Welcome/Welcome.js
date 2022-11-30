@@ -5,9 +5,9 @@ import { withTranslation } from 'react-i18next';
 import FormButton from 'components/FormButton'
 import SelectSubscriptionHeader from 'pages/Auth/components/SelectSubscriptionHeader'
 import SelectSubscriptionLayout from 'pages/Auth/components/SelectSubscriptionLayout'
-import WelcomeLogo from '../../../../../assets/welcomeLogo.svg'
-import WelcomeMobileLogo from '../../../../../assets/welcomeMobileLogo.svg'
-import LeftArrow from '../../../../../assets/leftArrow.svg'
+import WelcomeLogo from 'assets/welcomeLogo.svg'
+import WelcomeMobileLogo from 'assets/welcomeMobileLogo.svg'
+import LeftArrow from 'assets/leftArrow.svg'
 import useStyles from './styles'
 
 const Welcome = () => {
