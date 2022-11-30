@@ -73,6 +73,13 @@ const theme = createTheme({
     },
     success: {
       main: success
+    },
+    white: {
+      main: '#FFFFFF'
+    },
+    black: {
+      main: '#000000',
+      contrastText: '#ffffff'
     }
   },
   typography: {

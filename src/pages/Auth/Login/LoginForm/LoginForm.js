@@ -36,7 +36,7 @@ const LoginForm = () => {
     }
   })
 
-  const handleEmailVerification = useCallback((data) => {
+  const handleLogin = useCallback((data) => {
     axios({
       url: '/public/login',
       method: "POST",
@@ -85,7 +85,7 @@ const LoginForm = () => {
                   variant="outlined"
                 />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
-                <form onSubmit={handleSubmit(handleEmailVerification)}>
+                <form onSubmit={handleSubmit(handleLogin)}>
                   <Controller 
                     name="email"
                     control={control}
