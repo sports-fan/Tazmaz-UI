@@ -1,8 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
@@ -61,6 +63,16 @@ const LoginForm = (props) => {
     })
     .catch(err => {console.log(err)})
   }, [watch])
+  useEffect(() => {
+    const start = ()=> {
+      gapi.client.init({
+        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+        scope: 'email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
 
   const handleLogin = useCallback((data) => {
     axios({
@@ -89,6 +101,15 @@ const LoginForm = (props) => {
     })
   }, [navigate])
 
+  const handleGoogleLogin = useCallback((res) => {
+    console.log('successfully logedin with Google' , res, '========')
+    navigate("/home")
+  }, [])
+
+  const handleFailure = useCallback((res) => {
+    console.log('Google login Failed!', res)
+  }, [])
+
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
@@ -106,13 +127,22 @@ const LoginForm = (props) => {
                   color="secondary"
                   variant="outlined"
                 />
-                <FormButton
+                {/* <FormButton
                   endIcon={<img src={GoogleIcon} alt="logo"/>}
                   className={classes.loginWithGoogle}
                   text={t('common.loginUsing')}
                   color="secondary"
                   variant="outlined"
-                />
+                /> */}
+                <GoogleLogin
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                  className={classes.loginWithGoogle}
+                  buttonText="התחברות באמצעות"
+                  onSuccess={handleGoogleLogin}
+                  onFailure={handleFailure}
+                  cookiePolicy={'single_host_origin'}
+                  isSignedIn={true}
+               />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleLogin)}>
                   <Controller 

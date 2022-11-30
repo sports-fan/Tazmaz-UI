@@ -27,7 +27,9 @@ export default makeStyles(theme => ({
     marginBottom: theme.spacing(5)
   },
   loginWithGoogle: {
-    marginTop: '11px ! important'
+    width: '100%',
+    marginTop: '11px ! important',
+    borderRadius: '8px',
   },
   divider: {
     width: '100%',

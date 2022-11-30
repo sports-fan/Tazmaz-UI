@@ -1,8 +1,10 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Typography, Grid, Divider } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
@@ -41,6 +43,17 @@ const RegistrationOptions = ({t}) => {
     setChecked(e.target.checked)
     window.open('/term&policy','_blank').focus()
   },[])
+  
+  useEffect(() => {
+    const start = ()=> {
+      gapi.client.init({
+        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+        scope: 'email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
 
   const handleEmailVerification = useCallback((data) => {
     if (checked) {
@@ -70,6 +83,16 @@ const RegistrationOptions = ({t}) => {
     }
   }, [navigate, checked])
 
+  const handleLogin = useCallback((res) => {
+    console.log('successfully logedin with Google' , res, '========')
+    localStorage.setItem('verifiedEmail', res.profileObj.email);
+    navigate("/auth/signup/2")
+  }, [])
+
+  const handleFailure = useCallback((res) => {
+    console.log('Google login Failed!', res)
+  }, [])
+
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
@@ -86,13 +109,15 @@ const RegistrationOptions = ({t}) => {
                   color="secondary"
                   variant="outlined"
                 />
-                <FormButton
+                <GoogleLogin
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   className={classes.loginWithGoogle}
-                  endIcon={<img src={GoogleIcon} alt="logo"/>}
-                  text={t('common.loginUsing')}
-                  color="secondary"
-                  variant="outlined"
-                />
+                  onSuccess={handleLogin}
+                  onFailure={handleFailure}
+                  cookiePolicy={'single_host_origin'}
+                  buttonText='התחברות באמצעות'
+                  isSignedIn={true}
+              />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleEmailVerification)}>
                   <Controller 
