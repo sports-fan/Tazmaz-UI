@@ -19,6 +19,7 @@
     "i18next-http-backend": "^2.0.2",
     "ramda": "^0.28.0",
     "react": "^18.2.0",
+    "react-apple-signin-auth": "^1.0.9",
     "react-dom": "^18.2.0",
     "react-google-login": "^5.2.2",
     "react-hook-form": "^7.39.7",

@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Typography, Grid, Divider } from '@mui/material'
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
 import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
+import AppleSignin from 'react-apple-signin-auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
@@ -44,6 +45,15 @@ const RegistrationOptions = ({t}) => {
     window.open('/term&policy','_blank').focus()
   },[])
   
+  const authOptions = useMemo(() => ({
+      clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
+      redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
+      scope: 'email name',
+      state: 'state',
+      nonce: 'nonce',
+      usePopup: true
+  }), [])
+
   useEffect(() => {
     const start = ()=> {
       gapi.client.init({
@@ -87,11 +97,16 @@ const RegistrationOptions = ({t}) => {
     console.log('successfully logedin with Google' , res, '========')
     localStorage.setItem('verifiedEmail', res.profileObj.email);
     navigate("/auth/signup/2")
-  }, [])
+  }, [navigate])
 
   const handleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
   }, [])
+
+  const handleAppleLogin = useCallback((res) => {
+    console.log('successfully loged in Apple', res, '******')
+    navigate("/auth/signup/2")
+  }, [navigate])
 
   return (
     <Grid container>
@@ -103,11 +118,18 @@ const RegistrationOptions = ({t}) => {
                 <Typography variant='h5' mb={1.5} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb6} ></div>
-                <FormButton
-                  endIcon={<img src={AppleIcon} alt="logo"/>}
-                  text={t('common.loginUsing')}
-                  color="secondary"
-                  variant="outlined"
+                <AppleSignin
+                  authOptions={authOptions}
+                  onSuccess={handleAppleLogin}
+                  onError={(error)=> console.error(error)}
+                  render={(renderProps) => (
+                    <Button
+                      onClick={renderProps.onClick}
+                      endIcon={<img src={AppleIcon} alt="logo"/>}
+                      color="secondary"
+                      variant="outlined"
+                    >התחברות באמצעות</Button>
+                  )}
                 />
                 <GoogleLogin
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
@@ -115,8 +137,16 @@ const RegistrationOptions = ({t}) => {
                   onSuccess={handleLogin}
                   onFailure={handleFailure}
                   cookiePolicy={'single_host_origin'}
-                  buttonText='התחברות באמצעות'
-                  isSignedIn={true}
+                  render={(renderProps) => (
+                    <Button
+                      onClick={renderProps.onClick}
+                      className={classes.loginWithGoogle}
+                      endIcon={<img src={GoogleIcon} alt="logo"/>}
+                      text='התחברות באמצעות'
+                      color="secondary"
+                      variant="outlined"
+                    >התחברות באמצעות</Button>
+                  )}
               />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleEmailVerification)}>
