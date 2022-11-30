@@ -7,17 +7,17 @@ import axios from "axios";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-import AuthLeftSide from '../../../components/AuthLeftSide'
-import Container from '../../../components/Container'
-import AuthRightSide from '../../../components/AuthRightSide'
-import SignupLeftFG from '../../../../../assets/signupLogo2.svg'
-import TazmazLogo from '../../../../../assets/tazmazLogWhite.svg'
-import UserIcon from '../../../../../assets/userIcon.svg'
-import KeyIcon from '../../../../../assets/keyIcon.svg'
-import RightArrow from '../../../../../assets/rightArrow.svg'
-import LeftArrow from '../../../../../assets/leftArrowPrimary.svg'
+import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
+import Container from 'pages/Auth/components/Container'
+import AuthRightSide from 'pages/Auth/components/AuthRightSide'
+import SignupLeftFG from 'assets/signupLogo2.svg'
+import TazmazLogo from 'assets/tazmazLogWhite.svg'
+import UserIcon from 'assets/userIcon.svg'
+import KeyIcon from 'assets/keyIcon.svg'
+import RightArrow from 'assets/rightArrow.svg'
+import LeftArrow from 'assets/leftArrowPrimary.svg'
 import useStyles from './styles'
-import CustomStepper from '../../../../../components/CustomStepper'
+import CustomStepper from 'components/CustomStepper'
 import FormInput from 'components/FormInput'
 import FormSelect from 'components/FormSelect'
 import FormButton from 'components/FormButton'
@@ -107,6 +107,7 @@ const RegistrationForm = () => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
+                        disabled
                         readOnly={true}
                         id="signup-email-disabled"
                         className={classes.mb8}
@@ -125,7 +126,7 @@ const RegistrationForm = () => {
                         id="signup-password"
                         className={classes.mtb8}
                         icon={<img src={KeyIcon} alt="logo"/>}
-                        startAdornment="בחירת סיסמא"
+                        placeholder="בחירת סיסמא"
                         error={errors?.password}
                         type="password"
                         autoComplete="current-password"
@@ -145,7 +146,7 @@ const RegistrationForm = () => {
                           type="number"
                           helperClass={classes.phoneNumber}
                           id="signup-phone-number"
-                          endAdornment="מספר טלפון"
+                          placeholder="מספר טלפון"
                           error={errors?.phoneNumber}
                           field={field}
                           form={formState}
@@ -214,7 +215,7 @@ const RegistrationForm = () => {
                         name="role"
                         id="signup role"
                         className={classes.mtb8}
-                        startAdornment="תפקיד"
+                        placeholder="תפקיד"
                         error={errors?.role}
                         field={field}
                         form={formState}
@@ -229,7 +230,7 @@ const RegistrationForm = () => {
                         name="businessName"
                         id="signup-business-name"
                         className={classes.mtb8}
-                        startAdornment="שם העסק"
+                        placeholder="שם העסק"
                         error={errors?.businessName}
                         field={field}
                         form={formState}
@@ -246,7 +247,7 @@ const RegistrationForm = () => {
                           {value: 'israel', label: 'Israel'},
                           {value: 'ukraine', label: 'Ukraine'}
                         ]}
-                        adorementText="ענף/תחום"
+                        placeholder="ענף/תחום"
                         error={errors?.area}
                         field={field}
                         form={formState}

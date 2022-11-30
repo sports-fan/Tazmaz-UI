@@ -15,14 +15,14 @@ const FormInput = ({helperClass, field, error, name, form, label, startAdornment
         color='secondary'
         error={Boolean(error)}
         className={cn(classes.input, className)}
-        startAdornment={<InputAdornment position="start">{startAdornment}</InputAdornment>}
-        endAdornment={<InputAdornment position="end">{icon}{endAdornment}</InputAdornment>}
+        endAdornment={icon && <InputAdornment position="end">{icon}</InputAdornment>}
         inputProps={
           readOnly
             ? {
                 readOnly: true
               }
-            : {}
+            : {
+            }
         }
         {...field}
         {...props}

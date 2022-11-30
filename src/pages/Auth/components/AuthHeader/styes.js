@@ -27,7 +27,7 @@ export default makeStyles(theme => ({
       right: 16
     },
     position: 'absolute',
-    top: 38,
+    top: 25,
     right: 117
   },
   backToHome: {
