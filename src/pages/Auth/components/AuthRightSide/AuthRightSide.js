@@ -5,13 +5,13 @@ import GirlIconMobile from '../../../../assets/girlIconMobile.svg'
 import useStyles from './styes'
 import AuthHeader from '../AuthHeader'
 
-const AuthRightSide = ({children, steper, logo, bottomDisabled, className, theme}) => {
+const AuthRightSide = ({children, backURL, steper, logo, bottomDisabled, className, theme}) => {
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)')
   return (
     <div>
       <div className={className}>
-        <AuthHeader theme={theme} logo={logo} />
+        <AuthHeader backURL={backURL} theme={theme} logo={logo} />
         {steper}
       </div>
       {children}

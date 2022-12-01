@@ -24,5 +24,14 @@ export default makeStyles(theme => ({
   },
   actions: {
     marginTop: 36
+  },
+  text: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: 10,
+    paddingBottom: 133
+  },
+  passcode: {
+    marginTop: 15
   }
 }))

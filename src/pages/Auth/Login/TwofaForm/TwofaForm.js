@@ -6,12 +6,12 @@ import axios from "axios";
 
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
-import FormInput from 'components/FormInput'
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import TazmazLogo from 'assets/tazmazLogoLogin.svg'
 import LoginLeftFG from 'assets/loginLogo2.svg'
 import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
+import Passcode from 'components/Passcode';
 
 const TwofaForm = () => {
   const classes = useStyles()
@@ -32,6 +32,7 @@ const TwofaForm = () => {
     })
     .then(res => {
       console.log(res.data)
+      localStorage.setItem('token', res.data.access_token)
     })
     .catch(err => {console.log(err)})
   }, [])
@@ -52,107 +53,28 @@ const TwofaForm = () => {
                 </Typography>
               </Container>
               <form onSubmit={handleSubmit(handleTwofa)}>
-                <Grid container justifyContent='center' columnSpacing={{lg:4, xs: 1}} className={classes.codes}>
-                  <Grid item lg={1.7} xs={1.7}>
-                    <Controller 
-                      name="code1"
-                      control={control}
-                      render={({field, formState}) =>
-                        <FormInput
-                          name="code1"
-                          id="login-code1"
-                          error={errors?.email}
-                          field={field}
-                          form={formState}
-                        />
-                      }
+                <Controller
+                  name="passcode"
+                  control={control}
+                  render={({field, formState}) =>
+                    <Passcode
+                      className={classes.passcode}
+                      name="passcode"
+                      error={errors?.passcode}
+                      field={field}
+                      form={formState}
                     />
-                  </Grid>
-                  <Grid item lg={1.7} xs={1.7}>
-                    <Controller 
-                      name="code2"
-                      control={control}
-                      render={({field, formState}) =>
-                        <FormInput
-                          name="code2"
-                          id="login-code2"
-                          error={errors?.email}
-                          field={field}
-                          form={formState}
-                        />
-                      }
-                    />
-                  </Grid>
-                  <Grid item lg={1.7} xs={1.7}>
-                    <Controller 
-                      name="code3"
-                      control={control}
-                      render={({field, formState}) =>
-                        <FormInput
-                          name="code3"
-                          id="login-code3"
-                          error={errors?.email}
-                          field={field}
-                          form={formState}
-                        />
-                      }
-                    />
-                  </Grid>
-                  <Grid item lg={1.7} xs={1.7}>
-                    <Controller 
-                      name="code4"
-                      control={control}
-                      render={({field, formState}) =>
-                        <FormInput
-                          name="code4"
-                          id="login-code4"
-                          error={errors?.email}
-                          field={field}
-                          form={formState}
-                        />
-                      }
-                    />
-                  </Grid>
-                  <Grid item lg={1.7} xs={1.7}>
-                    <Controller 
-                      name="code5"
-                      control={control}
-                      render={({field, formState}) =>
-                        <FormInput
-                          name="code5"
-                          id="login-code5"
-                          error={errors?.email}
-                          field={field}
-                          form={formState}
-                        />
-                      }
-                    />
-                  </Grid>
-                  <Grid item lg={1.7} sm={12} xs={1.7}>
-                    <Controller 
-                      name="code6"
-                      control={control}
-                      render={({field, formState}) =>
-                        <FormInput
-                          name="code6"
-                          id="login-code6"
-                          error={errors?.email}
-                          field={field}
-                          form={formState}
-                        />
-                      }
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container  justifyContent='center' columnSpacing={1.5} className={classes.actions}>
-                  <Grid item lg={2} xs={2}>
+                  }
+                />
+                <Grid container  justifyContent='center' columnSpacing={{lg: 1.5, sm: 8, md: 10, xs: 8}} className={classes.actions}>
+                  <Grid item lg={3} xl={2} md={2} sm={1} xs={2}>
                     <FormButton
                       text="חזור"
                       variant="contained"
                       color="black"
                     />
                   </Grid>
-                  <Grid item lg={8} xs={8}>
+                  <Grid item lg={9} md={8} sm={5} xs={8}>
                     <FormButton
                       type="submit"
                       text="אישור והתחברות"
@@ -162,6 +84,9 @@ const TwofaForm = () => {
                   </Grid>
                 </Grid>
               </form>
+              <div className={classes.text}>
+                <Typography variant='caption'>לא קיבלת קוד סודי ? לחץ כאן</Typography>
+              </div>
             </Grid>
           </Grid>
         </AuthRightSide>

@@ -26,5 +26,10 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       color: '#FFFFFF'
     },
+  },
+  text: {
+    paddingLeft: 8,
+    color: '#000000',
+    textDecoration: 'none'
   }
 }))
