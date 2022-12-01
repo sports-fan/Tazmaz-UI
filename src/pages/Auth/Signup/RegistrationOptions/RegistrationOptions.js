@@ -45,8 +45,8 @@ const RegistrationOptions = () => {
     })
     .then(res => {
       if (res.data.success) {
-        navigate("/auth/signup/2")
         localStorage.setItem('verifiedEmail', data.email);
+        navigate("/auth/signup/2")
       }
     })
     .catch(err => {console.log(err)})

@@ -160,7 +160,8 @@ const LoginForm = () => {
                   </Button>
                 </div>
                 <div className={classes.register}>
-                  <Typography variant='body1'> נרשמת כבר בעבר<u  className={classes.u}>? להתחברות</u></Typography>
+                  <Typography variant='body1'> נרשמת כבר בעבר</Typography>
+                  <a className={classes.u} href="signup/1">? להתחברות</a>
                 </div>
               </Container>
             </Grid>

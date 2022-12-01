@@ -32,6 +32,7 @@ const TwofaForm = () => {
     })
     .then(res => {
       console.log(res.data)
+      localStorage.setItem('token', res.data.access_token)
     })
     .catch(err => {console.log(err)})
   }, [])

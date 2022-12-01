@@ -1,21 +1,30 @@
-import React from 'react'
+import AuthRoute from 'components/AuthRoute';
+import PrivateRoute from 'components/PrivateRoute';
+import React, { useMemo } from 'react'
 import { Routes, Route } from 'react-router-dom';
-import LoginForm from './Auth/Login/LoginForm';
-import TwofaForm from './Auth/Login/TwofaForm';
-import RegistrationForm from './Auth/Signup/RegistrationForm';
-import RegistrationOptions from './Auth/Signup/RegistrationOptions';
-import SelectSubscription from './Auth/Signup/SelectSubscription';
-import Welcome from './Auth/Signup/Welcome';
+import Login from './Auth/Login';
+import Signup from './Auth/Signup';
+import Dashboard from './Dashboard';
 
 const Pages = () => {
+  const isAuthenticated = useMemo(() => Boolean(localStorage.getItem('token')), [])
+  console.log(isAuthenticated)
   return (
     <Routes>
-      <Route path='/auth/signup/1' element={<RegistrationOptions />} />
-      <Route path='/auth/signup/2' element={<RegistrationForm />} />
-      <Route path='/auth/signup/3' element={<SelectSubscription />} />
-      <Route path='/auth/signup/4' element={<Welcome />} />
-      <Route path='/auth/login' element={<LoginForm />} />
-      <Route path='/auth/login/2fa' element={<TwofaForm />} />
+      <Route
+        path='/'
+        element={
+          <PrivateRoute isAuthenticated={isAuthenticated} component={Dashboard} />
+        }
+      />
+      <Route
+        path='/auth/login/*' 
+        element={
+          <AuthRoute isAuthenticated={isAuthenticated} component={Login} />
+        }
+      />
+      <Route path='/auth/signup/*' element={<Signup />} />
+      <Route path='/dashboard' element={<Dashboard />} />
     </Routes>
   )
 }
