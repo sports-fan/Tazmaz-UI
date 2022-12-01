@@ -44,6 +44,7 @@ const RegistrationOptions = () => {
       data: {email: data.email},
     })
     .then(res => {
+      console.log(res.data)
       if (res.data.success) {
         localStorage.setItem('verifiedEmail', data.email);
         navigate("/auth/signup/2")
@@ -55,7 +56,7 @@ const RegistrationOptions = () => {
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide theme="dark" logo={TazmazLogo}>
+        <AuthRightSide backURL='/auth/login' theme="dark" logo={TazmazLogo}>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>

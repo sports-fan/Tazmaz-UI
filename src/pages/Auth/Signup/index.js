@@ -1,6 +1,6 @@
-import PrivateRoute from 'components/PrivateRoute';
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
+import PrivateRoute from 'components/PrivateRoute';
 import RegistrationForm from './RegistrationForm';
 import RegistrationOptions from './RegistrationOptions';
 import SelectSubscription from './SelectSubscription';

@@ -66,7 +66,7 @@ export default makeStyles(theme => ({
     justifyContent:'flex-end',
     alignItems: 'center',
     left: 67,
-    top: 41
+    top: 41,
   },
   backToHomeDark: {
     [theme.breakpoints.down('sm')]: {
@@ -78,12 +78,16 @@ export default makeStyles(theme => ({
     justifyContent:'flex-end',
     alignItems: 'center',
     left: 28,
-    top: 48
+    top: 48,
   },
   textLight: {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    paddingLeft: 8,
+    textDecoration: 'none'
   },
   textDark: {
-    color: '#000000'
-  }
+    color: '#000000',
+    paddingLeft: 8,
+    textDecoration: 'none'
+  },
 }))

@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import useStyles from './styles'
@@ -11,7 +10,7 @@ const SelectSubscriptionLayout = ({children}) => {
   return (
     <div className={classes.main}>
       <div className={classes.back}>
-        <Typography variant='body1' className={classes.backLetter} mr={1}>חזרה לדף הבית</Typography>
+        <a href='/auth/signup/1' className={classes.text}>חזרה לדף הבית</a>
         <img src={matches ? IosArrowWhilte : IosArrow} alt='logo'/>
       </div>
       {children}

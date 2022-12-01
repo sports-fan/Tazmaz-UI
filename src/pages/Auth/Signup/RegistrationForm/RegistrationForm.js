@@ -87,10 +87,11 @@ const RegistrationForm = () => {
       },
     })
     .then(res => {
+      console.log(res.data)
       if (res.data.success) {
-        navigate("/auth/signup/3")
         localStorage.setItem("userId", res.data.data.userId)
         localStorage.removeItem('verifiedEmail')
+        navigate("/auth/signup/3")
       }
     })
     .catch(err => {console.log(err)})
@@ -181,7 +182,9 @@ const RegistrationForm = () => {
                               {value: '051', label: '051'},
                               {value: '052', label: '052'},
                               {value: '053', label: '053'},
-                              {value: '054', label: '054'}
+                              {value: '054', label: '054'},
+                              {value: '038', label: '038'},
+                              {value: '1', label: '1'},
                             ]}
                             helperClass={classes.role}
                             error={errors?.phonePrefix}
