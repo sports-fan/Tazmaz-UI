@@ -20,8 +20,8 @@ const FormSelect = ({helperClass, error, options, adorementText, className, fiel
           <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
         ))}
       </Select>
-      {error && 
-        <FormHelperText className={cn(classes.helperText, helperClass)} error={Boolean(error)}>
+      {error &&   
+        <FormHelperText className={cn(classes.helperText,helperClass)} error={Boolean(error)}>
           {error.message}
         </FormHelperText>
       }

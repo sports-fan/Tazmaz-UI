@@ -12,15 +12,20 @@ export default makeStyles(theme => ({
     '& input[type=number]::-webkit-inner-spin-button': {
         '-webkit-appearance': 'none',
         margin: 0
-    }
+    },
+    "& .MuiInputBase-input.Mui-disabled": {
+      WebkitTextFillColor: "black",
+      WebkitBackgroundColor: '#F5F5F5'
+    },
   },
   main: {
-    position: 'relative'
+    display:'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    position: 'relative',
   },
   helperText: {
     position: 'absolute',
-    width: 300,
-    top: 65,
-    left: 200
+    top: 57,
   }
 }))

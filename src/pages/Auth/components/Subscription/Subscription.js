@@ -4,14 +4,14 @@ import TickIcon from '../../../../assets/tick.svg'
 import SubscriptionHeaderLogo from '../../../../assets/subscriptionHeaderLogo.svg'
 import useStyles from './styles'
 
-const Subscription = ({icon, price, onClick, clicked}) => {
+const Subscription = ({icon, onClick, subscription}) => {
   const classes = useStyles()
-  
+  const { mostPopular, price, trialDays } = subscription
   return (
     <div className={classes.container}>
-      {clicked && <img className={classes.logo} src={SubscriptionHeaderLogo} alt="logo" />}
+      {mostPopular && <img className={classes.logo} src={SubscriptionHeaderLogo} alt="logo" />}
       <div className={classes.main}>
-        {clicked ?
+        {mostPopular ?
           <div className={classes.clickedHeader}>
             <Typography variant='body1'>הכי פופולרי</Typography>
           </div> :
@@ -28,7 +28,7 @@ const Subscription = ({icon, price, onClick, clicked}) => {
             <Typography variant='caption' color="secondary" ml={0.5}>חודשי</Typography>
           </div>
           <div className={classes.priceBelow}>
-            <Typography variant='body2' color="primary" pl={0.7} pr={0.7}>14 ימים נסיון חינם</Typography>
+            <Typography variant='body2' color="primary" pl={0.7} pr={0.7}>{trialDays} ימים נסיון חינם</Typography>
           </div>
           <Divider className={classes.divider}/>
         </div>
@@ -48,10 +48,16 @@ const Subscription = ({icon, price, onClick, clicked}) => {
         </div>
         <div className={classes.formButton}>
           <FormButton
+            className={classes.button}
             text="יאללה, מתאים לי"
             variant="contained"
-            color={ clicked ? "info" : "primary"}
+            color="primary"
             onClick={onClick}
+            sx={{
+              ':hover': {
+                bgcolor: '#1A94B6', // theme.palette.primary.main
+              },
+            }}
           />
         </div>
       </div>

@@ -17,6 +17,6 @@ export default makeStyles(theme => ({
       top: 19,
       right: 20,
     },
-    paddingTop: 35
+    paddingTop: 25
   },
 }))

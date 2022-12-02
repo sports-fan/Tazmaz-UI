@@ -14,14 +14,16 @@ export default makeStyles(theme => ({
     marginBottom: 39
   },
   phoneNumber: {
-    top: '58px !important',
-    left: '84px !important'
+    position: 'absolute',
+    top: '59px !important',
+    right: '5px !important'
   },
   firstName: {
+    position: 'absolute',
     top: '57px !important',
-    left: '-463px !important'
   },
   lastName: {
+    position: 'absolute',
     top: '57px !important',
   },
   leftBGColor: {
@@ -33,20 +35,12 @@ export default makeStyles(theme => ({
   logoBGColor: {
     backgroundColor: theme.palette.primary.main,
   },
-  mb8: {
-    marginBottom: theme.spacing(1)
-  },
-  mtb8: {
+  email: {
     marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1)
-  },
-  mb16t8: {
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(1)
-  },
-  names: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(2.5)
+    '& .MuiInputBase-root.Mui-disabled': {
+      backgroundColor: '#F5F5F5',
+      color: '#ffffff'
+    },
   },
   formActions: {
     [theme.breakpoints.down('sm')]: {
@@ -55,9 +49,8 @@ export default makeStyles(theme => ({
     marginTop: 64,
     marginBottom: 40
   },
-  role: {
+  phonePrefix: {
     position: 'absolute',
     top: 59,
-    left: '-190px'
   }
 }))

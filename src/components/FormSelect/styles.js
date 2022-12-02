@@ -2,12 +2,12 @@ import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
   main: {
-    position: 'relative'
+    display:'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start'
   },
   helperText: {
     position: 'absolute',
-    width: 300,
     top: 57,
-    left: '-190px'
   }
 }))

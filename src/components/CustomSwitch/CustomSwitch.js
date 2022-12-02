@@ -43,12 +43,15 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-const CustomSwitch = ({right, left}) => {
+const CustomSwitch = ({right, left, onChange}) => {
   return (
     <FormGroup>
       <Stack direction="row" spacing={3} alignItems="center">
         {right}
-        <AntSwitch inputProps={{ 'aria-label': 'ant design' }} />
+        <AntSwitch
+          onChange={onChange}
+          inputProps={{ 'aria-label': 'ant design' }}
+        />
         {left}
       </Stack>
     </FormGroup>

@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Typography, Grid, Divider } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
 
+import Notification from 'components/Notification';
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import FormInput from 'components/FormInput'
@@ -22,36 +23,47 @@ import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 
 const schema = yup.object({
-  email: yup.string().required("מספר עוסק/ת.ז. שגוי")
+  email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
 })
 
 const RegistrationOptions = () => {
   const classes = useStyles()
+  const [checked, setChecked] = useState(false)
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const {control, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
     defaultValues: { email: ''}
   })
 
+  const handlChekced = useCallback((e) => {
+    setChecked(e.target.checked)
+    window.open('/term&policy','_blank').focus()
+  },[])
+
   const handleEmailVerification = useCallback((data) => {
-    axios({
-      url: '/public/validate-email',
-      method: "POST",
-      headers: {
-        "accept": 'application/json',
-        "content-type": 'application/json'
-      },
-      data: {email: data.email},
-    })
-    .then(res => {
-      console.log(res.data)
-      if (res.data.success) {
-        localStorage.setItem('verifiedEmail', data.email);
-        navigate("/auth/signup/2")
-      }
-    })
-    .catch(err => {console.log(err)})
-  }, [navigate])
+    if (checked) {
+      axios({
+        url: '/public/validate-email',
+        method: "POST",
+        headers: {
+          "accept": 'application/json',
+          "content-type": 'application/json'
+        },
+        data: {email: data.email},
+      })
+      .then(res => {
+        console.log(res.data)
+        if (res.data.success) {
+          localStorage.setItem('verifiedEmail', data.email);
+          navigate("/auth/signup/2")
+        }
+      })
+      .catch(err => {console.log(err)})
+    } else {
+      setOpen(true)
+    }
+  }, [navigate, checked])
 
   return (
     <Grid container>
@@ -84,9 +96,9 @@ const RegistrationOptions = () => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
+                        type="email"
                         placeholder='הזנת אימייל'
                         id="signup-email"
-                        helperClass={classes.email}
                         error={errors?.email}
                         field={field}
                         form={formState}
@@ -101,25 +113,28 @@ const RegistrationOptions = () => {
                     color="primary"
                     variant="contained"
                   />
-                </form>
-                <div className={classes.forgotPassword}>
-                  <div className={classes.forgotText}>
-                    <Typography variant='body2'>
-                      בהרשמה אני מאשר/ת שאני מקבל/ת את 
-                    </Typography>
-                    <Typography variant='body2'>
-                      <u className={classes.u}>
-                        תנאיהשירות 
-                      </u>                      
-                    </Typography>
-                    <Typography variant='body2'>
-                      <u className={classes.u}>
-                        ומדיניות הפרטיות   
-                      </u>                      
-                    </Typography>
+                  <div className={classes.forgotPassword}>
+                    <div className={classes.forgotText}>
+                      <Typography variant='body2'>
+                        בהרשמה אני מאשר/ת שאני מקבל/ת את 
+                      </Typography>
+                      <Typography variant='body2'>
+                        <u className={classes.u}>
+                          תנאיהשירות 
+                        </u>                      
+                      </Typography>
+                      <Typography variant='body2'>
+                        <u className={classes.u}>
+                          ומדיניות הפרטיות   
+                        </u>                      
+                      </Typography>
+                    </div>
+                    <FormCheckbox
+                      value={checked}
+                      onClick={handlChekced}
+                    />
                   </div>
-                  <FormCheckbox />
-                </div>
+                </form>
                 <div className={classes.register}>
                   <Typography variant='body1'> נרשמת כבר בעבר<u  className={classes.u}>? להתחברות</u></Typography>
                 </div>
@@ -131,6 +146,11 @@ const RegistrationOptions = () => {
       <Grid item md={8}>
         <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
       </Grid>
+      <Notification
+        open={open}
+        message='You should check the Terms & Policy first'
+        onClose={() => setOpen(false)}
+      />
     </Grid>
   )
 }

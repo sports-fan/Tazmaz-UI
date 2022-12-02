@@ -7,7 +7,7 @@ export default makeStyles(theme => ({
       paddingBottom: 18
     },
     paddingTop: 40,
-    paddingBottom: 30
+    paddingBottom: 20
   },
   active: {
     width: 40,

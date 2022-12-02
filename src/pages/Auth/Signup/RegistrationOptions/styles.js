@@ -61,10 +61,6 @@ export default makeStyles(theme => ({
     alignItems: 'center',
     marginTop: 69
   },
-  email: {
-    top: '56px !important',
-    left: '90px !important',
-  },
   u: {
     color: theme.palette.primary.main,
     paddingRight: 5

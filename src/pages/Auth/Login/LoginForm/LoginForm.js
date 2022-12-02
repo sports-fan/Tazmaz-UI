@@ -22,8 +22,11 @@ import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 
 const schema = yup.object({
-  email: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  password: yup.string().required("מספר עוסק/ת.ז. שגוי")
+  email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
+  password: yup.string()
+    .min(8, '8 characters minimum.')
+    .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
+    .required("מספר עוסק/ת.ז. שגוי")
 })
 
 const LoginForm = () => {
@@ -118,6 +121,7 @@ const LoginForm = () => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
+                        type="email"
                         placeholder='שם משתמש/אימייל'
                         icon={<img src={PenIcon} alt="pen logo"/>}
                         id="signup-email"
@@ -173,7 +177,7 @@ const LoginForm = () => {
       </Grid>
       <Notification
         open={open}
-        data={loginRes}
+        message={loginRes?.message || ''}
         onClose={() => setOpen(false)}
       />
     </Grid>
