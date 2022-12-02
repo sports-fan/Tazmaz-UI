@@ -22,11 +22,14 @@ import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 
 const schema = yup.object({
-  email: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  password: yup.string().required("מספר עוסק/ת.ז. שגוי")
+  email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
+  password: yup.string()
+    .min(8, '8 characters minimum.')
+    .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
+    .required("מספר עוסק/ת.ז. שגוי")
 })
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const classes = useStyles()
   const navigate = useNavigate()
   const {control, watch, handleSubmit, formState: {errors}} = useForm({
@@ -36,7 +39,8 @@ const LoginForm = () => {
       password: ''
     }
   })
-
+  const {t} = props
+  console.log({props})
   const [loginRes, setLoginRes] = useState({})
   const [open, setOpen] = useState(false)
   
@@ -93,20 +97,20 @@ const LoginForm = () => {
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={1} align='left'><b>,םיאבה םיכורב</b></Typography>
-                <Typography variant='h6' align='left'>TazMaz היועצת הפיננסית לעסק שלך</Typography>
+                <Typography variant='h5' mb={1} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
-                <Typography variant='body1' mb={1} align='left'>תכרעמל הסינכ</Typography>
+                <Typography variant='body1' mb={1} align='left'>{t('login.caramelizeTheSync')}</Typography>
                 <FormButton
                   endIcon={<img src={AppleIcon} alt="logo"/>}
-                  text='התחברות באמצעות'
+                  text={t('common.loginUsing')}
                   color="secondary"
                   variant="outlined"
                 />
                 <FormButton
                   endIcon={<img src={GoogleIcon} alt="logo"/>}
                   className={classes.loginWithGoogle}
-                  text='התחברות באמצעות'
+                  text={t('common.loginUsing')}
                   color="secondary"
                   variant="outlined"
                 />
@@ -118,7 +122,8 @@ const LoginForm = () => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
-                        placeholder='שם משתמש/אימייל'
+                        type="email"
+                        placeholder={t('login.email')}
                         icon={<img src={PenIcon} alt="pen logo"/>}
                         id="signup-email"
                         helperClass={classes.email}
@@ -135,8 +140,7 @@ const LoginForm = () => {
                       <FormInput
                         name="password"
                         type="password"
-                        placeholder='סיסמא'
-                        className={classes.loginWithGoogle}
+                        placeholder={t('login.password')}
                         icon={<img src={PasswordIcon} alt="password logo"/>}
                         id="login-password"
                         helperClass={classes.password}
@@ -147,21 +151,20 @@ const LoginForm = () => {
                     }
                   />
                   <FormButton
-                    className={classes.loginWithInput}
                     type="submit"
-                    text='שלב הבא'
+                    text={t('login.manageTheBusiness')}
                     color="primary"
                     variant="contained"
                   />
                 </form>
                 <div className={classes.forgetText}>
                   <Button onClick={handleForgetPassword}>
-                    שכחת את הסיסמא שלך?
+                    {t('login.forgetYourPassword')}
                   </Button>
                 </div>
                 <div className={classes.register}>
-                  <Typography variant='body1'> נרשמת כבר בעבר</Typography>
-                  <a className={classes.u} href="signup/1">? להתחברות</a>
+                  <Typography variant='body1'>{t('login.notRegistered')}</Typography>
+                  <a className={classes.u} href="signup/1">{t('login.forQuickRegistration')}</a>
                 </div>
               </Container>
             </Grid>
@@ -169,11 +172,11 @@ const LoginForm = () => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={LoginLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
+        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={LoginLeftFG} title={t('common.leftSideDescription')}/>
       </Grid>
       <Notification
         open={open}
-        data={loginRes}
+        message={loginRes?.message || ''}
         onClose={() => setOpen(false)}
       />
     </Grid>

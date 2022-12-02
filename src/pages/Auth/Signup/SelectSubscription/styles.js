@@ -13,17 +13,16 @@ export default makeStyles(theme => ({
   formTitle: {
     display: 'flex',
     justifyContent: 'flex-start',
-    marginBottom: 8
   },
   formAction: {
     [theme.breakpoints.down('sm')]: {
       marginTop: 39
     },
-    display: 'flex'
+    display: 'flex',
   },
   switch: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   switchLeft: {
     display: 'flex',
@@ -34,12 +33,15 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: 18
     },
-    marginTop: 26
+    marginTop: 19
   },
   subscriptions: {
     [theme.breakpoints.down('sm')]: {
       height: '100%'
     },
-    height: 553
-  }
+    height: 553,
+  },
+  formButton: {
+    marginBottom: 16
+  },
 }))

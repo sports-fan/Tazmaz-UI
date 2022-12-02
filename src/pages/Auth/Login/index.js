@@ -10,7 +10,7 @@ const Login = () => {
     <Routes>
       <Route path='/' element={<LoginForm />} />
       <Route path='/2fa' element={<TwofaForm/>} />
-      {/* <Route path='/2fa' element={<PrivateRoute isAuthenticated={has2fa} component={TwofaForm}/>} /> */}
+      <Route path='/2fa' element={<PrivateRoute isAuthenticated={has2fa} component={TwofaForm}/>} />
     </Routes>
   )
 }

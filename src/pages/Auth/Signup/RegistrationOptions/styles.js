@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('lg')]: {
       marginTop: 26
     },
-    marginTop: 47
+    marginTop: 46
   },
   leftBGColor: {
     backgroundColor: '#413B71',
@@ -28,9 +28,6 @@ export default makeStyles(theme => ({
   },
   loginWithGoogle: {
     marginTop: '11px ! important'
-  },
-  loginWithInput: {
-    marginTop: '15px ! important'
   },
   divider: {
     width: '100%',
@@ -60,10 +57,6 @@ export default makeStyles(theme => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginTop: 69
-  },
-  email: {
-    top: '56px !important',
-    left: '90px !important',
   },
   u: {
     color: theme.palette.primary.main,

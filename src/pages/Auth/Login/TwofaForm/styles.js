@@ -23,7 +23,7 @@ export default makeStyles(theme => ({
     marginTop: 29
   },
   actions: {
-    marginTop: 36
+    marginTop: 20
   },
   text: {
     display: 'flex',

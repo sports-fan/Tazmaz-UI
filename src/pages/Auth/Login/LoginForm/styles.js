@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('lg')]: {
       marginTop: 26
     },
-    marginTop: 20
+    marginTop: 18
   },
   leftBGColor: {
     backgroundColor: '#F0F1F8',
@@ -32,14 +32,14 @@ export default makeStyles(theme => ({
     justifyContent: 'center',
     marginTop: 8
   },
-  email: {
-    top: '56px !important',
-    left: '84px !important'
-  },
-  password: {
-    top: '68px !important',
-    left: '84px !important'
-  },
+  // email: {
+  //   top: '56px !important',
+  //   left: '84px !important'
+  // },
+  // password: {
+  //   top: '68px !important',
+  //   left: '84px !important'
+  // },
   register: {
     display: 'flex',
     justifyContent: 'center',

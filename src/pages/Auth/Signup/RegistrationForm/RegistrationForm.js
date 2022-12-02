@@ -21,22 +21,34 @@ import CustomStepper from 'components/CustomStepper'
 import FormInput from 'components/FormInput'
 import FormSelect from 'components/FormSelect'
 import FormButton from 'components/FormButton'
+import ConfirmModal from 'components/ConfirmModal';
 
 const schema = yup.object({
-  firstName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  lastName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
+  firstName: yup.string()
+    .required("מספר עוסק/ת.ז. שגוי")
+    .matches(/^[\u0590-\u05fe]+$/i,'Name can only contain Latin letters.'),
+  lastName: yup.string()
+    .required("מספר עוסק/ת.ז. שגוי")
+    .matches(/^[\u0590-\u05fe]+$/i,'Name can only contain Latin letters.'),
   email: yup.string("מספר עוסק/ת.ז. שגוי"),
-  password: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  phonePrefix: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  phoneNumber: yup.string().required("מספר עוסק/ת.ז. שגוי"),
+  password: yup.string()
+    .min(8, '8 characters minimum.')
+    .required("מספר עוסק/ת.ז. שגוי")
+    .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum'),
+  phonePrefix: yup.string().required("required"),
+  phoneNumber: yup.string()
+    .matches(/^[0-9]\w{9}$/, 'only numbers, 9 digits')
+    .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  area: yup.string()
+  area: yup.string().required("מספר עוסק/ת.ז. שגוי")
 }).required()
  
-const RegistrationForm = () => {
+const RegistrationForm = ({t}) => {
   const classes = useStyles()
   const [roleOptions, setRoleOptions] = useState([])
+  const [sectorOptions, setSectorOptions] = useState([])
+  const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const { handleSubmit, formState: {errors}, control } = useForm({
     resolver: yupResolver(schema),
@@ -64,6 +76,19 @@ const RegistrationForm = () => {
         label: item.key
       }))
       setRoleOptions(options)
+    })
+    .catch(err => {console.log(err)})
+
+    axios({
+      url: '/business/sectors',
+      method: "GET",
+    })
+    .then(res => {
+      const options = res.data.data.map(item => ({
+        value: item.key,
+        label: item.key
+      }))
+      setSectorOptions(options)
     })
     .catch(err => {console.log(err)})
   })
@@ -101,6 +126,14 @@ const RegistrationForm = () => {
     navigate("/auth/signup/1")
   }, [navigate])
 
+  const handleModalOpen = useCallback(() => {
+    setOpen(true)
+  }, [])
+
+  const handleModalClose = useCallback(() => {
+    setOpen(false)
+  }, [])
+
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
@@ -115,8 +148,8 @@ const RegistrationForm = () => {
             <Grid item lg={10} sm={12}>
               <Container>
                 <div className={classes.formTitle}>
-                  <Typography variant='h5'>יאללה מתחילים!</Typography>
-                  <Typography variant='h5'>בוא נכיר</Typography>
+                  <Typography variant='h5'>{t('registrationForm.description1')}</Typography>
+                  <Typography variant='h5'>{t('registrationForm.description2')}</Typography>
                 </div>
                 <form onSubmit={handleSubmit(handleRegister)}>
                   <Controller 
@@ -125,10 +158,11 @@ const RegistrationForm = () => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
+                        type="email"
                         disabled
-                        readOnly={true}
+                        readOnly
                         id="signup-email-disabled"
-                        className={classes.mb8}
+                        className={classes.email}
                         icon={<img src={UserIcon} alt="logo"/>}
                         field={field}
                         form={formState}
@@ -141,21 +175,20 @@ const RegistrationForm = () => {
                     render={({field, formState}) =>
                       <FormInput
                         name="password"
-                        id="signup-password"
-                        className={classes.mtb8}
-                        icon={<img src={KeyIcon} alt="logo"/>}
-                        placeholder="בחירת סיסמא"
-                        error={errors?.password}
                         type="password"
+                        id="signup-password"
+                        icon={<img src={KeyIcon} alt="logo"/>}
+                        placeholder={t('registrationForm.password')}
+                        error={errors?.password}
                         autoComplete="current-password"
                         field={field}
                         form={formState}
                       />
                     }
                   />
-                  <Grid container columnSpacing={2} className={classes.mb16t8}>
+                  <Grid container columnSpacing={2}>
                     <Grid item lg={9.5} xs={8}>
-                      <Controller 
+                      <Controller
                         name="phoneNumber"
                         control={control}
                         render={({field, formState}) =>
@@ -164,7 +197,7 @@ const RegistrationForm = () => {
                           type="number"
                           helperClass={classes.phoneNumber}
                           id="signup-phone-number"
-                          placeholder="מספר טלפון"
+                          placeholder={t('registrationForm.phone')}
                           error={errors?.phoneNumber}
                           field={field}
                           form={formState}
@@ -176,17 +209,22 @@ const RegistrationForm = () => {
                         name="phonePrefix"
                         control={control}
                         render={({field, formState}) =>
-                          <FormSelect // area
+                          <FormSelect
                             options={[
                               {value: '050', label: '050'},
                               {value: '051', label: '051'},
                               {value: '052', label: '052'},
                               {value: '053', label: '053'},
                               {value: '054', label: '054'},
+                              {value: '055', label: '055'},
+                              {value: '056', label: '056'},
+                              {value: '057', label: '057'},
+                              {value: '058', label: '058'},
+                              {value: '059', label: '059'},
                               {value: '038', label: '038'},
                               {value: '1', label: '1'},
                             ]}
-                            helperClass={classes.role}
+                            helperClass={classes.phonePrefix}
                             error={errors?.phonePrefix}
                             field={field}
                             form={formState}
@@ -195,7 +233,7 @@ const RegistrationForm = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid container rowSpacing={{xs:2}} columnSpacing={2} className={classes.names}>
+                  <Grid container rowSpacing={{xs:2}} columnSpacing={2}>
                     <Grid item lg={6} xs={12}>
                       <Controller 
                         name="firstName"
@@ -205,7 +243,7 @@ const RegistrationForm = () => {
                             name="firstName"
                             id="signup-firstName"
                             helperClass={classes.firstName}
-                            label="שם פרטי"
+                            label={t('registrationForm.firstName')}
                             error={errors.firstName}
                             field={field}
                             form={formState}
@@ -222,7 +260,7 @@ const RegistrationForm = () => {
                             name="lastName"
                             id="signup-lastName"
                             helperClass={classes.lastName}
-                            label="שם משפחה"
+                            label={t('registrationForm.lastName')}
                             error={errors?.lastName}
                             field={field}
                             form={formState}
@@ -238,7 +276,6 @@ const RegistrationForm = () => {
                       <FormSelect // role
                         name="role"
                         id="signup role"
-                        className={classes.mtb8}
                         options={roleOptions}
                         error={errors?.role}
                         field={field}
@@ -253,8 +290,7 @@ const RegistrationForm = () => {
                       <FormInput
                         name="businessName"
                         id="signup-business-name"
-                        className={classes.mtb8}
-                        placeholder="שם העסק"
+                        placeholder={t('registrationForm.business')}
                         error={errors?.businessName}
                         field={field}
                         form={formState}
@@ -266,12 +302,8 @@ const RegistrationForm = () => {
                     control={control}
                     render={({field, formState}) =>
                       <FormSelect // area
-                        className={classes.mtb8}
-                        options={[
-                          {value: 'israel', label: 'Israel'},
-                          {value: 'ukraine', label: 'Ukraine'}
-                        ]}
-                        placeholder="ענף/תחום"
+                        options={sectorOptions}
+                        placeholder={t('registrationForm.sector')}
                         error={errors?.area}
                         field={field}
                         form={formState}
@@ -282,7 +314,7 @@ const RegistrationForm = () => {
                     <Grid item lg={6} xs={6}>
                       <FormButton
                         type='submit'
-                        text="המשך"
+                        text={t('registrationForm.button1')}
                         startIcon={<img src={RightArrow} alt="logo"/>}
                         variant="contained"
                         color="primary"
@@ -290,11 +322,11 @@ const RegistrationForm = () => {
                     </Grid>
                     <Grid item lg={6} xs={6}>
                       <FormButton
-                        text="חזרה"
+                        text={t('registrationForm.button2')}
                         variant="outlined"
                         color="primary"
                         endIcon={<img src={LeftArrow} alt="logo"/>}
-                        onClick={handleBack}
+                        onClick={handleModalOpen}
                       />
                     </Grid>
                   </Grid>
@@ -305,8 +337,14 @@ const RegistrationForm = () => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title="היועצת הפיננסית מוכנה לפעולה!"/>
+        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('registrationForm.leftSideDescription')}/>
       </Grid>
+      <ConfirmModal 
+        open={open}
+        title="Are you sure to go back?"
+        onClose={handleModalClose}
+        onClick={handleBack}
+      />
     </Grid>
   )
 }

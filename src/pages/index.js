@@ -8,7 +8,6 @@ import Dashboard from './Dashboard';
 
 const Pages = () => {
   const isAuthenticated = useMemo(() => Boolean(localStorage.getItem('token')), [])
-  console.log(isAuthenticated)
   return (
     <Routes>
       <Route

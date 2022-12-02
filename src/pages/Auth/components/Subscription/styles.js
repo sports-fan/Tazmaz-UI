@@ -64,5 +64,10 @@ export default makeStyles(theme => ({
     paddingLeft: 16,
     paddingRight: 16,
     marginBottom: 16,
+  },
+  button: {    
+    '&:hover': {
+        background: 'none',
+    },
   }
 }))
