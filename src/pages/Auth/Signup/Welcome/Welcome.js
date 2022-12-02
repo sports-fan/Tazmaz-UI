@@ -10,7 +10,7 @@ import WelcomeMobileLogo from 'assets/welcomeMobileLogo.svg'
 import LeftArrow from 'assets/leftArrow.svg'
 import useStyles from './styles'
 
-const Welcome = () => {
+const Welcome = ({t}) => {
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)');
   return (
@@ -19,9 +19,9 @@ const Welcome = () => {
       <SelectSubscriptionLayout>
         <div className={classes.main}>
           <div className={classes.title}>
-            <Typography variant={matches ? 'h5': 'h4'} color="primary" mb={1}>יוהוו!</Typography>
-            <Typography variant={matches ? 'h6': 'h5'} mb={1}>סיימנו את כל השלבים</Typography>
-            <Typography variant={matches ? 'h6': 'h5'}>היועצת מוכנה לצאת לפעולה!</Typography>
+            <Typography variant={matches ? 'h5': 'h4'} color="primary" mb={1}>{t('welcome.des1')}</Typography>
+            <Typography variant={matches ? 'h6': 'h5'} mb={1}>{t('welcome.des2')}</Typography>
+            <Typography variant={matches ? 'h6': 'h5'}>{t('welcome.des3')}</Typography>
           </div>
           <div className={classes.logo}>
             <img src={matches ? WelcomeMobileLogo : WelcomeLogo} alt="welcome-log" />
@@ -34,7 +34,7 @@ const Welcome = () => {
                 <FormButton
                   variant="contained"
                   color="primary"
-                  text="סיימתי, אני רוצה לצאת לדרך"
+                  text={t('welcome.buttonRight')}
                   endIcon={<img src={LeftArrow} alt="welcome-log" />}
                 />
               </Grid>
@@ -42,7 +42,7 @@ const Welcome = () => {
                 <FormButton
                   variant="contained"
                   color="info"
-                  text="אני רוצה להציג את העסק"
+                  text={t('welcome.buttonLeft')}
                   endIcon={<img src={LeftArrow} alt="welcome-log" />}
                 />
               </Grid>

@@ -15,7 +15,7 @@ import SubscriptionLogo5 from 'assets/subscritionLogo5.svg'
 import { compareSubscription } from "helper/utils";
 import useStyles from './styles'
 
-const SelectSubscription = () => {
+const SelectSubscription = ({t}) => {
   const classes = useStyles()
   const [subcriptions, setSubcriptions] = useState([])
   const [filter, setFilter] = useState('MONTHLY')
@@ -58,7 +58,7 @@ const SelectSubscription = () => {
         <Grid container justifyContent="center">
           <Grid item lg={4} xs={12}>
             <div className={classes.title}>
-              <Typography textAlign="center" variant="h4">תבחרו את המנוי המתאים ביותר עבורכם</Typography>
+              <Typography textAlign="center" variant="h4">{t('subscription.description')}</Typography>
             </div>
           </Grid>
         </Grid>
@@ -69,12 +69,12 @@ const SelectSubscription = () => {
             <CustomSwitch
               onChange={handleSwitchChange}
               right={
-                <Typography variant="subtitle1" color="primary">חודשי</Typography>
+                <Typography variant="subtitle1" color="primary">{t('subscription.monthly')}</Typography>
               }
               left={
                 <div className={classes.switchLeft}>
-                  <Typography variant="subtitle1" color="primary">שנתי</Typography>
-                  <Typography variant="caption" color="primary">חיסכו 30%</Typography>
+                  <Typography variant="subtitle1" color="primary">{t('subscription.yearly')}</Typography>
+                  <Typography variant="caption" color="primary">{t('subscription.30%')}</Typography>
                 </div>
               }
             />
@@ -83,12 +83,12 @@ const SelectSubscription = () => {
             <Grid container columnSpacing={2} rowSpacing={{xs:1}} alignItems="flex-end">
               <Grid item lg={8}  xs={12}>
                 <div className={classes.formTitle}>
-                  <Typography variant="body1">רגע, יש לך אולי קוד הטבה?</Typography>
+                  <Typography variant="body1">{t('subscription.couponLabel')}</Typography>
                 </div>
                 <div className={classes.formInput}>
                   <FormInput
                     id="signup-subscrition-input"
-                    placeholder="הזנת קוד הטבה"
+                    placeholder={t('subscription.couponInput')}
                   />
                 </div>
               </Grid>
@@ -97,7 +97,7 @@ const SelectSubscription = () => {
                   <FormButton
                     color="primary"
                     variant="contained"
-                    text="הזנת קוד הטבה"              
+                    text={t('subscription.couponButton')}       
                   />
                 </div>
               </Grid>

@@ -1,19 +1,22 @@
 import { Divider, Typography } from '@mui/material'
 import FormButton from 'components/FormButton'
+import { useTranslation } from 'react-i18next'
 import TickIcon from '../../../../assets/tick.svg'
 import SubscriptionHeaderLogo from '../../../../assets/subscriptionHeaderLogo.svg'
 import useStyles from './styles'
 
 const Subscription = ({icon, onClick, subscription}) => {
   const classes = useStyles()
+  const { t } = useTranslation()
   const { mostPopular, price, trialDays } = subscription
+
   return (
     <div className={classes.container}>
       {mostPopular && <img className={classes.logo} src={SubscriptionHeaderLogo} alt="logo" />}
       <div className={classes.main}>
         {mostPopular ?
           <div className={classes.clickedHeader}>
-            <Typography variant='body1'>הכי פופולרי</Typography>
+            <Typography variant='body1'>{t('subscription.header')}</Typography>
           </div> :
           <div className={classes.header}/>
         }
@@ -49,7 +52,7 @@ const Subscription = ({icon, onClick, subscription}) => {
         <div className={classes.formButton}>
           <FormButton
             className={classes.button}
-            text="יאללה, מתאים לי"
+            text={t('subscription.subButton')}
             variant="contained"
             color="primary"
             onClick={onClick}

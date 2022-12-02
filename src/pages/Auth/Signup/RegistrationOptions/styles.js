@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('lg')]: {
       marginTop: 26
     },
-    marginTop: 47
+    marginTop: 46
   },
   leftBGColor: {
     backgroundColor: '#413B71',
@@ -28,9 +28,6 @@ export default makeStyles(theme => ({
   },
   loginWithGoogle: {
     marginTop: '11px ! important'
-  },
-  loginWithInput: {
-    marginTop: '15px ! important'
   },
   divider: {
     width: '100%',

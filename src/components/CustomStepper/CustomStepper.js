@@ -1,15 +1,17 @@
 import { Grid, Stepper, Step, StepLabel, Typography } from "@mui/material";
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
 import useStyles, { useLabelStyles } from './styles'
 
 const CustomStepper = ({stepNum}) => {
+  const { t } = useTranslation()
   const classes = useStyles()
   const labelStyles = useLabelStyles()
   const steps = [
-    'פרטי עסק',
-    'בחירת מנוי',
-    'ברוכים הבאים',
+    t('common.step1'),
+    t('common.step2'),
+    t('common.step3'),
   ]
 
   const CustomStepConnector = styled(StepConnector)(({ theme }) => ({

@@ -44,7 +44,7 @@ const schema = yup.object({
   area: yup.string().required("מספר עוסק/ת.ז. שגוי")
 }).required()
  
-const RegistrationForm = () => {
+const RegistrationForm = ({t}) => {
   const classes = useStyles()
   const [roleOptions, setRoleOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])
@@ -148,8 +148,8 @@ const RegistrationForm = () => {
             <Grid item lg={10} sm={12}>
               <Container>
                 <div className={classes.formTitle}>
-                  <Typography variant='h5'>יאללה מתחילים!</Typography>
-                  <Typography variant='h5'>בוא נכיר</Typography>
+                  <Typography variant='h5'>{t('registrationForm.description1')}</Typography>
+                  <Typography variant='h5'>{t('registrationForm.description2')}</Typography>
                 </div>
                 <form onSubmit={handleSubmit(handleRegister)}>
                   <Controller 
@@ -178,7 +178,7 @@ const RegistrationForm = () => {
                         type="password"
                         id="signup-password"
                         icon={<img src={KeyIcon} alt="logo"/>}
-                        placeholder="בחירת סיסמא"
+                        placeholder={t('registrationForm.password')}
                         error={errors?.password}
                         autoComplete="current-password"
                         field={field}
@@ -197,7 +197,7 @@ const RegistrationForm = () => {
                           type="number"
                           helperClass={classes.phoneNumber}
                           id="signup-phone-number"
-                          placeholder="מספר טלפון"
+                          placeholder={t('registrationForm.phone')}
                           error={errors?.phoneNumber}
                           field={field}
                           form={formState}
@@ -243,7 +243,7 @@ const RegistrationForm = () => {
                             name="firstName"
                             id="signup-firstName"
                             helperClass={classes.firstName}
-                            label="שם פרטי"
+                            label={t('registrationForm.firstName')}
                             error={errors.firstName}
                             field={field}
                             form={formState}
@@ -260,7 +260,7 @@ const RegistrationForm = () => {
                             name="lastName"
                             id="signup-lastName"
                             helperClass={classes.lastName}
-                            label="שם משפחה"
+                            label={t('registrationForm.lastName')}
                             error={errors?.lastName}
                             field={field}
                             form={formState}
@@ -290,7 +290,7 @@ const RegistrationForm = () => {
                       <FormInput
                         name="businessName"
                         id="signup-business-name"
-                        placeholder="שם העסק"
+                        placeholder={t('registrationForm.business')}
                         error={errors?.businessName}
                         field={field}
                         form={formState}
@@ -303,7 +303,7 @@ const RegistrationForm = () => {
                     render={({field, formState}) =>
                       <FormSelect // area
                         options={sectorOptions}
-                        placeholder="ענף/תחום"
+                        placeholder={t('registrationForm.sector')}
                         error={errors?.area}
                         field={field}
                         form={formState}
@@ -314,7 +314,7 @@ const RegistrationForm = () => {
                     <Grid item lg={6} xs={6}>
                       <FormButton
                         type='submit'
-                        text="המשך"
+                        text={t('registrationForm.button1')}
                         startIcon={<img src={RightArrow} alt="logo"/>}
                         variant="contained"
                         color="primary"
@@ -322,7 +322,7 @@ const RegistrationForm = () => {
                     </Grid>
                     <Grid item lg={6} xs={6}>
                       <FormButton
-                        text="חזרה"
+                        text={t('registrationForm.button2')}
                         variant="outlined"
                         color="primary"
                         endIcon={<img src={LeftArrow} alt="logo"/>}
@@ -337,7 +337,7 @@ const RegistrationForm = () => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title="היועצת הפיננסית מוכנה לפעולה!"/>
+        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('registrationForm.leftSideDescription')}/>
       </Grid>
       <ConfirmModal 
         open={open}

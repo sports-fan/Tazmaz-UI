@@ -13,7 +13,7 @@ import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import Passcode from 'components/Passcode';
 
-const TwofaForm = () => {
+const TwofaForm = ({t}) => {
   const classes = useStyles()
   const {control, handleSubmit, formState: {errors}} = useForm({})
 
@@ -44,12 +44,11 @@ const TwofaForm = () => {
           <Grid container justifyContent='center' className={classes.main}>
             <Grid item lg={10} sm={12}>
               <Container>
-                <Typography variant='h5' mb={1} align='left'><b>,םיאבה םיכורב</b></Typography>
-                <Typography variant='h6' align='left'>TazMaz היועצת הפיננסית לעסק שלך</Typography>
+                <Typography variant='h5' mb={1} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
                 <Typography variant='body1' align='left'>
-                  ברגעים אלו ממש נשלח למכשירך קוד סודי בן 4 ספרות לצורך אימות.
-                  אנא הכנס/י את הקוד להשלמת תהליך ההתחברות.
+                  {t('2fa.description')}
                 </Typography>
               </Container>
               <form onSubmit={handleSubmit(handleTwofa)}>
@@ -69,7 +68,7 @@ const TwofaForm = () => {
                 <Grid container  justifyContent='center' columnSpacing={{lg: 1.5, sm: 8, md: 10, xs: 8}} className={classes.actions}>
                   <Grid item lg={3} xl={2} md={2} sm={1} xs={2}>
                     <FormButton
-                      text="חזור"
+                      text={t('2fa.button1')}
                       variant="contained"
                       color="black"
                     />
@@ -77,7 +76,7 @@ const TwofaForm = () => {
                   <Grid item lg={9} md={8} sm={5} xs={8}>
                     <FormButton
                       type="submit"
-                      text="אישור והתחברות"
+                      text={t('2fa.button2')}
                       variant="contained"
                       color="primary"
                     />
@@ -85,7 +84,7 @@ const TwofaForm = () => {
                 </Grid>
               </form>
               <div className={classes.text}>
-                <Typography variant='caption'>לא קיבלת קוד סודי ? לחץ כאן</Typography>
+                <Typography variant='caption'>{t('2fa.message')}</Typography>
               </div>
             </Grid>
           </Grid>

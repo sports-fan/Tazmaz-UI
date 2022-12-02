@@ -26,7 +26,7 @@ const schema = yup.object({
   email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
 })
 
-const RegistrationOptions = () => {
+const RegistrationOptions = ({t}) => {
   const classes = useStyles()
   const [checked, setChecked] = useState(false)
   const [open, setOpen] = useState(false)
@@ -72,19 +72,19 @@ const RegistrationOptions = () => {
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={1.5} align='left'><b>הרשמה למערכת </b></Typography>
-                <Typography variant='h6' align='left'>TazMaz היועצת הפיננסית לעסק שלך</Typography>
+                <Typography variant='h5' mb={1.5} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb6} ></div>
                 <FormButton
                   endIcon={<img src={AppleIcon} alt="logo"/>}
-                  text='התחברות באמצעות'
+                  text={t('common.loginUsing')}
                   color="secondary"
                   variant="outlined"
                 />
                 <FormButton
                   className={classes.loginWithGoogle}
                   endIcon={<img src={GoogleIcon} alt="logo"/>}
-                  text='התחברות באמצעות'
+                  text={t('common.loginUsing')}
                   color="secondary"
                   variant="outlined"
                 />
@@ -97,7 +97,7 @@ const RegistrationOptions = () => {
                       <FormInput
                         name="email"
                         type="email"
-                        placeholder='הזנת אימייל'
+                        placeholder={t('registrationOption.email')}
                         id="signup-email"
                         error={errors?.email}
                         field={field}
@@ -109,23 +109,23 @@ const RegistrationOptions = () => {
                     className={classes.loginWithInput}
                     endIcon={<img src={LeftArrow} alt="logo"/>}
                     type="submit"
-                    text='שלב הבא'
+                    text={t('registrationOption.button')}
                     color="primary"
                     variant="contained"
                   />
                   <div className={classes.forgotPassword}>
                     <div className={classes.forgotText}>
                       <Typography variant='body2'>
-                        בהרשמה אני מאשר/ת שאני מקבל/ת את 
+                        {t('registrationOption.confirm')}
                       </Typography>
                       <Typography variant='body2'>
                         <u className={classes.u}>
-                          תנאיהשירות 
+                          {t('registrationOption.policy')}
                         </u>                      
                       </Typography>
                       <Typography variant='body2'>
                         <u className={classes.u}>
-                          ומדיניות הפרטיות   
+                          {t('registrationOption.terms')}  
                         </u>                      
                       </Typography>
                     </div>
@@ -136,7 +136,7 @@ const RegistrationOptions = () => {
                   </div>
                 </form>
                 <div className={classes.register}>
-                  <Typography variant='body1'> נרשמת כבר בעבר<u  className={classes.u}>? להתחברות</u></Typography>
+                  <Typography variant='body1'>{t('registrationOption.registered')}<u  className={classes.u}>{t('registrationOption.connect')}</u></Typography>
                 </div>
               </Container>
             </Grid>
@@ -144,7 +144,7 @@ const RegistrationOptions = () => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
+        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('common.leftSideDescription')}/>
       </Grid>
       <Notification
         open={open}
