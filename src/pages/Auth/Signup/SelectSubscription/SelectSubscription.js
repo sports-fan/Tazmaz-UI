@@ -63,7 +63,7 @@ const SelectSubscription = ({t}) => {
           </Grid>
         </Grid>
         <div className={classes.mt}></div>
-        <Grid container rowSpacing={5}  direction="row-reverse" alignItems="center" className={classes.formContainer}>
+        <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-end">
           <Grid item lg={4} xs={12}/>
           <Grid item lg={4} xs={12} className={classes.switch}>
             <CustomSwitch

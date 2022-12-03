@@ -9,7 +9,7 @@ const AuthRightSide = ({children, backURL, steper, logo, bottomDisabled, classNa
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)')
   return (
-    <div>
+    <div className={classes.main}>
       <div className={className}>
         <AuthHeader backURL={backURL} theme={theme} logo={logo} />
         {steper}

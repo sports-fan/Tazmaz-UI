@@ -105,29 +105,32 @@ const RegistrationOptions = ({t}) => {
                       />
                     }
                   />
-                  <FormButton
-                    className={classes.loginWithInput}
-                    endIcon={<img src={LeftArrow} alt="logo"/>}
-                    type="submit"
-                    text={t('registrationOption.button')}
-                    color="primary"
-                    variant="contained"
-                  />
+                  <div className={classes.formButton}>
+                    <FormButton
+                      endIcon={<img src={LeftArrow} alt="logo"/>}
+                      type="submit"
+                      text={t('registrationOption.button')}
+                      color="primary"
+                      variant="contained"
+                    />
+                  </div>
                   <div className={classes.forgotPassword}>
                     <div className={classes.forgotText}>
                       <Typography variant='body2'>
                         {t('registrationOption.confirm')}
                       </Typography>
-                      <Typography variant='body2'>
-                        <u className={classes.u}>
-                          {t('registrationOption.policy')}
-                        </u>                      
-                      </Typography>
-                      <Typography variant='body2'>
-                        <u className={classes.u}>
-                          {t('registrationOption.terms')}  
-                        </u>                      
-                      </Typography>
+                      <div className={classes.underlined}>
+                        <Typography variant='body2'>
+                          <u className={classes.u}>
+                            {t('registrationOption.policy')}
+                          </u>                      
+                        </Typography>
+                        <Typography variant='body2'>
+                          <u className={classes.u}>
+                            {t('registrationOption.terms')}  
+                          </u>                      
+                        </Typography>
+                      </div>
                     </div>
                     <FormCheckbox
                       value={checked}

@@ -32,7 +32,7 @@ export default makeStyles(theme => ({
   divider: {
     width: '100%',
     marginTop: '20px ! important',
-    marginBottom: '20px ! important',
+    marginBottom: '10px ! important',
   },
   forgotPassword: {
     [theme.breakpoints.down('lg')]: {
@@ -40,7 +40,7 @@ export default makeStyles(theme => ({
     },
     display: 'flex',
     flexDirection: 'row-reverse',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'flex-end',
     marginTop: 15
   },
@@ -62,6 +62,9 @@ export default makeStyles(theme => ({
     color: theme.palette.primary.main,
     paddingRight: 5
   },
+  formButton: {
+    marginTop: 10
+  },
   register: {
     display: 'flex',
     justifyContent: 'center',
@@ -72,4 +75,7 @@ export default makeStyles(theme => ({
     marginTop: 38,
     marginBottom: 20
   },
+  underlined: {
+    display: 'flex'
+  }
 }))

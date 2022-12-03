@@ -23,6 +23,7 @@ export default makeStyles(theme => ({
   switch: {
     display: 'flex',
     justifyContent: 'center',
+    paddingBottom: 8
   },
   switchLeft: {
     display: 'flex',
@@ -42,6 +43,6 @@ export default makeStyles(theme => ({
     height: 553,
   },
   formButton: {
-    marginBottom: 16
+    marginBottom: 8
   },
 }))

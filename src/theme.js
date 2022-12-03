@@ -47,7 +47,8 @@ const theme = createTheme({
     MuiFormControl: {
       styleOverrides: {
         root: {
-          marginBottom: 16
+          marginBottom: 8,
+          marginTop: 8
         }
       }
     },
