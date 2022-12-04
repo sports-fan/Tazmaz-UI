@@ -10,7 +10,7 @@ export default makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    height: '100vh',
+    height: '100%',
   },
   titleDiv: {
     width: 523,

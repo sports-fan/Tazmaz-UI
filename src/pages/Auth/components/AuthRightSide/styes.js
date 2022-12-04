@@ -2,7 +2,8 @@ import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
   main: {
-    display: 'flex',
+    width: '100%',
+    height: '100vh',
   },
   logo: {
     [theme.breakpoints.down('lg')]: {

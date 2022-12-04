@@ -1,9 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import axios from "axios";
 
+import Notification from 'components/Notification';
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
@@ -16,6 +17,8 @@ import Passcode from 'components/Passcode';
 const TwofaForm = ({t}) => {
   const classes = useStyles()
   const {control, handleSubmit, formState: {errors}} = useForm({})
+  const [errRes, setErrRes] = useState({})
+  const [open, setOpen] = useState(false)
 
   const handleTwofa = useCallback((data) => {
     axios({
@@ -34,7 +37,11 @@ const TwofaForm = ({t}) => {
       console.log(res.data)
       localStorage.setItem('token', res.data.access_token)
     })
-    .catch(err => {console.log(err)})
+    .catch(err => {
+      console.log(err)
+      setOpen(true)
+      setErrRes(err.response.data)
+    })
   }, [])
 
   return (
@@ -93,6 +100,11 @@ const TwofaForm = ({t}) => {
       <Grid item md={8}>
         <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={LoginLeftFG} title="3-5 דקות ביום ואתם מסודרים"/>
       </Grid>
+      <Notification
+        open={open}
+        message={errRes?.message || ''}
+        onClose={() => setOpen(false)}
+      />
     </Grid>
   )
 }

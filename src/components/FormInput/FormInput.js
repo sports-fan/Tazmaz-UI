@@ -6,7 +6,7 @@ import useStyles from './styles'
 const FormInput = ({helperClass, field, error, name, form, label, startAdornment, endAdornment, icon, className, id, readOnly, ...props}) => {
   const classes = useStyles()
   return (
-    <FormControl fullWidth  className={cn(classes.main, className)}>
+    <FormControl fullWidth className={cn(classes.main, className)}>
       {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
       <OutlinedInput
         id={id}

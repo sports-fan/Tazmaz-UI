@@ -40,7 +40,6 @@ const LoginForm = (props) => {
     }
   })
   const {t} = props
-  console.log({props})
   const [loginRes, setLoginRes] = useState({})
   const [open, setOpen] = useState(false)
   
@@ -100,7 +99,7 @@ const LoginForm = (props) => {
                 <Typography variant='h5' mb={1} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
-                <Typography variant='body1' mb={1} align='left'>{t('login.caramelizeTheSync')}</Typography>
+                <Typography variant='body1' className={classes.caramelize} mb={1} align='left'>{t('login.caramelizeTheSync')}</Typography>
                 <FormButton
                   endIcon={<img src={AppleIcon} alt="logo"/>}
                   text={t('common.loginUsing')}
@@ -150,12 +149,14 @@ const LoginForm = (props) => {
                       />
                     }
                   />
-                  <FormButton
-                    type="submit"
-                    text={t('login.manageTheBusiness')}
-                    color="primary"
-                    variant="contained"
-                  />
+                  <div className={classes.submitButton}>
+                    <FormButton
+                      type="submit"
+                      text={t('login.manageTheBusiness')}
+                      color="primary"
+                      variant="contained"
+                    />
+                  </div>
                 </form>
                 <div className={classes.forgetText}>
                   <Button onClick={handleForgetPassword}>

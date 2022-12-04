@@ -16,30 +16,24 @@ export default makeStyles(theme => ({
   mb: {
     marginBottom: 9
   },
-  loginWithGoogle: {
-    marginTop: '13px ! important'
+  caramelize: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    },
   },
-  loginWithInput: {
-    marginTop: '13px ! important'
+  loginWithGoogle: {
+    marginTop: '11px ! important'
   },
   divider: {
     width: '100%',
-    marginTop: '10px ! important',
-    marginBottom: '10px ! important',
+    marginTop: '15px ! important',
+    marginBottom: '7px ! important',
   },
   forgetText: {
     display: 'flex',
     justifyContent: 'center',
     marginTop: 8
   },
-  // email: {
-  //   top: '56px !important',
-  //   left: '84px !important'
-  // },
-  // password: {
-  //   top: '68px !important',
-  //   left: '84px !important'
-  // },
   register: {
     display: 'flex',
     justifyContent: 'center',
@@ -47,6 +41,9 @@ export default makeStyles(theme => ({
       marginTop: 22,
       marginBottom: 6
     },
-    marginTop: 22,
+    marginTop: 14,
   },
+  submitButton: {
+    marginTop: 8
+  }
 }))
