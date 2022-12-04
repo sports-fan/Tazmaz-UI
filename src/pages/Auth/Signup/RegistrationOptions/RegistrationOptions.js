@@ -30,6 +30,7 @@ const RegistrationOptions = ({t}) => {
   const classes = useStyles()
   const [checked, setChecked] = useState(false)
   const [open, setOpen] = useState(false)
+  const [errRes, setErrRes] = useState({})
   const navigate = useNavigate()
   const {control, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
@@ -59,7 +60,11 @@ const RegistrationOptions = ({t}) => {
           navigate("/auth/signup/2")
         }
       })
-      .catch(err => {console.log(err)})
+      .catch(err => {
+        console.log(err)
+        setOpen(false)
+        setErrRes(err.response.data)
+      })
     } else {
       setOpen(true)
     }
@@ -151,7 +156,7 @@ const RegistrationOptions = ({t}) => {
       </Grid>
       <Notification
         open={open}
-        message='You should check the Terms & Policy first'
+        message={errRes?.message || 'Please read our terms & policy'}
         onClose={() => setOpen(false)}
       />
     </Grid>

@@ -41,6 +41,9 @@ export default makeStyles(theme => ({
       marginTop: 22,
       marginBottom: 6
     },
-    marginTop: 22,
+    marginTop: 14,
   },
+  submitButton: {
+    marginTop: 8
+  }
 }))

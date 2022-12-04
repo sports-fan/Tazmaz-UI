@@ -40,7 +40,6 @@ const LoginForm = (props) => {
     }
   })
   const {t} = props
-  console.log({props})
   const [loginRes, setLoginRes] = useState({})
   const [open, setOpen] = useState(false)
   
@@ -150,13 +149,14 @@ const LoginForm = (props) => {
                       />
                     }
                   />
-                  <FormButton
-                    type="submit"
-                    className={classes.submitButton}
-                    text={t('login.manageTheBusiness')}
-                    color="primary"
-                    variant="contained"
-                  />
+                  <div className={classes.submitButton}>
+                    <FormButton
+                      type="submit"
+                      text={t('login.manageTheBusiness')}
+                      color="primary"
+                      variant="contained"
+                    />
+                  </div>
                 </form>
                 <div className={classes.forgetText}>
                   <Button onClick={handleForgetPassword}>

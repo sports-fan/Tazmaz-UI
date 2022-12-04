@@ -11,6 +11,7 @@ import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import Container from 'pages/Auth/components/Container'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import SignupLeftFG from 'assets/signupLogo2.svg'
+import Notification from 'components/Notification';
 import TazmazLogo from 'assets/tazmazLogWhite.svg'
 import UserIcon from 'assets/userIcon.svg'
 import KeyIcon from 'assets/keyIcon.svg'
@@ -26,10 +27,10 @@ import ConfirmModal from 'components/ConfirmModal';
 const schema = yup.object({
   firstName: yup.string()
     .required("מספר עוסק/ת.ז. שגוי")
-    .matches(/^[\u0590-\u05fe]+$/i,'Name can only contain Latin letters.'),
+    .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
   lastName: yup.string()
     .required("מספר עוסק/ת.ז. שגוי")
-    .matches(/^[\u0590-\u05fe]+$/i,'Name can only contain Latin letters.'),
+    .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
   email: yup.string("מספר עוסק/ת.ז. שגוי"),
   password: yup.string()
     .min(8, '8 characters minimum.')
@@ -37,7 +38,7 @@ const schema = yup.object({
     .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum'),
   phonePrefix: yup.string().required("required"),
   phoneNumber: yup.string()
-    .matches(/^[0-9]\w{9}$/, 'only numbers, 9 digits')
+    .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
@@ -48,7 +49,9 @@ const RegistrationForm = ({t}) => {
   const classes = useStyles()
   const [roleOptions, setRoleOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
   const [open, setOpen] = useState(false)
+  const [errRes, setErrRes] = useState({})
   const navigate = useNavigate()
   const { handleSubmit, formState: {errors}, control } = useForm({
     resolver: yupResolver(schema),
@@ -119,7 +122,11 @@ const RegistrationForm = ({t}) => {
         navigate("/auth/signup/3")
       }
     })
-    .catch(err => {console.log(err)})
+    .catch(err => {
+      console.log(err)
+      setOpen(false)
+      setErrRes(err.response.data)
+    })
   }, [navigate])
 
   const handleBack = useCallback(() => {
@@ -127,11 +134,11 @@ const RegistrationForm = ({t}) => {
   }, [navigate])
 
   const handleModalOpen = useCallback(() => {
-    setOpen(true)
+    setModalOpen(true)
   }, [])
 
   const handleModalClose = useCallback(() => {
-    setOpen(false)
+    setModalOpen(false)
   }, [])
 
   return (
@@ -340,10 +347,15 @@ const RegistrationForm = ({t}) => {
         <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('registrationForm.leftSideDescription')}/>
       </Grid>
       <ConfirmModal 
-        open={open}
+        open={modalOpen}
         title="Are you sure to go back?"
         onClose={handleModalClose}
         onClick={handleBack}
+      />
+      <Notification
+        open={open}
+        message={errRes?.message || 'Please read our terms & policy'}
+        onClose={() => setOpen(false)}
       />
     </Grid>
   )
