@@ -57,7 +57,7 @@ export default makeStyles(theme => ({
   lower: {
     paddingLeft: 16,
     paddingRight: 16,
-    marginTop: 12,
+    marginTop: 17.5,
     marginBottom: 26,
   },
   formButton: {

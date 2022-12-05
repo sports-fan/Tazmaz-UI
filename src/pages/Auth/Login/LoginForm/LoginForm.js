@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useState, useEffect, useMemo, useContext } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
@@ -19,22 +19,23 @@ import GoogleIcon from 'assets/google.svg'
 import TazmazLogo from 'assets/tazmazLogoLogin.svg'
 import PenIcon from 'assets/penIcon.svg'
 import PasswordIcon from 'assets/passwordIcon.svg'
-import LoginLeftFG from 'assets/loginLogo2.svg'
 import AppleIcon from 'assets/apple.svg'
 import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
+import { AuthContext } from 'contexts/AuthContext';
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
   password: yup.string()
-    .min(8, '8 characters minimum.')
+    .min(8, '8 characters minimum')
     .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
     .required("מספר עוסק/ת.ז. שגוי")
 })
 
-const LoginForm = (props) => {
+const LoginForm = ({t}) => {
   const classes = useStyles()
   const navigate = useNavigate()
+  const { loginPage } = useContext(AuthContext)
   const {control, watch, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -42,7 +43,6 @@ const LoginForm = (props) => {
       password: ''
     }
   })
-  const {t} = props
   const [loginRes, setLoginRes] = useState({})
   const [open, setOpen] = useState(false)
 
@@ -53,9 +53,10 @@ const LoginForm = (props) => {
     state: 'state',
     nonce: 'nonce',
     usePopup: true
-}), [])
-  
-  const handleForgetPassword = useCallback(() => {
+  }), [])
+
+  const handleForgetPassword = useCallback((e) => {
+    e.preventDefault()
     const email  = watch('email')
     axios({
       url: '/public/forgot-password',
@@ -71,8 +72,13 @@ const LoginForm = (props) => {
     .then(res => {
       console.log(res.data)
     })
-    .catch(err => {console.log(err)})
+    .catch(err => {
+      console.log(err)
+      setOpen(true)
+      setLoginRes(err.response.data)
+    })
   }, [watch])
+
   useEffect(() => {
     const start = ()=> {
       gapi.client.init({
@@ -132,10 +138,10 @@ const LoginForm = (props) => {
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={1} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h5' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
-                <Typography variant='body1' className={classes.caramelize} mb={1} align='left'>{t('login.caramelizeTheSync')}</Typography>
+                <Typography variant='body1' className={classes.caramelize} mb={1.25} align='left'>{t('login.caramelizeTheSync')}</Typography>
                 <AppleSignin
                   authOptions={authOptions}
                   onSuccess={handleAppleLogin}
@@ -146,7 +152,9 @@ const LoginForm = (props) => {
                       endIcon={<img src={AppleIcon} alt="logo"/>}
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >
+                      {t('common.loginUsing')}
+                    </Button>
                   )}
                 />
                 <GoogleLogin
@@ -160,12 +168,13 @@ const LoginForm = (props) => {
                       onClick={renderProps.onClick}
                       className={classes.loginWithGoogle}
                       endIcon={<img src={GoogleIcon} alt="logo"/>}
-                      text='התחברות באמצעות'
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >
+                      {t('common.loginUsing')}
+                    </Button>
                   )}
-              />
+                />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleLogin)}>
                   <Controller 
@@ -178,7 +187,6 @@ const LoginForm = (props) => {
                         placeholder={t('login.email')}
                         icon={<img src={PenIcon} alt="pen logo"/>}
                         id="signup-email"
-                        helperClass={classes.email}
                         error={errors?.email}
                         field={field}
                         form={formState}
@@ -212,12 +220,14 @@ const LoginForm = (props) => {
                   </div>
                 </form>
                 <div className={classes.forgetText}>
-                  <Button onClick={handleForgetPassword}>
-                    {t('login.forgetYourPassword')}
-                  </Button>
+                  <Typography>
+                    <a href='/' className={classes.forgetTag} onClick={handleForgetPassword}>
+                      {t('login.forgetYourPassword')}
+                    </a>
+                  </Typography>
                 </div>
                 <div className={classes.register}>
-                  <Typography variant='body1'>{t('login.notRegistered')}</Typography>
+                  <Typography variant='body1' mr={1}>{t('login.notRegistered')}</Typography>
                   <a className={classes.u} href="signup/1">{t('login.forQuickRegistration')}</a>
                 </div>
               </Container>
@@ -226,7 +236,7 @@ const LoginForm = (props) => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={LoginLeftFG} title={t('common.leftSideDescription')}/>
+        <AuthLeftSide bgColor={loginPage.background} titleColor={classes.titleColor} icon={loginPage.image} title={loginPage.title}/>
       </Grid>
       <Notification
         open={open}

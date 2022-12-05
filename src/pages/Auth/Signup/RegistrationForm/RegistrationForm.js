@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from "react-hook-form";
@@ -10,7 +10,6 @@ import * as yup from "yup";
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import Container from 'pages/Auth/components/Container'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
-import SignupLeftFG from 'assets/signupLogo2.svg'
 import Notification from 'components/Notification';
 import TazmazLogo from 'assets/tazmazLogWhite.svg'
 import UserIcon from 'assets/userIcon.svg'
@@ -23,6 +22,7 @@ import FormInput from 'components/FormInput'
 import FormSelect from 'components/FormSelect'
 import FormButton from 'components/FormButton'
 import ConfirmModal from 'components/ConfirmModal';
+import { AuthContext } from 'contexts/AuthContext';
 
 const schema = yup.object({
   firstName: yup.string()
@@ -47,6 +47,8 @@ const schema = yup.object({
  
 const RegistrationForm = ({t}) => {
   const classes = useStyles()
+  const { registerDetailsPage } = useContext(AuthContext)
+  console.log(registerDetailsPage)
   const [roleOptions, setRoleOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
@@ -94,7 +96,7 @@ const RegistrationForm = ({t}) => {
       setSectorOptions(options)
     })
     .catch(err => {console.log(err)})
-  })
+  }, [])
 
   const handleRegister = useCallback(data => {
     axios({
@@ -194,7 +196,7 @@ const RegistrationForm = ({t}) => {
                     }
                   />
                   <Grid container columnSpacing={2}>
-                    <Grid item lg={9.5} xs={8}>
+                    <Grid item lg={9.5} xs={9}>
                       <Controller
                         name="phoneNumber"
                         control={control}
@@ -211,7 +213,7 @@ const RegistrationForm = ({t}) => {
                         />}
                       />
                     </Grid>
-                    <Grid item lg={2.5} xs={4}>
+                    <Grid item lg={2.5} xs={3}>
                       <Controller 
                         name="phonePrefix"
                         control={control}
@@ -240,7 +242,7 @@ const RegistrationForm = ({t}) => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid container rowSpacing={{xs:2}} columnSpacing={2}>
+                  <Grid container columnSpacing={2}>
                     <Grid item lg={6} xs={12}>
                       <Controller 
                         name="firstName"
@@ -282,6 +284,7 @@ const RegistrationForm = ({t}) => {
                     render={({field, formState}) =>
                       <FormSelect // role
                         name="role"
+                        placeholder={t('registrationForm.role')}
                         id="signup role"
                         options={roleOptions}
                         error={errors?.role}
@@ -344,7 +347,7 @@ const RegistrationForm = ({t}) => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('registrationForm.leftSideDescription')}/>
+        <AuthLeftSide bgColor={registerDetailsPage.background} titleColor={classes.titleColor} icon={registerDetailsPage.image} title={registerDetailsPage.title}/>
       </Grid>
       <ConfirmModal 
         open={modalOpen}

@@ -1,11 +1,11 @@
 {
   "common": {
-    "backToHome": "חזרה לדף הבית",
-    "loginUsing": "התחברות באמצעות",
-    "leftSideDescription": "3-5 דקות ביום ואתם מסודרים",
-    "step1": "פרטי עסק",
-    "step2": "בחירת מנוי",
-    "step3": "ברוכים הבאים"
+    "backToHome": "back to home",
+    "loginUsing": "Login using",
+    "leftSideDescription": "3-5 minutes a day and you are set",
+    "step1": "Business details",
+    "step2": "Subscription selection",
+    "step3": "Welcome"
   },
   "login": {
     "miyabaMichorev": ",םיאבה םיכורב",

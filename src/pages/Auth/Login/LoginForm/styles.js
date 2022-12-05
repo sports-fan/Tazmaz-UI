@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('lg')]: {
       marginTop: 26
     },
-    marginTop: 18
+    marginTop: 83
   },
   leftBGColor: {
     backgroundColor: '#F0F1F8',
@@ -14,12 +14,13 @@ export default makeStyles(theme => ({
     color: '#474E9F'
   },
   mb: {
-    marginBottom: 9
+    marginBottom: 34
   },
   caramelize: {
     [theme.breakpoints.down('sm')]: {
       display: 'none'
     },
+    marginBottom: 10
   },
   loginWithGoogle: {
     marginTop: '11px ! important'
@@ -32,7 +33,11 @@ export default makeStyles(theme => ({
   forgetText: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: 8
+    marginTop: 10
+  },
+  forgetTag: {
+    textDecoration: 'none',
+    color: '#000000'
   },
   register: {
     display: 'flex',
@@ -41,7 +46,7 @@ export default makeStyles(theme => ({
       marginTop: 22,
       marginBottom: 6
     },
-    marginTop: 14,
+    marginTop: 33,
   },
   submitButton: {
     marginTop: 8

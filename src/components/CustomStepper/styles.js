@@ -3,11 +3,11 @@ import { makeStyles } from "@mui/styles"
 export default makeStyles(theme => ({
   main: {
     [theme.breakpoints.down('sm')]: {
-      paddingTop: 110,
+      paddingTop: 54,
       paddingBottom: 18
     },
-    paddingTop: 40,
-    paddingBottom: 20
+    paddingTop: 45,
+    paddingBottom: 29
   },
   active: {
     width: 40,

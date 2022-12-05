@@ -2,11 +2,11 @@ import { Typography } from '@mui/material'
 import useStyles from './styles'
 import cn from 'classnames'
 
-const AuthLeftSide = ({icon, title, className, titleColor}) => {
+const AuthLeftSide = ({icon, title, className, titleColor, bgColor}) => {
   const classes = useStyles()
 
   return (
-    <div className={cn(classes.main, className)}>
+    <div className={cn(classes.main, className)} style={{backgroundColor: bgColor}}>
       <div className={classes.titleDiv}>
         <Typography variant='h4' className={titleColor}>{title}</Typography>
       </div>

@@ -52,7 +52,7 @@ const SelectSubscription = ({t}) => {
   }, [filter, subcriptions])
   
   return (
-    <div>
+    <div className={classes.main}>
       <SelectSubscriptionHeader stepNum={2}/>
       <SelectSubscriptionLayout>
         <Grid container justifyContent="center">
@@ -62,7 +62,7 @@ const SelectSubscription = ({t}) => {
             </div>
           </Grid>
         </Grid>
-        <div className={classes.mt}></div>
+        <div className={classes.mt36}></div>
         <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-end">
           <Grid item lg={4} xs={12}/>
           <Grid item lg={4} xs={12} className={classes.switch}>
@@ -104,6 +104,7 @@ const SelectSubscription = ({t}) => {
             </Grid>
           </Grid>
         </Grid>
+        <div className={classes.mt}></div>
         <Grid container rowSpacing={matches ? 1 : 3} columnSpacing={matches ? 1:4.1} justifyContent='center' alignItems="flex-end" className={classes.subscriptions}>
           {filteredSubscriptions.map((subcription, id) =>
             <Grid key={id} item lg={2.4} xs={12} sm={12} md={12}>

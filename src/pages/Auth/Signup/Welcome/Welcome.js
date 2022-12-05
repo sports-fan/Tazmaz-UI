@@ -14,20 +14,20 @@ const Welcome = ({t}) => {
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)');
   return (
-    <div>
+    <div className={classes.mainDiv}>
       <SelectSubscriptionHeader stepNum={3}/>
       <SelectSubscriptionLayout>
         <div className={classes.main}>
           <div className={classes.title}>
-            <Typography variant={matches ? 'h5': 'h4'} color="primary" mb={1}>{t('welcome.des1')}</Typography>
-            <Typography variant={matches ? 'h6': 'h5'} mb={1}>{t('welcome.des2')}</Typography>
+            <Typography variant={matches ? 'h5': 'h4'} color="primary" mb={2}>{t('welcome.des1')}</Typography>
+            <Typography variant={matches ? 'h6': 'h5'} mb={2}>{t('welcome.des2')}</Typography>
             <Typography variant={matches ? 'h6': 'h5'}>{t('welcome.des3')}</Typography>
           </div>
           <div className={classes.logo}>
             <img src={matches ? WelcomeMobileLogo : WelcomeLogo} alt="welcome-log" />
           </div>
         </div>
-        <Grid container justifyContent="center" className={classes.actions}>
+        <Grid container justifyContent="center">
           <Grid item lg={4} xs={12}>
             <Grid container columnSpacing={3} rowSpacing={3}>
               <Grid item lg={6} xs={12}>
@@ -49,6 +49,7 @@ const Welcome = ({t}) => {
             </Grid>
           </Grid>
         </Grid>
+        <div className={classes.bottom}></div>
       </SelectSubscriptionLayout>
     </div>
   )

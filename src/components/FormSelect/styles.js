@@ -9,5 +9,8 @@ export default makeStyles(theme => ({
   helperText: {
     position: 'absolute',
     top: 57,
+  },
+  placeholder: {
+    color: '#A6ADBF'
   }
 }))

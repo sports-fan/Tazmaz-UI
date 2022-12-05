@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('lg')]: {
       marginTop: 26
     },
-    marginTop: 46
+    marginTop: 90
   },
   leftBGColor: {
     backgroundColor: '#413B71',
@@ -64,6 +64,9 @@ export default makeStyles(theme => ({
     color: theme.palette.primary.main,
     paddingRight: 5
   },
+  returnTologin: {
+    textDecoration: 'none'
+  },
   formButton: {
     marginTop: 10
   },
@@ -74,8 +77,8 @@ export default makeStyles(theme => ({
       marginTop: 22,
       marginBottom: 6
     },
-    marginTop: 38,
-    marginBottom: 20
+    marginTop: 69,
+    marginBottom: 22
   },
   underlined: {
     display: 'flex'

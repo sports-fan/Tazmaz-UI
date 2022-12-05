@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useContext } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
@@ -16,21 +16,23 @@ import Container from 'pages/Auth/components/Container'
 import FormInput from 'components/FormInput'
 import FormCheckbox from 'components/FormCheckbox'
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
+import AuthRightSide from 'pages/Auth/components/AuthRightSide'
+import { AuthContext } from 'contexts/AuthContext';
 
 import TazmazLogo from 'assets/tazmazLogo.svg'
-import SignupLeftFG from 'assets/loginLogo.svg'
 import AppleIcon from 'assets/apple.svg'
 import GoogleIcon from 'assets/google.svg'
 import LeftArrow from 'assets/leftArrow.svg'
 import useStyles from './styles'
-import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 
 const schema = yup.object({
-  email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
+  email: yup.string().email("Invalid email format").required("שדה חובה"),
 })
 
 const RegistrationOptions = ({t}) => {
   const classes = useStyles()
+  const {registerPage} = useContext(AuthContext)
+  console.log(registerPage)
   const [checked, setChecked] = useState(false)
   const [open, setOpen] = useState(false)
   const [errRes, setErrRes] = useState({})
@@ -42,7 +44,6 @@ const RegistrationOptions = ({t}) => {
 
   const handlChekced = useCallback((e) => {
     setChecked(e.target.checked)
-    window.open('/term&policy','_blank').focus()
   },[])
   
   const authOptions = useMemo(() => ({
@@ -55,6 +56,10 @@ const RegistrationOptions = ({t}) => {
   }), [])
 
   useEffect(() => {
+    if (checked) {
+      window.open('/term&policy','_blank').focus()
+    }
+
     const start = ()=> {
       gapi.client.init({
         clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
@@ -63,7 +68,7 @@ const RegistrationOptions = ({t}) => {
     }
 
     gapi.load('client:auth2', start);
-  }, []);
+  }, [checked]);
 
   const handleEmailVerification = useCallback((data) => {
     if (checked) {
@@ -81,11 +86,14 @@ const RegistrationOptions = ({t}) => {
         if (res.data.success) {
           localStorage.setItem('verifiedEmail', data.email);
           navigate("/auth/signup/2")
+        } else {
+          setOpen(true)
+          setErrRes(res.data)
         }
       })
       .catch(err => {
         console.log(err)
-        setOpen(false)
+        setOpen(true)
         setErrRes(err.response.data)
       })
     } else {
@@ -115,7 +123,7 @@ const RegistrationOptions = ({t}) => {
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={1.5} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h5' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb6} ></div>
                 <AppleSignin
@@ -199,7 +207,9 @@ const RegistrationOptions = ({t}) => {
                   </div>
                 </form>
                 <div className={classes.register}>
-                  <Typography variant='body1'>{t('registrationOption.registered')}<u  className={classes.u}>{t('registrationOption.connect')}</u></Typography>
+                  <Typography variant='body1'>{t('registrationOption.registered')}
+                    <a href="/auth/login" className={classes.returnTologin}>{t('registrationOption.connect')}</a>
+                  </Typography>
                 </div>
               </Container>
             </Grid>
@@ -207,7 +217,7 @@ const RegistrationOptions = ({t}) => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('common.leftSideDescription')}/>
+        <AuthLeftSide bgColor={registerPage.background} titleColor={classes.titleColor} icon={registerPage.image} title={registerPage.title}/>
       </Grid>
       <Notification
         open={open}
