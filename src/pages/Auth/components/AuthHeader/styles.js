@@ -10,7 +10,7 @@ export default makeStyles(theme => ({
       paddingBottom: 100
     },
     [theme.breakpoints.down('sm')]: {
-      paddingBottom: 144
+      paddingBottom: 84
     },
     position: 'relative',
     paddingBottom: 73
@@ -32,23 +32,19 @@ export default makeStyles(theme => ({
   },
   logoDark: {
     [theme.breakpoints.down('xl')]: {
-      top: 38,
       right: 86
     },
     [theme.breakpoints.down('lg')]: {
-      top: 38,
       right: 16
     },
     [theme.breakpoints.down('md')]: {
-      top: 38,
       right: 50
     },
     [theme.breakpoints.down('sm')]: {
-      top: 91,
       right: 16
     },
     position: 'absolute',
-    top: 25,
+    top: 30,
     right: 117
   },
   backToHome: {

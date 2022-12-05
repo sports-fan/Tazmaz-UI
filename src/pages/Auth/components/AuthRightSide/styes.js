@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles"
 export default makeStyles(theme => ({
   main: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
   },
   logo: {
     [theme.breakpoints.down('lg')]: {
@@ -25,14 +25,7 @@ export default makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  register: {
-    [theme.breakpoints.down('lg')]: {
-      marginTop: 22,
-      marginBottom: 6
-    },
-    marginTop: 38,
-    marginBottom: 20
+    marginTop: 28
   },
   u: {
     color: theme.palette.primary.main,

@@ -8,13 +8,14 @@ export default makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
     width: '100%',
     height: '100%',
   },
   titleDiv: {
     width: 523,
     height: 24,
+    marginTop: 139,
+    marginBottom: 34
   },
   imageDiv: {
     paddingLeft: '7%',
