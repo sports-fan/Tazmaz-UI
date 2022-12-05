@@ -45,7 +45,7 @@ export default makeStyles(theme => ({
     },
     position: 'absolute',
     top: 30,
-    right: 117
+    right: 90
   },
   backToHome: {
     [theme.breakpoints.down('sm')]: {

@@ -29,9 +29,9 @@ const Passcode = ({ field, name, error, className, numInputs = 6 }) => {
 
   return (
     <div>
-      <Grid container justifyContent='center' columnSpacing={{lg:2, xl: 4, md:1, sm:1, xs: 1}} className={className}>
+      <Grid container justifyContent='center' columnSpacing={{lg:1, xl: 2, md:1, sm:1, xs: 1}} className={className}>
         {blankValueArray.map((v, index) => (
-          <Grid item lg={2} xl={1.7} md={1.7} sm={1} xs={1.7} key={index}>
+          <Grid item lg={2} xl={1.6} md={1.7} sm={1} xs={1.7} key={index}>
             <FormControl fullWidth  className={classes.main}>
               <OutlinedInput
                 dir='rtl'

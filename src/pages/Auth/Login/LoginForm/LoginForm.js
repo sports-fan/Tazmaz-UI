@@ -151,7 +151,9 @@ const LoginForm = ({t}) => {
                       endIcon={<img src={AppleIcon} alt="logo"/>}
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >
+                      {t('common.loginUsing')}
+                    </Button>
                   )}
                 />
                 <GoogleLogin
@@ -165,12 +167,13 @@ const LoginForm = ({t}) => {
                       onClick={renderProps.onClick}
                       className={classes.loginWithGoogle}
                       endIcon={<img src={GoogleIcon} alt="logo"/>}
-                      text='התחברות באמצעות'
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >
+                      {t('common.loginUsing')}
+                    </Button>
                   )}
-              />
+                />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleLogin)}>
                   <Controller 

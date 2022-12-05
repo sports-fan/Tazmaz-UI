@@ -23,15 +23,19 @@ export default makeStyles(theme => ({
     marginTop: 29
   },
   actions: {
-    marginTop: 20
+    marginTop: 34
   },
   text: {
     display: 'flex',
     justifyContent: 'center',
     paddingTop: 10,
-    paddingBottom: 133
+    paddingBottom: 225
   },
   passcode: {
-    marginTop: 15
+    marginTop: 17
+  },
+  resend: {
+    color: '#000000',
+    textDecoration: 'none'
   }
 }))
