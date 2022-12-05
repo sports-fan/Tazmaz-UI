@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
@@ -9,14 +9,15 @@ import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import TazmazLogo from 'assets/tazmazLogoLogin.svg'
-import LoginLeftFG from 'assets/loginLogo2.svg'
 import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import Passcode from 'components/Passcode';
+import { AuthContext } from 'contexts/AuthContext';
 
 const TwofaForm = ({t}) => {
   const classes = useStyles()
   const {control, handleSubmit, formState: {errors}} = useForm({})
+  const { loginPage } = useContext(AuthContext)
   const [errRes, setErrRes] = useState({})
   const [open, setOpen] = useState(false)
 
@@ -126,7 +127,7 @@ const TwofaForm = ({t}) => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={LoginLeftFG} title={t('common.leftSideDescription')}/>
+        <AuthLeftSide bgColor={loginPage.background} titleColor={classes.titleColor} icon={loginPage.image} title={loginPage.title}/>
       </Grid>
       <Notification
         open={open}

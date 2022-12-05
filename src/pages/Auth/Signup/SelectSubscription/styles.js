@@ -1,6 +1,10 @@
 import { makeStyles } from "@mui/styles";
 
 export default makeStyles(theme => ({
+  main: {
+    height: '100%',
+    minHeight: 1080
+  },
   title: {
     [theme.breakpoints.down('sm')]: {
       marginTop: 0,
@@ -30,17 +34,24 @@ export default makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'center'
   },
-  mt: {
+  mt36: {
     [theme.breakpoints.down('sm')]: {
       marginTop: 18
     },
     marginTop: 36
+  },
+  mt: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 18
+    },
+    marginTop: 54
   },
   subscriptions: {
     [theme.breakpoints.down('sm')]: {
       height: '100%'
     },
     height: 563,
+
   },
   formButton: {
     marginBottom: 8

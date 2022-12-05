@@ -29,7 +29,7 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     paddingTop: 10,
-    paddingBottom: 225
+    paddingBottom: 220
   },
   passcode: {
     marginTop: 17,

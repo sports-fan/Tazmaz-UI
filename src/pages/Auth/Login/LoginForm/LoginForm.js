@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useState, useEffect, useMemo, useContext } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
@@ -19,10 +19,10 @@ import GoogleIcon from 'assets/google.svg'
 import TazmazLogo from 'assets/tazmazLogoLogin.svg'
 import PenIcon from 'assets/penIcon.svg'
 import PasswordIcon from 'assets/passwordIcon.svg'
-import LoginLeftFG from 'assets/loginLogo2.svg'
 import AppleIcon from 'assets/apple.svg'
 import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
+import { AuthContext } from 'contexts/AuthContext';
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
@@ -35,6 +35,7 @@ const schema = yup.object({
 const LoginForm = ({t}) => {
   const classes = useStyles()
   const navigate = useNavigate()
+  const { loginPage } = useContext(AuthContext)
   const {control, watch, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -235,7 +236,7 @@ const LoginForm = ({t}) => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={LoginLeftFG} title={t('common.leftSideDescription')}/>
+        <AuthLeftSide bgColor={loginPage.background} titleColor={classes.titleColor} icon={loginPage.image} title={loginPage.title}/>
       </Grid>
       <Notification
         open={open}

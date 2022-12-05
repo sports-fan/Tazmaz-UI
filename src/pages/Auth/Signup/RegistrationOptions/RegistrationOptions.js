@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, useContext } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
@@ -16,14 +16,14 @@ import Container from 'pages/Auth/components/Container'
 import FormInput from 'components/FormInput'
 import FormCheckbox from 'components/FormCheckbox'
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
+import AuthRightSide from 'pages/Auth/components/AuthRightSide'
+import { AuthContext } from 'contexts/AuthContext';
 
 import TazmazLogo from 'assets/tazmazLogo.svg'
-import SignupLeftFG from 'assets/loginLogo.svg'
 import AppleIcon from 'assets/apple.svg'
 import GoogleIcon from 'assets/google.svg'
 import LeftArrow from 'assets/leftArrow.svg'
 import useStyles from './styles'
-import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("שדה חובה"),
@@ -31,6 +31,8 @@ const schema = yup.object({
 
 const RegistrationOptions = ({t}) => {
   const classes = useStyles()
+  const {registerPage} = useContext(AuthContext)
+  console.log(registerPage)
   const [checked, setChecked] = useState(false)
   const [open, setOpen] = useState(false)
   const [errRes, setErrRes] = useState({})
@@ -215,7 +217,7 @@ const RegistrationOptions = ({t}) => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('common.leftSideDescription')}/>
+        <AuthLeftSide bgColor={registerPage.background} titleColor={classes.titleColor} icon={registerPage.image} title={registerPage.title}/>
       </Grid>
       <Notification
         open={open}

@@ -8,10 +8,10 @@ export default makeStyles(theme => ({
       paddingRight: 16,
     },
     backgroundColor: '#F5F5F5',
-    paddingTop: 26,
+    paddingTop: 32,
     paddingLeft: 44,
     paddingRight: 44,
-    paddingBottom: 33
+    paddingBottom: 65
   },
   back: {
     [theme.breakpoints.down('sm')]: {

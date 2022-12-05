@@ -52,7 +52,7 @@ const SelectSubscription = ({t}) => {
   }, [filter, subcriptions])
   
   return (
-    <div>
+    <div className={classes.main}>
       <SelectSubscriptionHeader stepNum={2}/>
       <SelectSubscriptionLayout>
         <Grid container justifyContent="center">
@@ -62,7 +62,7 @@ const SelectSubscription = ({t}) => {
             </div>
           </Grid>
         </Grid>
-        <div className={classes.mt}></div>
+        <div className={classes.mt36}></div>
         <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-end">
           <Grid item lg={4} xs={12}/>
           <Grid item lg={4} xs={12} className={classes.switch}>

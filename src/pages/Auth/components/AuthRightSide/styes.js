@@ -4,6 +4,7 @@ export default makeStyles(theme => ({
   main: {
     width: '100%',
     height: '100%',
+    minHeight: 1080
   },
   logo: {
     [theme.breakpoints.down('lg')]: {

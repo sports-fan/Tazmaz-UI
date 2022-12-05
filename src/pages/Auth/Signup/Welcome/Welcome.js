@@ -14,7 +14,7 @@ const Welcome = ({t}) => {
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)');
   return (
-    <div>
+    <div className={classes.mainDiv}>
       <SelectSubscriptionHeader stepNum={3}/>
       <SelectSubscriptionLayout>
         <div className={classes.main}>
@@ -27,7 +27,7 @@ const Welcome = ({t}) => {
             <img src={matches ? WelcomeMobileLogo : WelcomeLogo} alt="welcome-log" />
           </div>
         </div>
-        <Grid container justifyContent="center" className={classes.actions}>
+        <Grid container justifyContent="center">
           <Grid item lg={4} xs={12}>
             <Grid container columnSpacing={3} rowSpacing={3}>
               <Grid item lg={6} xs={12}>
@@ -49,6 +49,7 @@ const Welcome = ({t}) => {
             </Grid>
           </Grid>
         </Grid>
+        <div className={classes.bottom}></div>
       </SelectSubscriptionLayout>
     </div>
   )

@@ -10,6 +10,7 @@ export default makeStyles(theme => ({
     alignItems: 'center',
     width: '100%',
     height: '100%',
+    minHeight: 1080
   },
   titleDiv: {
     width: 523,
@@ -20,10 +21,11 @@ export default makeStyles(theme => ({
   imageDiv: {
     paddingLeft: '7%',
     paddingRight: '7%',
+    marginBottom: 150
   },
   image: {
     display: 'block',
     width: '100%',
-    height: '100%'
+    height: 'calc( 100vh - 347px )'
   },
 }))

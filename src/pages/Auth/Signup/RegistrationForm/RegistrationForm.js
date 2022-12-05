@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from "react-hook-form";
@@ -10,7 +10,6 @@ import * as yup from "yup";
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import Container from 'pages/Auth/components/Container'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
-import SignupLeftFG from 'assets/signupLogo2.svg'
 import Notification from 'components/Notification';
 import TazmazLogo from 'assets/tazmazLogWhite.svg'
 import UserIcon from 'assets/userIcon.svg'
@@ -23,6 +22,7 @@ import FormInput from 'components/FormInput'
 import FormSelect from 'components/FormSelect'
 import FormButton from 'components/FormButton'
 import ConfirmModal from 'components/ConfirmModal';
+import { AuthContext } from 'contexts/AuthContext';
 
 const schema = yup.object({
   firstName: yup.string()
@@ -47,6 +47,8 @@ const schema = yup.object({
  
 const RegistrationForm = ({t}) => {
   const classes = useStyles()
+  const { registerDetailsPage } = useContext(AuthContext)
+  console.log(registerDetailsPage)
   const [roleOptions, setRoleOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
@@ -345,7 +347,7 @@ const RegistrationForm = ({t}) => {
         </AuthRightSide>
       </Grid>
       <Grid item md={8}>
-        <AuthLeftSide className={classes.leftBGColor} titleColor={classes.titleColor} icon={SignupLeftFG} title={t('registrationForm.leftSideDescription')}/>
+        <AuthLeftSide bgColor={registerDetailsPage.background} titleColor={classes.titleColor} icon={registerDetailsPage.image} title={registerDetailsPage.title}/>
       </Grid>
       <ConfirmModal 
         open={modalOpen}
