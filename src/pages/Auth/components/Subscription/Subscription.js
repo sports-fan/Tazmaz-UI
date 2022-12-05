@@ -8,8 +8,8 @@ import useStyles from './styles'
 const Subscription = ({icon, onClick, subscription}) => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const { mostPopular, price, trialDays } = subscription
-
+  const { mostPopular, price, trialDays, name, description, type, features } = subscription
+  console.log({subscription})
   return (
     <div className={classes.container}>
       {mostPopular && <img className={classes.logo} src={SubscriptionHeaderLogo} alt="logo" />}
@@ -22,13 +22,13 @@ const Subscription = ({icon, onClick, subscription}) => {
         }
         <div className={classes.upper}>
           <img src={icon} alt="logo" />
-          <Typography variant='h6' mt={1.7}>אימפריה</Typography>
-          <Typography variant='caption'>מנוי אימפריה לורם איפסוום</Typography>
+          <Typography variant='h6' mt={1.7}>{name}</Typography>
+          <Typography variant='caption' align='center'>{description}</Typography>
           <div className={classes.price}>
             <Typography variant='h3'>{price}</Typography>
             <Typography variant='body1' ml={0.5}>₪</Typography>
             <Typography variant='caption' color="secondary" ml={0.5}>/</Typography>
-            <Typography variant='caption' color="secondary" ml={0.5}>חודשי</Typography>
+            <Typography variant='caption' color="secondary" ml={0.5}>{type}</Typography>
           </div>
           <div className={classes.priceBelow}>
             <Typography variant='body2' color="primary" pl={0.7} pr={0.7}>{trialDays} ימים נסיון חינם</Typography>
@@ -36,18 +36,12 @@ const Subscription = ({icon, onClick, subscription}) => {
           <Divider className={classes.divider}/>
         </div>
         <div className={classes.lower}>
-          <div>
-            <img src={TickIcon} alt="logo" />
-            <Typography variant='caption' ml={1.2}><b>1</b> חשבון בנק</Typography>
-          </div>
-          <div>
-            <img src={TickIcon} alt="logo" />
-            <Typography variant='caption' ml={1.2}>תמיכה באמצעות<b> דוא״ל + WhatsApp</b></Typography>
-          </div>
-          <div>
-            <img src={TickIcon} alt="logo" />
-            <Typography variant='caption' ml={1.2}>ארכיון נתונים<b> לשנה</b></Typography>
-          </div>
+          {features.map((feature, idx) => (
+            <div key={idx}>
+              <img src={TickIcon} alt="logo" />
+              <Typography variant='caption' ml={1.2}>{feature.title}</Typography>
+            </div>
+          ))}
         </div>
         <div className={classes.formButton}>
           <FormButton

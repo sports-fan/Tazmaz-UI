@@ -32,7 +32,8 @@ export default makeStyles(theme => ({
     paddingBottom: 225
   },
   passcode: {
-    marginTop: 17
+    marginTop: 17,
+    direction: 'ltr'
   },
   resend: {
     color: '#000000',

@@ -19,8 +19,8 @@ const Welcome = ({t}) => {
       <SelectSubscriptionLayout>
         <div className={classes.main}>
           <div className={classes.title}>
-            <Typography variant={matches ? 'h5': 'h4'} color="primary" mb={1}>{t('welcome.des1')}</Typography>
-            <Typography variant={matches ? 'h6': 'h5'} mb={1}>{t('welcome.des2')}</Typography>
+            <Typography variant={matches ? 'h5': 'h4'} color="primary" mb={2}>{t('welcome.des1')}</Typography>
+            <Typography variant={matches ? 'h6': 'h5'} mb={2}>{t('welcome.des2')}</Typography>
             <Typography variant={matches ? 'h6': 'h5'}>{t('welcome.des3')}</Typography>
           </div>
           <div className={classes.logo}>

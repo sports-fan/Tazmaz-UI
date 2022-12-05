@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
       width: 353,
       height: 194
     },
-    marginTop: 24
+    marginTop: 26
   },
   title: {
     display: 'flex',

@@ -9,7 +9,7 @@ export default makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#474E9F'
+    backgroundColor: '#474E9F',
   },
   logo: {
     [theme.breakpoints.down('sm')]: {
@@ -17,6 +17,6 @@ export default makeStyles(theme => ({
       top: 19,
       right: 20,
     },
-    paddingTop: 25
+    paddingTop: 35
   },
 }))

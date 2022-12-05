@@ -94,7 +94,7 @@ const RegistrationForm = ({t}) => {
       setSectorOptions(options)
     })
     .catch(err => {console.log(err)})
-  })
+  }, [])
 
   const handleRegister = useCallback(data => {
     axios({
@@ -194,7 +194,7 @@ const RegistrationForm = ({t}) => {
                     }
                   />
                   <Grid container columnSpacing={2}>
-                    <Grid item lg={9.5} xs={8}>
+                    <Grid item lg={9.5} xs={9}>
                       <Controller
                         name="phoneNumber"
                         control={control}
@@ -211,7 +211,7 @@ const RegistrationForm = ({t}) => {
                         />}
                       />
                     </Grid>
-                    <Grid item lg={2.5} xs={4}>
+                    <Grid item lg={2.5} xs={3}>
                       <Controller 
                         name="phonePrefix"
                         control={control}
@@ -240,7 +240,7 @@ const RegistrationForm = ({t}) => {
                       />
                     </Grid>
                   </Grid>
-                  <Grid container rowSpacing={{xs:2}} columnSpacing={2}>
+                  <Grid container columnSpacing={2}>
                     <Grid item lg={6} xs={12}>
                       <Controller 
                         name="firstName"
@@ -282,6 +282,7 @@ const RegistrationForm = ({t}) => {
                     render={({field, formState}) =>
                       <FormSelect // role
                         name="role"
+                        placeholder={t('registrationForm.role')}
                         id="signup role"
                         options={roleOptions}
                         error={errors?.role}

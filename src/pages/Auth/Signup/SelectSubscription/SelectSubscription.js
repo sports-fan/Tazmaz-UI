@@ -104,6 +104,7 @@ const SelectSubscription = ({t}) => {
             </Grid>
           </Grid>
         </Grid>
+        <div className={classes.mt}></div>
         <Grid container rowSpacing={matches ? 1 : 3} columnSpacing={matches ? 1:4.1} justifyContent='center' alignItems="flex-end" className={classes.subscriptions}>
           {filteredSubscriptions.map((subcription, id) =>
             <Grid key={id} item lg={2.4} xs={12} sm={12} md={12}>

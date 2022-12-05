@@ -34,13 +34,13 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: 18
     },
-    marginTop: 19
+    marginTop: 36
   },
   subscriptions: {
     [theme.breakpoints.down('sm')]: {
       height: '100%'
     },
-    height: 553,
+    height: 563,
   },
   formButton: {
     marginBottom: 8

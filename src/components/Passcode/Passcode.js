@@ -34,7 +34,6 @@ const Passcode = ({ field, name, error, className, numInputs = 6 }) => {
           <Grid item lg={2} xl={1.6} md={1.7} sm={1} xs={1.7} key={index}>
             <FormControl fullWidth  className={classes.main}>
               <OutlinedInput
-                dir='rtl'
                 color='secondary'
                 className={className}
                 inputProps={{

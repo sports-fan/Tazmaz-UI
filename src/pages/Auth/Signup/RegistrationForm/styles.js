@@ -4,14 +4,14 @@ export default makeStyles(theme => ({
   formTitle: {
     [theme.breakpoints.down('sm')]: {
       marginTop: 30,
-      marginBottom: 30
+      marginBottom: 29
     },
     display: 'flex',
     flexDirection:'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 39,
-    marginBottom: 39
+    marginTop: 61,
+    marginBottom: 61
   },
   phoneNumber: {
     position: 'absolute',
@@ -44,10 +44,11 @@ export default makeStyles(theme => ({
   },
   formActions: {
     [theme.breakpoints.down('sm')]: {
-      marginTop: 50,
+      marginTop: 58,
+      marginBottom: 50
     },
-    marginTop: 64,
-    marginBottom: 40
+    marginTop: 126,
+    marginBottom: 49
   },
   phonePrefix: {
     position: 'absolute',
