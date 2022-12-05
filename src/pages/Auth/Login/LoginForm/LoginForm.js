@@ -1,8 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect, useMemo } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
+import GoogleLogin from 'react-google-login';
+import { gapi } from 'gapi-script';
+import AppleSignin from 'react-apple-signin-auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
@@ -42,6 +45,15 @@ const LoginForm = (props) => {
   const {t} = props
   const [loginRes, setLoginRes] = useState({})
   const [open, setOpen] = useState(false)
+
+  const authOptions = useMemo(() => ({
+    clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
+    redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
+    scope: 'email name',
+    state: 'state',
+    nonce: 'nonce',
+    usePopup: true
+}), [])
   
   const handleForgetPassword = useCallback(() => {
     const email  = watch('email')
@@ -61,6 +73,16 @@ const LoginForm = (props) => {
     })
     .catch(err => {console.log(err)})
   }, [watch])
+  useEffect(() => {
+    const start = ()=> {
+      gapi.client.init({
+        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+        scope: 'email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
 
   const handleLogin = useCallback((data) => {
     axios({
@@ -89,6 +111,20 @@ const LoginForm = (props) => {
     })
   }, [navigate])
 
+  const handleGoogleLogin = useCallback((res) => {
+    console.log('successfully logedin with Google' , res, '========')
+    navigate("/home")
+  }, [navigate])
+
+  const handleFailure = useCallback((res) => {
+    console.log('Google login Failed!', res)
+  }, [])
+
+  const handleAppleLogin = useCallback((res) => {
+    console.log('successfully loged in Apple', res, '******')
+    navigate("/auth/signup/2")
+  }, [navigate])
+
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
@@ -100,19 +136,36 @@ const LoginForm = (props) => {
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
                 <Typography variant='body1' className={classes.caramelize} mb={1} align='left'>{t('login.caramelizeTheSync')}</Typography>
-                <FormButton
-                  endIcon={<img src={AppleIcon} alt="logo"/>}
-                  text={t('common.loginUsing')}
-                  color="secondary"
-                  variant="outlined"
+                <AppleSignin
+                  authOptions={authOptions}
+                  onSuccess={handleAppleLogin}
+                  onError={(error)=> console.error(error)}
+                  render={(renderProps) => (
+                    <Button
+                      onClick={renderProps.onClick}
+                      endIcon={<img src={AppleIcon} alt="logo"/>}
+                      color="secondary"
+                      variant="outlined"
+                    >התחברות באמצעות</Button>
+                  )}
                 />
-                <FormButton
-                  endIcon={<img src={GoogleIcon} alt="logo"/>}
+                <GoogleLogin
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   className={classes.loginWithGoogle}
-                  text={t('common.loginUsing')}
-                  color="secondary"
-                  variant="outlined"
-                />
+                  onSuccess={handleGoogleLogin}
+                  onFailure={handleFailure}
+                  cookiePolicy={'single_host_origin'}
+                  render={(renderProps) => (
+                    <Button
+                      onClick={renderProps.onClick}
+                      className={classes.loginWithGoogle}
+                      endIcon={<img src={GoogleIcon} alt="logo"/>}
+                      text='התחברות באמצעות'
+                      color="secondary"
+                      variant="outlined"
+                    >התחברות באמצעות</Button>
+                  )}
+              />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleLogin)}>
                   <Controller 
