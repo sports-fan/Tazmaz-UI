@@ -84,7 +84,7 @@ const RegistrationOptions = ({t}) => {
       .then(res => {
         console.log(res.data)
         if (res.data.success) {
-          localStorage.setItem('verifiedEmail', data.email);
+          sessionStorage.setItem('verifiedEmail', data.email);
           navigate("/auth/signup/2")
         } else {
           setOpen(true)
@@ -103,7 +103,7 @@ const RegistrationOptions = ({t}) => {
 
   const handleLogin = useCallback((res) => {
     console.log('successfully logedin with Google' , res, '========')
-    localStorage.setItem('verifiedEmail', res.profileObj.email);
+    sessionStorage.setItem('verifiedEmail', res.profileObj.email);
     navigate("/auth/signup/2")
   }, [navigate])
 

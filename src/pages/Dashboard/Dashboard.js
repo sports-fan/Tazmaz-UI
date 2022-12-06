@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (sessionStorage.getItem("access_token") === null) {
+      navigate('/auth/login')
+    }
+  }, [navigate])
+
   return (
     <div>
       Welcome to TazMaz

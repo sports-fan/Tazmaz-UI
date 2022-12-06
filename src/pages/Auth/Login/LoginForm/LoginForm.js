@@ -26,10 +26,9 @@ import { AuthContext } from 'contexts/AuthContext';
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
-  password: yup.string()
-    .min(8, '8 characters minimum')
-    .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
-    .required("מספר עוסק/ת.ז. שגוי")
+  password: yup.string().required("מספר עוסק/ת.ז. שגוי")
+    // .min(2, '8 characters minimum')
+    // .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
 })
 
 const LoginForm = ({t}) => {
@@ -119,7 +118,21 @@ const LoginForm = ({t}) => {
 
   const handleGoogleLogin = useCallback((res) => {
     console.log('successfully logedin with Google' , res, '========')
-    navigate("/home")
+    const accessToken = res.accessToken
+    axios({
+      url: '/api/auth/validate-token',
+      method: 'POST',
+      data: {
+        token: accessToken,
+      }
+    })
+    .then(res => {
+      console.log(res)
+      navigate("/")
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }, [navigate])
 
   const handleFailure = useCallback((res) => {

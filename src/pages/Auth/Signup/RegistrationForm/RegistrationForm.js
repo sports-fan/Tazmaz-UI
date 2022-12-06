@@ -32,10 +32,7 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי")
     .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
   email: yup.string("מספר עוסק/ת.ז. שגוי"),
-  password: yup.string()
-    .min(8, '8 characters minimum.')
-    .required("מספר עוסק/ת.ז. שגוי")
-    .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum'),
+  password: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   phonePrefix: yup.string().required("required"),
   phoneNumber: yup.string()
     .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
@@ -60,7 +57,7 @@ const RegistrationForm = ({t}) => {
     defaultValues: {
       firstName: '',
       lastName: '',
-      email: localStorage.getItem('verifiedEmail'),
+      email: sessionStorage.getItem('verifiedEmail'),
       password: '',
       phonePrefix: '',
       phoneNumber: '',
@@ -119,8 +116,7 @@ const RegistrationForm = ({t}) => {
     .then(res => {
       console.log(res.data)
       if (res.data.success) {
-        localStorage.setItem("userId", res.data.data.userId)
-        localStorage.removeItem('verifiedEmail')
+        sessionStorage.setItem("userId", res.data.data.userId)
         navigate("/auth/signup/3")
       }
     })
