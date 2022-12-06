@@ -119,20 +119,23 @@ const LoginForm = ({t}) => {
   const handleGoogleLogin = useCallback((res) => {
     console.log('successfully logedin with Google' , res, '========')
     const accessToken = res.accessToken
-    axios({
-      url: '/api/auth/validate-token',
-      method: 'POST',
-      data: {
-        token: accessToken,
-      }
-    })
-    .then(res => {
-      console.log(res)
-      navigate("/")
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    sessionStorage.setItem('access_token', accessToken)
+    navigate("/")
+
+    // axios({
+    //   url: '/api/auth/validate-token',
+    //   method: 'POST',
+    //   data: {
+    //     token: accessToken,
+    //   }
+    // })
+    // .then(res => {
+    //   console.log(res)
+    //   navigate("/")
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
   }, [navigate])
 
   const handleFailure = useCallback((res) => {
