@@ -108,6 +108,9 @@ const LoginForm = ({t}) => {
       if (res.data.success) {
         sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
+      } else {
+        setOpen(true)
+        setLoginRes(res.data)
       }
     })
     .catch(err => {
@@ -120,7 +123,31 @@ const LoginForm = ({t}) => {
   const handleGoogleLogin = useCallback((res) => {
     console.log('successfully logedin with Google' , res, '========')
     const accessToken = res.accessToken
-    sessionStorage.setItem('access_token', accessToken)
+    const email = res.profileObj.email
+    axios({
+      url: '/public/login',
+      method: "POST",
+      headers: {
+        "accept": 'application/json',
+        "content-type": 'application/json'
+      },
+      data: {
+        email: email,
+        providerAccessToken: accessToken,
+        loginType: "DEFAULT"
+      },
+    })
+    .then(res => {
+      if (res.data.success) {
+        sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        navigate("/auth/login/2fa")
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      setOpen(true)
+      setLoginRes(err.response.data)
+    })
   }, [navigate])
 
   const handleFailure = useCallback((res) => {

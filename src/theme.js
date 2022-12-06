@@ -2,8 +2,8 @@ import { createTheme } from '@mui/material/styles';
 
 const primary = '#474E9F'
 const secondary = '#D1D6E7'
-const info = '#1A94B6'
-const success = '#FFFFFF'
+const info = '#F0D233'
+const success = '#2AC584'
 const error = '#FF5151'
 
 const theme = createTheme({
@@ -12,7 +12,17 @@ const theme = createTheme({
       styleOverrides: {
         "root": {
           "&.Mui-error": {
-            "color": "#FF5151"
+            borderWidth: 1,
+            color: '#FF5151'
+          }
+        }
+      }
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          '&.MuiCheckbox-root': {
+            color: secondary
           }
         }
       }
@@ -65,10 +75,6 @@ const theme = createTheme({
             borderColor: primary
           },
         },
-        error: {
-          borderWidth: 1,
-          color: '#FF5151'
-        }
       },
     },
     MuiFormHelperText: {
@@ -88,6 +94,40 @@ const theme = createTheme({
         }
       }
     },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          width: '1498px',
+          height: '133px',
+          borderRadius: 8,
+        },
+        action: {
+          display: 'flex',
+          alignItems: 'center',
+          marginRight: 22,
+          color: '#000000'
+        },
+        message: {
+          display: 'flex',
+          alignItems: 'center',
+          color: '#6B6D86'
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          '&.MuiAlert-root': {
+            backgroundColor: 'white'
+          },
+          '&.MuiMenu-paper': {
+            border: '1px solid #474E9F',
+            borderRadius: 8,
+            width: ''
+          }
+        }
+      }
+    }
   },
   palette: {
     primary: {
