@@ -5,12 +5,12 @@ import LoginForm from './LoginForm';
 import TwofaForm from './TwofaForm';
 
 const Login = () => {
-  const has2fa = Boolean(localStorage.getItem('twofa'))
   return (
     <Routes>
       <Route path='/' element={<LoginForm />} />
-      <Route path='/2fa' element={<TwofaForm/>} />
-      <Route path='/2fa' element={<PrivateRoute isAuthenticated={has2fa} component={TwofaForm}/>} />
+      <Route path='/2fa' element={
+        <PrivateRoute isAuthenticated={() => Boolean(sessionStorage.getItem('twofaId'))} component={TwofaForm}/>}
+      />
     </Routes>
   )
 }

@@ -1,7 +1,8 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useState, useEffect } from 'react';
 import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import Notification from 'components/Notification';
@@ -17,9 +18,16 @@ import { AuthContext } from 'contexts/AuthContext';
 const TwofaForm = ({t}) => {
   const classes = useStyles()
   const {control, handleSubmit, formState: {errors}} = useForm({})
+  const navigate = useNavigate()
   const { loginPage } = useContext(AuthContext)
-  const [errRes, setErrRes] = useState({})
+  const [res, setRes] = useState({})
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    if (sessionStorage.getItem("twofaId")=== null) {
+      navigate('/auth/login')
+    }
+  }, [navigate])
 
   const handleResend = useCallback((e) => {
     e.preventDefault()
@@ -31,17 +39,16 @@ const TwofaForm = ({t}) => {
         "content-type": 'application/json'
       },
       data: {
-        twofaId: localStorage.getItem('twofaId'),
+        twofaId: sessionStorage.getItem('twofaId'),
       },
     })
     .then(res => {
       console.log(res.data)
-      localStorage.setItem('token', res.data.access_token)
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setErrRes(err.response.data)
+      setRes(err.response.data)
     })
   }, [])
 
@@ -54,20 +61,25 @@ const TwofaForm = ({t}) => {
         "content-type": 'application/json'
       },
       data: {
-        twofaId: localStorage.getItem('twofaId'),
+        twofaId: sessionStorage.getItem('twofaId'),
         code: "123456"
       },
     })
     .then(res => {
       console.log(res.data)
-      localStorage.setItem('token', res.data.access_token)
+      sessionStorage.setItem('access_token', res.data.access_token)
+      sessionStorage.setItem('refresh_token', res.data.access_token)
+      sessionStorage.removeItem('twofaId')
+      setOpen(true)
+      setRes(res.data)
+      navigate('/')
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setErrRes(err.response.data)
+      setRes(err.response.data)
     })
-  }, [])
+  }, [navigate])
 
   return (
     <Grid container>
@@ -131,7 +143,7 @@ const TwofaForm = ({t}) => {
       </Grid>
       <Notification
         open={open}
-        message={errRes?.message || ''}
+        message={res?.message || ''}
         onClose={() => setOpen(false)}
       />
     </Grid>
