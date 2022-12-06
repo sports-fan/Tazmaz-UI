@@ -12,18 +12,9 @@ const FormInput = ({helperClass, field, error, name, form, label, startAdornment
         id={id}
         dir='rtl'
         label={label}
-        color='secondary'
         error={Boolean(error)}
         className={cn(classes.input)}
         endAdornment={icon && <InputAdornment position="end">{icon}</InputAdornment>}
-        inputProps={
-          readOnly
-            ? {
-                readOnly: true
-              }
-            : {
-            }
-        }
         {...field}
         {...props}
       />

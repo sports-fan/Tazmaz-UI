@@ -48,7 +48,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           marginBottom: 8,
-          marginTop: 8
+          marginTop: 8,
         }
       }
     },
@@ -58,8 +58,18 @@ const theme = createTheme({
           width: '100%',
           height: 50,
           borderRadius: 8,
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderWidth: 1
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: primary
+          },
+        },
+        error: {
+          borderWidth: 1,
+          color: '#FF5151'
         }
-      }
+      },
     },
     MuiFormHelperText: {
       styleOverrides: {
