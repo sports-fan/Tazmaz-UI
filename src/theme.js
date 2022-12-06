@@ -114,9 +114,13 @@ const theme = createTheme({
     }
   },
   typography: {
-    h3: {
+    h2: {
       fontSize: '50px',
       lineHeight: '61px'
+    },
+    h3: {
+      fontSize: '40px',
+      lineHeight: '24px'
     },
     h4: {
       fontSize: '34px',

@@ -9,9 +9,8 @@ const Subscription = ({icon, onClick, subscription}) => {
   const classes = useStyles()
   const { t } = useTranslation()
   const { mostPopular, price, trialDays, name, description, type, features } = subscription
-  console.log({subscription})
   return (
-    <div className={classes.container}>
+    <div className={mostPopular ? classes.container2 : classes.container1}>
       {mostPopular && <img className={classes.logo} src={SubscriptionHeaderLogo} alt="logo" />}
       <div className={classes.main}>
         {mostPopular ?
@@ -25,7 +24,7 @@ const Subscription = ({icon, onClick, subscription}) => {
           <Typography variant='h6' mt={1.7}>{name}</Typography>
           <Typography variant='caption' align='center'>{description}</Typography>
           <div className={classes.price}>
-            <Typography variant='h3'>{price}</Typography>
+            <Typography variant='h2'>{price}</Typography>
             <Typography variant='body1' ml={0.5}>₪</Typography>
             <Typography variant='caption' color="secondary" ml={0.5}>/</Typography>
             <Typography variant='caption' color="secondary" ml={0.5}>{type}</Typography>

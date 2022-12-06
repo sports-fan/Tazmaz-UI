@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, useContext } from 'react';
-import { Typography, Grid, Divider, Button } from '@mui/material'
+import { Typography, Grid, Divider, Button, useMediaQuery } from '@mui/material'
 import { withTranslation } from 'react-i18next';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
 import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
@@ -19,6 +19,7 @@ import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import { AuthContext } from 'contexts/AuthContext';
 
+import TazmazLogoMobile from 'assets/tazmazLogoMobile.svg'
 import TazmazLogo from 'assets/tazmazLogo.svg'
 import AppleIcon from 'assets/apple.svg'
 import GoogleIcon from 'assets/google.svg'
@@ -37,6 +38,7 @@ const RegistrationOptions = ({t}) => {
   const [open, setOpen] = useState(false)
   const [errRes, setErrRes] = useState({})
   const navigate = useNavigate()
+  const matches = useMediaQuery('(max-width:600px)')
   const {control, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
     defaultValues: { email: ''}
@@ -119,11 +121,11 @@ const RegistrationOptions = ({t}) => {
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide backURL='/auth/login' theme="dark" logo={TazmazLogo}>
+        <AuthRightSide backURL='/auth/login' theme="dark" logo={matches ? TazmazLogoMobile:TazmazLogo}>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h5' mb={1.8} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb6} ></div>
                 <AppleSignin
@@ -164,7 +166,6 @@ const RegistrationOptions = ({t}) => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
-                        type="email"
                         placeholder={t('registrationOption.email')}
                         id="signup-email"
                         error={errors?.email}
@@ -190,12 +191,7 @@ const RegistrationOptions = ({t}) => {
                       <div className={classes.underlined}>
                         <Typography variant='body2'>
                           <u className={classes.u}>
-                            {t('registrationOption.policy')}
-                          </u>                      
-                        </Typography>
-                        <Typography variant='body2'>
-                          <u className={classes.u}>
-                            {t('registrationOption.terms')}  
+                            {t('registrationOption.termsAndPolicy')}  
                           </u>                      
                         </Typography>
                       </div>
@@ -208,7 +204,7 @@ const RegistrationOptions = ({t}) => {
                 </form>
                 <div className={classes.register}>
                   <Typography variant='body1'>{t('registrationOption.registered')}
-                    <a href="/auth/login" className={classes.returnTologin}>{t('registrationOption.connect')}</a>
+                    <Link to="/auth/login" className={classes.returnTologin}>{t('registrationOption.connect')}</Link>
                   </Typography>
                 </div>
               </Container>

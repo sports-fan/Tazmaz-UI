@@ -13,7 +13,8 @@ export default makeStyles((theme) => ({
   logo: {
     [theme.breakpoints.down('sm')]: {
       width: 353,
-      height: 194
+      height: 194,
+      marginTop: 38
     },
     marginTop: 26
   },
@@ -23,6 +24,10 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
   },
   bottom: {
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 0
+    },
     marginBottom: 48
+
   }
 }))

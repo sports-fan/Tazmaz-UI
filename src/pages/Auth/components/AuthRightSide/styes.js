@@ -2,6 +2,10 @@ import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
   main: {
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 375,
+      minHeight: 812
+    },
     width: '100%',
     height: '100%',
     minHeight: 1080

@@ -11,7 +11,7 @@ export default makeStyles(theme => ({
     paddingTop: 32,
     paddingLeft: 44,
     paddingRight: 44,
-    paddingBottom: 65
+    paddingBottom: 65,
   },
   back: {
     [theme.breakpoints.down('sm')]: {
@@ -28,6 +28,9 @@ export default makeStyles(theme => ({
     },
   },
   text: {
+    [theme.breakpoints.down('sm')]: {
+      color: '#FFFFFF',
+    },
     paddingLeft: 8,
     color: '#000000',
     textDecoration: 'none'

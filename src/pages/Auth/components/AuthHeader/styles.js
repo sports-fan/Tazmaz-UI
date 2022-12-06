@@ -41,6 +41,7 @@ export default makeStyles(theme => ({
       right: 50
     },
     [theme.breakpoints.down('sm')]: {
+      top: 44,
       right: 16
     },
     position: 'absolute',
@@ -48,14 +49,15 @@ export default makeStyles(theme => ({
     right: 90
   },
   backToHome: {
-    [theme.breakpoints.down('sm')]: {
-      top: 56
-    },
     [theme.breakpoints.down('lg')]: {
       left: 30,
     },
     [theme.breakpoints.down('xl')]: {
       left: 50,
+    },
+    [theme.breakpoints.down('sm')]: {
+      left: 20,
+      top: 56
     },
     position: 'absolute',
     display: 'flex',
@@ -67,7 +69,7 @@ export default makeStyles(theme => ({
   backToHomeDark: {
     [theme.breakpoints.down('sm')]: {
       left: 20,
-      top: 58
+      top: 48
     },
     position: 'absolute',
     display: 'flex',

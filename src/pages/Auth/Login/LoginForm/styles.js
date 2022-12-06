@@ -50,5 +50,8 @@ export default makeStyles(theme => ({
   },
   submitButton: {
     marginTop: 8
+  },
+  u: {
+    textDecoration: 'none'
   }
 }))

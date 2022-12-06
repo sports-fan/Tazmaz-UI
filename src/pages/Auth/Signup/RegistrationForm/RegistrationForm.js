@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { Typography, Grid } from '@mui/material'
+import { Typography, Grid, useMediaQuery } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import Container from 'pages/Auth/components/Container'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import Notification from 'components/Notification';
 import TazmazLogo from 'assets/tazmazLogWhite.svg'
+import TazmazLogoMobile from 'assets/tazmazLogoMobileWhite.svg'
 import UserIcon from 'assets/userIcon.svg'
 import KeyIcon from 'assets/keyIcon.svg'
 import RightArrow from 'assets/rightArrow.svg'
@@ -52,6 +53,7 @@ const RegistrationForm = ({t}) => {
   const [open, setOpen] = useState(false)
   const [errRes, setErrRes] = useState({})
   const navigate = useNavigate()
+  const matches = useMediaQuery('(max-width:600px)')
   const { handleSubmit, formState: {errors}, control } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -145,7 +147,7 @@ const RegistrationForm = ({t}) => {
         <AuthRightSide
           theme="light"
           bottomDisabled={true}
-          logo={TazmazLogo}
+          logo={matches? TazmazLogoMobile:TazmazLogo}
           className={classes.logoBGColor}
           steper={<CustomStepper stepNum={1}/>}
         >
