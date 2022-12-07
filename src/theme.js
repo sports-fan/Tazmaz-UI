@@ -69,7 +69,8 @@ const theme = createTheme({
           height: 50,
           borderRadius: 8,
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderWidth: 1
+            borderWidth: 1,
+            borderColor: primary
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: primary

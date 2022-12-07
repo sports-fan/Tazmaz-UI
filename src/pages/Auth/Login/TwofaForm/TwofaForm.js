@@ -3,6 +3,8 @@ import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
 
 import Notification from 'components/Notification';
@@ -15,9 +17,21 @@ import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import Passcode from 'components/Passcode';
 import { AuthContext } from 'contexts/AuthContext';
 
+const schema = yup.object({
+  passcode: yup.string()
+    .min(6, 'Must be exactly 6 digits')
+    .max(6, 'Must be exactly 6 digits')
+    .required('Required')
+})
+
 const TwofaForm = ({t}) => {
   const classes = useStyles()
-  const {control, handleSubmit, formState: {errors}} = useForm({})
+  const {control, handleSubmit, formState: {errors}} = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      passcode: ''
+    }
+  })
   const navigate = useNavigate()
   const { loginPage } = useContext(AuthContext)
   const [alertInfo, setAlertInfo] = useState({
@@ -64,6 +78,7 @@ const TwofaForm = ({t}) => {
   }, [])
 
   const handleTwofa = useCallback((data) => {
+    console.log(data.passcode)
     axios({
       url: '/api/auth/twofa',
       method: "POST",
@@ -73,20 +88,23 @@ const TwofaForm = ({t}) => {
       },
       data: {
         twofaId: sessionStorage.getItem('twofaId'),
-        code: "123456"
+        code: data.passcode
       },
     })
     .then(res => {
       console.log(res.data)
-      sessionStorage.setItem('access_token', res.data.access_token)
-      sessionStorage.setItem('refresh_token', res.data.access_token)
-      sessionStorage.removeItem('twofaId')
-      setOpen(true)
-      setAlertInfo({
-        status: 'success',
-        message: res.data.message
-      })
-      navigate('/')
+      if (res.data.success) {
+        sessionStorage.setItem('access_token', res.data.access_token)
+        sessionStorage.setItem('refresh_token', res.data.access_token)
+        sessionStorage.removeItem('twofaId')
+        navigate('/')
+      } else {
+        setOpen(true)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
+      }
     })
     .catch(err => {
       console.log(err)
@@ -96,6 +114,10 @@ const TwofaForm = ({t}) => {
         message: err.response.data 
       })
     })
+  }, [navigate])
+
+  const handleBack = useCallback(() => {
+    navigate('/auth/login')
   }, [navigate])
 
   return (
@@ -132,6 +154,7 @@ const TwofaForm = ({t}) => {
                       text={t('2fa.button1')}
                       variant="contained"
                       color="black"
+                      onClick={handleBack}
                     />
                   </Grid>
                   <Grid item lg={9} md={8} sm={5} xs={8}>

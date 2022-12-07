@@ -7,22 +7,39 @@ const Passcode = ({ field, name, error, className, numInputs = 6 }) => {
   const inputsRef = useRef([])
   const [activeIndex, setActiveIndex] = useState(0)
   const classes = useStyles()
+
+  const handleFocus = useCallback((index) => (event) => {
+    setActiveIndex(index)
+  }, [setActiveIndex])
+
   const handleKeydown = useCallback((index) => (event) => {
-    if (event.keyCode < 48 || event.keyCode > 57) return
+    console.log(event.keyCode)
+    let newValue;
+    let newIndex;
     const values = (field.value || '').split('')
-    const newValue = blankValueArray.map((_, idx) => (
-      idx === index ? String.fromCharCode(event.keyCode) : values[idx]
-    ))
+    if (event.keyCode >= 48 && event.keyCode <= 57) {
+      newValue = blankValueArray.map((_, idx) => (
+        idx === index ? String.fromCharCode(event.keyCode) : (values[idx] || ' ')
+      ))
+      newIndex = index + 1
+    } else if (event.keyCode === 8) {
+      newValue = blankValueArray.map((_, idx) => (
+        idx === index ? ' ' : (values[idx] || ' ')
+      ))
+      newIndex = index - 1
+    } else if (event.keyCode === 46) {
+      newValue = blankValueArray.map((_, idx) => (
+        idx > index ? (values[idx + 1] || ' ') : (values[idx] || ' ')
+      ))
+    } else return
     field.onChange(newValue.join(''))
-    const newIndex = (index + 1) % numInputs
-    setActiveIndex(newIndex)
-    if (newIndex !== 0) {
+    if (newIndex >= 0 && newIndex < numInputs) {
+      setActiveIndex(newIndex)
       inputsRef.current[newIndex].focus()
       inputsRef.current[newIndex].select()
-    } else {
-      // event.target.dispatchEvent('keydown', { key: 9 })
     }
   }, [field, blankValueArray, numInputs])
+  
   useEffect(() => {
     inputsRef.current = inputsRef.current.slice(0, numInputs);
   }, [numInputs]);
@@ -41,8 +58,10 @@ const Passcode = ({ field, name, error, className, numInputs = 6 }) => {
                   focus: activeIndex === index ? "focus" : undefined,
                   className: classes.input
                 }}
+                error={Boolean(error)}
                 value={(field.value || '').split('')[index] || ''}
                 onKeyDown={handleKeydown(index)}
+                onFocus={handleFocus(index)}
               />
             </FormControl>
           </Grid>
