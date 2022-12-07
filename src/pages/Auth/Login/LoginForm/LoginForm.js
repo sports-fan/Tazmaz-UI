@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect, useMemo, useContext } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
 import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
@@ -37,12 +37,16 @@ const LoginForm = ({t}) => {
   const { loginPage } = useContext(AuthContext)
   const {control, watch, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
+    mode: 'onBlur',
     defaultValues: {
       email: '',
       password: ''
     }
   })
-  const [loginRes, setLoginRes] = useState({})
+  const [alertInfo, setAlertInfo] = useState({
+    status: '',
+    message: ''
+  })
   const [open, setOpen] = useState(false)
 
   const authOptions = useMemo(() => ({
@@ -53,6 +57,17 @@ const LoginForm = ({t}) => {
     nonce: 'nonce',
     usePopup: true
   }), [])
+
+  useEffect(() => {
+    const start = ()=> {
+      gapi.client.init({
+        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+        scope: 'email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
 
   const handleForgetPassword = useCallback((e) => {
     e.preventDefault()
@@ -70,24 +85,21 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       console.log(res.data)
+      setOpen(true)
+      setAlertInfo({
+        status: 'success',
+        message: res.data.message
+      })
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setLoginRes(err.response.data)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
     })
   }, [watch])
-
-  useEffect(() => {
-    const start = ()=> {
-      gapi.client.init({
-        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
-        scope: 'email',
-      });
-    }
-
-    gapi.load('client:auth2', start);
-  }, []);
 
   const handleLogin = useCallback((data) => {
     axios({
@@ -105,41 +117,72 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       if (res.data.success) {
-        localStorage.setItem('twofaId', res.data.data.twofaId);
+        sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
+      } else {
+        setOpen(true)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
       }
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setLoginRes(err.response.data)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
     })
   }, [navigate])
 
   const handleGoogleLogin = useCallback((res) => {
     console.log('successfully logedin with Google' , res, '========')
-    const accessToken = res.accessToken
-    sessionStorage.setItem('access_token', accessToken)
-    navigate("/")
-
-    // axios({
-    //   url: '/api/auth/validate-token',
-    //   method: 'POST',
-    //   data: {
-    //     token: accessToken,
-    //   }
-    // })
-    // .then(res => {
-    //   console.log(res)
-    //   navigate("/")
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
+    const tokenId = res.tokenId
+    const email = res.profileObj.email
+    axios({
+      url: '/public/login',
+      method: "POST",
+      headers: {
+        "accept": 'application/json',
+        "content-type": 'application/json'
+      },
+      data: {
+        email,
+        providerAccessToken: tokenId,
+        loginType: "GOOGLE"
+      },
+    })
+    .then(res => {
+      if (res.data.success) {
+        // sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        navigate("/auth/login/2fa")
+      } else {
+        setOpen(true)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      setOpen(true)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
+    })
   }, [navigate])
 
   const handleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
+    setOpen(true)
+      setAlertInfo({
+        status: 'error',
+        message: res.response.data
+      })
   }, [])
 
   const handleAppleLogin = useCallback((res) => {
@@ -150,11 +193,11 @@ const LoginForm = ({t}) => {
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide theme="dark" logo={TazmazLogo}>
+        <AuthRightSide theme="dark" logo={TazmazLogo} login={true}>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h3' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
                 <Typography variant='body1' className={classes.caramelize} mb={1.25} align='left'>{t('login.caramelizeTheSync')}</Typography>
@@ -199,7 +242,6 @@ const LoginForm = ({t}) => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
-                        type="email"
                         placeholder={t('login.email')}
                         icon={<img src={PenIcon} alt="pen logo"/>}
                         id="signup-email"
@@ -237,14 +279,14 @@ const LoginForm = ({t}) => {
                 </form>
                 <div className={classes.forgetText}>
                   <Typography>
-                    <a href='/' className={classes.forgetTag} onClick={handleForgetPassword}>
+                    <Link to='/' className={classes.forgetTag} onClick={handleForgetPassword}>
                       {t('login.forgetYourPassword')}
-                    </a>
+                    </Link>
                   </Typography>
                 </div>
                 <div className={classes.register}>
                   <Typography variant='body1' mr={1}>{t('login.notRegistered')}</Typography>
-                  <a className={classes.u} href="signup/1">{t('login.forQuickRegistration')}</a>
+                  <Link className={classes.u} to="/auth/signup/1">{t('login.forQuickRegistration')}</Link>
                 </div>
               </Container>
             </Grid>
@@ -256,7 +298,8 @@ const LoginForm = ({t}) => {
       </Grid>
       <Notification
         open={open}
-        message={loginRes?.message || ''}
+        message={alertInfo.message}
+        variant={alertInfo.status}
         onClose={() => setOpen(false)}
       />
     </Grid>

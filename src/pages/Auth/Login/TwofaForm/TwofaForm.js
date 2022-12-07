@@ -2,7 +2,7 @@ import { useCallback, useContext, useState, useEffect } from 'react';
 import { Typography, Grid } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import Notification from 'components/Notification';
@@ -20,7 +20,10 @@ const TwofaForm = ({t}) => {
   const {control, handleSubmit, formState: {errors}} = useForm({})
   const navigate = useNavigate()
   const { loginPage } = useContext(AuthContext)
-  const [res, setRes] = useState({})
+  const [alertInfo, setAlertInfo] = useState({
+    status: '',
+    message: ''
+  })
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -44,11 +47,19 @@ const TwofaForm = ({t}) => {
     })
     .then(res => {
       console.log(res.data)
+      setOpen(true)
+      setAlertInfo({
+        status: 'success',
+        message: res.data.message
+      })
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setRes(err.response.data)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data 
+      })
     })
   }, [])
 
@@ -71,24 +82,30 @@ const TwofaForm = ({t}) => {
       sessionStorage.setItem('refresh_token', res.data.access_token)
       sessionStorage.removeItem('twofaId')
       setOpen(true)
-      setRes(res.data)
+      setAlertInfo({
+        status: 'success',
+        message: res.data.message
+      })
       navigate('/')
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setRes(err.response.data)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data 
+      })
     })
   }, [navigate])
 
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide theme="dark" logo={TazmazLogo}>
+        <AuthRightSide theme="dark" login={true} logo={TazmazLogo}>
           <Grid container justifyContent='center' className={classes.main}>
             <Grid item lg={8.5} sm={12}>
               <Container>
-                <Typography variant='h5' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h3' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
                 <Typography variant='body1' align='left'>
@@ -129,9 +146,10 @@ const TwofaForm = ({t}) => {
               </form>
               <div className={classes.text}>
                 <Typography variant='caption'>
-                  <a href='/' className={classes.resend} onClick={handleResend}>
-                    {t('2fa.message')}
-                  </a>
+                  {t('2fa.message')}
+                  <Link to='/' className={classes.resend} onClick={handleResend}>
+                    <b>{t('2fa.boldMessage')}</b>
+                  </Link>
                 </Typography>
               </div>
             </Grid>
@@ -143,7 +161,8 @@ const TwofaForm = ({t}) => {
       </Grid>
       <Notification
         open={open}
-        message={res?.message || ''}
+        variant={alertInfo.status}
+        message={alertInfo.message}
         onClose={() => setOpen(false)}
       />
     </Grid>

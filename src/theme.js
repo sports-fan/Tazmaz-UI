@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const primary = '#474E9F'
 const secondary = '#D1D6E7'
 const info = '#1A94B6'
-const success = '#FFFFFF'
+const success = '#2AC584'
 const error = '#FF5151'
 
 const theme = createTheme({
@@ -12,7 +12,17 @@ const theme = createTheme({
       styleOverrides: {
         "root": {
           "&.Mui-error": {
-            "color": "#FF5151"
+            borderWidth: 1,
+            color: '#FF5151'
+          }
+        }
+      }
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          '&.MuiCheckbox-root': {
+            color: secondary
           }
         }
       }
@@ -48,7 +58,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           marginBottom: 8,
-          marginTop: 8
+          marginTop: 8,
         }
       }
     },
@@ -58,8 +68,14 @@ const theme = createTheme({
           width: '100%',
           height: 50,
           borderRadius: 8,
-        }
-      }
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderWidth: 1
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: primary
+          },
+        },
+      },
     },
     MuiFormHelperText: {
       styleOverrides: {
@@ -78,6 +94,40 @@ const theme = createTheme({
         }
       }
     },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          width: '1498px',
+          height: '133px',
+          borderRadius: 8,
+        },
+        action: {
+          display: 'flex',
+          alignItems: 'center',
+          marginRight: 22,
+          color: '#000000'
+        },
+        message: {
+          display: 'flex',
+          alignItems: 'center',
+          color: '#6B6D86'
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          '&.MuiAlert-root': {
+            backgroundColor: 'white'
+          },
+          '&.MuiMenu-paper': {
+            border: '1px solid #474E9F',
+            borderRadius: 8,
+            width: ''
+          }
+        }
+      }
+    }
   },
   palette: {
     primary: {
@@ -104,9 +154,13 @@ const theme = createTheme({
     }
   },
   typography: {
-    h3: {
+    h2: {
       fontSize: '50px',
       lineHeight: '61px'
+    },
+    h3: {
+      fontSize: '40px',
+      lineHeight: '24px'
     },
     h4: {
       fontSize: '34px',

@@ -2,12 +2,15 @@ import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
   main: {
-    [theme.breakpoints.down('lg')]: {
-      marginTop: 26
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 36
     },
-    marginTop: 90
+    marginTop: 112
   },
   mb: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 16
+    },
     marginTop: 34
   },
   leftBGColor: {
@@ -23,16 +26,19 @@ export default makeStyles(theme => ({
     marginTop: 29
   },
   actions: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 26
+    },
     marginTop: 34
   },
   text: {
     display: 'flex',
     justifyContent: 'center',
     paddingTop: 10,
-    paddingBottom: 220
+    paddingBottom: 213
   },
   passcode: {
-    marginTop: 17,
+    marginTop: 10,
     direction: 'ltr'
   },
   resend: {

@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from 'react'
-import { Typography, Grid } from '@mui/material'
+import { Typography, Grid, useMediaQuery } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ import Container from 'pages/Auth/components/Container'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import Notification from 'components/Notification';
 import TazmazLogo from 'assets/tazmazLogWhite.svg'
+import TazmazLogoMobile from 'assets/tazmazLogoMobileWhite.svg'
 import UserIcon from 'assets/userIcon.svg'
 import KeyIcon from 'assets/keyIcon.svg'
 import RightArrow from 'assets/rightArrow.svg'
@@ -32,7 +33,10 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי")
     .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
   email: yup.string("מספר עוסק/ת.ז. שגוי"),
-  password: yup.string().required("מספר עוסק/ת.ז. שגוי"),
+  password: yup.string()
+    .min(8, '8 characters minimum')
+    .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
+    .required("מספר עוסק/ת.ז. שגוי"),
   phonePrefix: yup.string().required("required"),
   phoneNumber: yup.string()
     .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
@@ -50,8 +54,12 @@ const RegistrationForm = ({t}) => {
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [open, setOpen] = useState(false)
-  const [errRes, setErrRes] = useState({})
+  const [alertInfo, setAlertInfo] = useState({
+    status: '',
+    message: ''
+  })
   const navigate = useNavigate()
+  const matches = useMediaQuery('(max-width:600px)')
   const { handleSubmit, formState: {errors}, control } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -86,6 +94,8 @@ const RegistrationForm = ({t}) => {
       method: "GET",
     })
     .then(res => {
+      console.log(res.data)
+
       const options = res.data.data.map(item => ({
         value: item.key,
         label: item.key
@@ -118,12 +128,21 @@ const RegistrationForm = ({t}) => {
       if (res.data.success) {
         sessionStorage.setItem("userId", res.data.data.userId)
         navigate("/auth/signup/3")
+      } else {
+        setOpen(true)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
       }
     })
     .catch(err => {
       console.log(err)
-      setOpen(false)
-      setErrRes(err.response.data)
+      setOpen(true)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
     })
   }, [navigate])
 
@@ -145,7 +164,7 @@ const RegistrationForm = ({t}) => {
         <AuthRightSide
           theme="light"
           bottomDisabled={true}
-          logo={TazmazLogo}
+          logo={matches? TazmazLogoMobile:TazmazLogo}
           className={classes.logoBGColor}
           steper={<CustomStepper stepNum={1}/>}
         >
@@ -353,7 +372,8 @@ const RegistrationForm = ({t}) => {
       />
       <Notification
         open={open}
-        message={errRes?.message || 'Please read our terms & policy'}
+        message={alertInfo.message}
+        variant={alertInfo.status}
         onClose={() => setOpen(false)}
       />
     </Grid>

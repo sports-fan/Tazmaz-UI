@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, useContext } from 'react';
-import { Typography, Grid, Divider, Button } from '@mui/material'
+import { Typography, Grid, Divider, Button, useMediaQuery } from '@mui/material'
 import { withTranslation } from 'react-i18next';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, Controller } from 'react-hook-form';
 import GoogleLogin from 'react-google-login';
 import { gapi } from 'gapi-script';
@@ -19,6 +19,7 @@ import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import { AuthContext } from 'contexts/AuthContext';
 
+import TazmazLogoMobile from 'assets/tazmazLogoMobile.svg'
 import TazmazLogo from 'assets/tazmazLogo.svg'
 import AppleIcon from 'assets/apple.svg'
 import GoogleIcon from 'assets/google.svg'
@@ -32,11 +33,14 @@ const schema = yup.object({
 const RegistrationOptions = ({t}) => {
   const classes = useStyles()
   const {registerPage} = useContext(AuthContext)
-  console.log(registerPage)
   const [checked, setChecked] = useState(false)
   const [open, setOpen] = useState(false)
-  const [errRes, setErrRes] = useState({})
+  const [alertInfo, setAlertInfo] = useState({
+    status: '',
+    message: ''
+  })
   const navigate = useNavigate()
+  const matches = useMediaQuery('(max-width:600px)')
   const {control, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
     defaultValues: { email: ''}
@@ -87,17 +91,26 @@ const RegistrationOptions = ({t}) => {
           sessionStorage.setItem('verifiedEmail', data.email);
           navigate("/auth/signup/2")
         } else {
-          setOpen(true)
-          setErrRes(res.data)
+          setAlertInfo({
+            status: 'warning',
+            message: res.data.message
+          })
         }
       })
       .catch(err => {
         console.log(err)
         setOpen(true)
-        setErrRes(err.response.data)
+        setAlertInfo({
+          status: 'error',
+          message: err.response.data.message || err.response.data
+        })
       })
     } else {
       setOpen(true)
+      setAlertInfo({
+        status: 'warning',
+        message: 'Please read our terms & policy'
+      })
     }
   }, [navigate, checked])
 
@@ -119,13 +132,13 @@ const RegistrationOptions = ({t}) => {
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide backURL='/auth/login' theme="dark" logo={TazmazLogo}>
+        <AuthRightSide backURL='/auth/login' theme="dark" logo={matches ? TazmazLogoMobile:TazmazLogo}>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={2} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h5' mb={1.9} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
-                <div className={classes.mb6} ></div>
+                <div className={classes.mb55} ></div>
                 <AppleSignin
                   authOptions={authOptions}
                   onSuccess={handleAppleLogin}
@@ -136,7 +149,7 @@ const RegistrationOptions = ({t}) => {
                       endIcon={<img src={AppleIcon} alt="logo"/>}
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >{t('common.loginUsing')}</Button>
                   )}
                 />
                 <GoogleLogin
@@ -150,10 +163,9 @@ const RegistrationOptions = ({t}) => {
                       onClick={renderProps.onClick}
                       className={classes.loginWithGoogle}
                       endIcon={<img src={GoogleIcon} alt="logo"/>}
-                      text='התחברות באמצעות'
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >{t('common.loginUsing')}</Button>
                   )}
               />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
@@ -164,7 +176,6 @@ const RegistrationOptions = ({t}) => {
                     render={({field, formState}) =>
                       <FormInput
                         name="email"
-                        type="email"
                         placeholder={t('registrationOption.email')}
                         id="signup-email"
                         error={errors?.email}
@@ -190,12 +201,7 @@ const RegistrationOptions = ({t}) => {
                       <div className={classes.underlined}>
                         <Typography variant='body2'>
                           <u className={classes.u}>
-                            {t('registrationOption.policy')}
-                          </u>                      
-                        </Typography>
-                        <Typography variant='body2'>
-                          <u className={classes.u}>
-                            {t('registrationOption.terms')}  
+                            {t('registrationOption.termsAndPolicy')}  
                           </u>                      
                         </Typography>
                       </div>
@@ -207,8 +213,9 @@ const RegistrationOptions = ({t}) => {
                   </div>
                 </form>
                 <div className={classes.register}>
-                  <Typography variant='body1'>{t('registrationOption.registered')}
-                    <a href="/auth/login" className={classes.returnTologin}>{t('registrationOption.connect')}</a>
+                  <Typography variant='body1'>
+                    {t('registrationOption.registered')}
+                    <Link to="/auth/login" className={classes.returnTologin}>{t('registrationOption.connect')}</Link>
                   </Typography>
                 </div>
               </Container>
@@ -221,7 +228,8 @@ const RegistrationOptions = ({t}) => {
       </Grid>
       <Notification
         open={open}
-        message={errRes?.message || 'Please read our terms & policy'}
+        message={alertInfo.message}
+        variant={alertInfo.status}
         onClose={() => setOpen(false)}
       />
     </Grid>

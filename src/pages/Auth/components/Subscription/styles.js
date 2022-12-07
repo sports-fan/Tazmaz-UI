@@ -1,16 +1,25 @@
 import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
-  container: {
+  container1: {
     [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      alignItems: 'flex-end'
     },
-    position: 'relative'
+    display: 'flex',
+    alignItems: 'flex-end',
+    position: 'relative',
+    minHeight: 449
+  },
+  container2: {
+    [theme.breakpoints.down('sm')]: {
+    },
+    display: 'flex',
+    alignItems: 'flex-end',
+    position: 'relative',
+    minHeight: 552
   },
   logo: {
     position: 'absolute',
-    top: '-85px',
+    top: '15px',
     left: 0,
     zIndex: '100'
   },

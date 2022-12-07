@@ -1,10 +1,10 @@
 import * as React from 'react';
 import cn from 'classnames'
-import { MenuItem, FormControl, Select, InputAdornment, FormHelperText } from '@mui/material';
+import { MenuItem, FormControl, Select, FormHelperText } from '@mui/material';
 
 import useStyles from './styles'
 
-const FormSelect = ({helperClass, error, options, adorementText, className, field, placeholder}) => {
+const FormSelect = ({helperClass, error, options, className, field, placeholder}) => {
   const classes = useStyles()
   return (
     <FormControl sx={{width: '100%' }} className={classes.main}>
@@ -12,9 +12,6 @@ const FormSelect = ({helperClass, error, options, adorementText, className, fiel
         displayEmpty
         className={className}
         defaultValue="none"
-        startAdornment={
-          <InputAdornment position="start">{adorementText}</InputAdornment>
-        }
         {...field}
         error={Boolean(error)}
         renderValue={field.value !== "" ? undefined : (selected) => <div className={classes.placeholder}>{placeholder}</div>}

@@ -80,7 +80,7 @@ const SelectSubscription = ({t}) => {
             />
           </Grid>
           <Grid item lg={4} xs={12} className={classes.formAction}>
-            <Grid container columnSpacing={2} rowSpacing={{xs:1}} alignItems="flex-end">
+            <Grid container columnSpacing={2} alignItems="flex-end">
               <Grid item lg={8}  xs={12}>
                 <div className={classes.formTitle}>
                   <Typography variant="body1">{t('subscription.couponLabel')}</Typography>
@@ -105,7 +105,7 @@ const SelectSubscription = ({t}) => {
           </Grid>
         </Grid>
         <div className={classes.mt}></div>
-        <Grid container rowSpacing={matches ? 1 : 3} columnSpacing={matches ? 1:4.1} justifyContent='center' alignItems="flex-end" className={classes.subscriptions}>
+        <Grid container rowSpacing={matches ? 0 : 3} columnSpacing={matches ? 1:4.1} justifyContent='center' alignItems="flex-end" className={classes.subscriptions}>
           {filteredSubscriptions.map((subcription, id) =>
             <Grid key={id} item lg={2.4} xs={12} sm={12} md={12}>
               <Subscription

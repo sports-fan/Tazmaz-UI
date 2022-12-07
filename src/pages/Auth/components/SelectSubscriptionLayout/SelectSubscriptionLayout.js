@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import useStyles from './styles'
 import IosArrow from '../../../../assets/iosArrow.svg'
 import IosArrowWhilte from '../../../../assets/iosArrowWhite.svg'
+import { Link } from 'react-router-dom';
 
 const SelectSubscriptionLayout = ({children}) => {
   const classes = useStyles()
@@ -12,7 +13,7 @@ const SelectSubscriptionLayout = ({children}) => {
   return (
     <div className={classes.main}>
       <div className={classes.back}>
-        <a href='/auth/signup/1' className={classes.text}>{t('common.backToHome')}</a>
+        <Link to='/auth/signup/1' className={classes.text}>{t('common.backToHome')}</Link>
         <img src={matches ? IosArrowWhilte : IosArrow} alt='logo'/>
       </div>
       {children}

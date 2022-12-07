@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 export default makeStyles(theme => ({
   main: {
     height: '100%',
-    minHeight: 1080
+    minHeight: 1080,
   },
   title: {
     [theme.breakpoints.down('sm')]: {
@@ -51,8 +51,8 @@ export default makeStyles(theme => ({
       height: '100%'
     },
     height: 563,
-
-  },
+    marginBottom: 5
+},
   formButton: {
     marginBottom: 8
   },
