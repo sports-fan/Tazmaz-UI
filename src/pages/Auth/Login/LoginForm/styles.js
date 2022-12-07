@@ -3,9 +3,9 @@ import { makeStyles } from "@mui/styles"
 export default makeStyles(theme => ({
   loginForm: {
     [theme.breakpoints.down('lg')]: {
-      marginTop: 26
+      marginTop: 36
     },
-    marginTop: 83
+    marginTop: 106
   },
   leftBGColor: {
     backgroundColor: '#F0F1F8',
@@ -14,6 +14,9 @@ export default makeStyles(theme => ({
     color: '#474E9F'
   },
   mb: {
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 23
+    },
     marginBottom: 34
   },
   caramelize: {
@@ -43,7 +46,6 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     [theme.breakpoints.down('lg')]: {
-      marginTop: 22,
       marginBottom: 6
     },
     marginTop: 33,

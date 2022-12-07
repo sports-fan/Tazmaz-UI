@@ -33,10 +33,12 @@ const schema = yup.object({
 const RegistrationOptions = ({t}) => {
   const classes = useStyles()
   const {registerPage} = useContext(AuthContext)
-  console.log(registerPage)
   const [checked, setChecked] = useState(false)
   const [open, setOpen] = useState(false)
-  const [errRes, setErrRes] = useState({})
+  const [alertInfo, setAlertInfo] = useState({
+    status: '',
+    message: ''
+  })
   const navigate = useNavigate()
   const matches = useMediaQuery('(max-width:600px)')
   const {control, handleSubmit, formState: {errors}} = useForm({
@@ -89,17 +91,26 @@ const RegistrationOptions = ({t}) => {
           sessionStorage.setItem('verifiedEmail', data.email);
           navigate("/auth/signup/2")
         } else {
-          setOpen(true)
-          setErrRes(res.data)
+          setAlertInfo({
+            status: 'warning',
+            message: res.data.message
+          })
         }
       })
       .catch(err => {
         console.log(err)
         setOpen(true)
-        setErrRes(err.response.data)
+        setAlertInfo({
+          status: 'error',
+          message: err.response.data.message || err.response.data
+        })
       })
     } else {
       setOpen(true)
+      setAlertInfo({
+        status: 'warning',
+        message: 'Please read our terms & policy'
+      })
     }
   }, [navigate, checked])
 
@@ -125,9 +136,9 @@ const RegistrationOptions = ({t}) => {
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
-                <Typography variant='h5' mb={1.8} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
+                <Typography variant='h5' mb={1.9} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
-                <div className={classes.mb6} ></div>
+                <div className={classes.mb55} ></div>
                 <AppleSignin
                   authOptions={authOptions}
                   onSuccess={handleAppleLogin}
@@ -138,7 +149,7 @@ const RegistrationOptions = ({t}) => {
                       endIcon={<img src={AppleIcon} alt="logo"/>}
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >{t('common.loginUsing')}</Button>
                   )}
                 />
                 <GoogleLogin
@@ -152,10 +163,9 @@ const RegistrationOptions = ({t}) => {
                       onClick={renderProps.onClick}
                       className={classes.loginWithGoogle}
                       endIcon={<img src={GoogleIcon} alt="logo"/>}
-                      text='התחברות באמצעות'
                       color="secondary"
                       variant="outlined"
-                    >התחברות באמצעות</Button>
+                    >{t('common.loginUsing')}</Button>
                   )}
               />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
@@ -203,7 +213,8 @@ const RegistrationOptions = ({t}) => {
                   </div>
                 </form>
                 <div className={classes.register}>
-                  <Typography variant='body1'>{t('registrationOption.registered')}
+                  <Typography variant='body1'>
+                    {t('registrationOption.registered')}
                     <Link to="/auth/login" className={classes.returnTologin}>{t('registrationOption.connect')}</Link>
                   </Typography>
                 </div>
@@ -217,7 +228,8 @@ const RegistrationOptions = ({t}) => {
       </Grid>
       <Notification
         open={open}
-        message={errRes?.message || 'Please read our terms & policy'}
+        message={alertInfo.message}
+        variant={alertInfo.status}
         onClose={() => setOpen(false)}
       />
     </Grid>

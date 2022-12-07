@@ -33,7 +33,10 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי")
     .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
   email: yup.string("מספר עוסק/ת.ז. שגוי"),
-  password: yup.string().required("מספר עוסק/ת.ז. שגוי"),
+  password: yup.string()
+    .min(8, '8 characters minimum')
+    .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
+    .required("מספר עוסק/ת.ז. שגוי"),
   phonePrefix: yup.string().required("required"),
   phoneNumber: yup.string()
     .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
@@ -51,7 +54,10 @@ const RegistrationForm = ({t}) => {
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [open, setOpen] = useState(false)
-  const [errRes, setErrRes] = useState({})
+  const [alertInfo, setAlertInfo] = useState({
+    status: '',
+    message: ''
+  })
   const navigate = useNavigate()
   const matches = useMediaQuery('(max-width:600px)')
   const { handleSubmit, formState: {errors}, control } = useForm({
@@ -88,6 +94,8 @@ const RegistrationForm = ({t}) => {
       method: "GET",
     })
     .then(res => {
+      console.log(res.data)
+
       const options = res.data.data.map(item => ({
         value: item.key,
         label: item.key
@@ -120,12 +128,21 @@ const RegistrationForm = ({t}) => {
       if (res.data.success) {
         sessionStorage.setItem("userId", res.data.data.userId)
         navigate("/auth/signup/3")
+      } else {
+        setOpen(true)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
       }
     })
     .catch(err => {
       console.log(err)
-      setOpen(false)
-      setErrRes(err.response.data)
+      setOpen(true)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
     })
   }, [navigate])
 
@@ -355,7 +372,8 @@ const RegistrationForm = ({t}) => {
       />
       <Notification
         open={open}
-        message={errRes?.message || 'Please read our terms & policy'}
+        message={alertInfo.message}
+        variant={alertInfo.status}
         onClose={() => setOpen(false)}
       />
     </Grid>

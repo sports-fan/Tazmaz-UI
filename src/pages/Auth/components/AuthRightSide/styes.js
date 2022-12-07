@@ -8,7 +8,6 @@ export default makeStyles(theme => ({
     },
     width: '100%',
     height: '100%',
-    minHeight: 1080
   },
   logo: {
     [theme.breakpoints.down('lg')]: {
@@ -26,14 +25,25 @@ export default makeStyles(theme => ({
     paddingTop: 44,
   },
   bottomLogo: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0,
+    },
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 28
+    marginTop: 28,
   },
   u: {
     color: theme.palette.primary.main,
     paddingRight: 5
+  },
+  stepper: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 54,
+      paddingBottom: 18
+    },
+    marginTop: 65,
+    paddingBottom: 29
   }
 }))

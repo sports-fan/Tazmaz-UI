@@ -2,10 +2,10 @@ import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
   loginForm: {
-    [theme.breakpoints.down('lg')]: {
+    [theme.breakpoints.down('sm')]: {
       marginTop: 26
     },
-    marginTop: 90
+    marginTop: 95
   },
   leftBGColor: {
     backgroundColor: '#413B71',
@@ -20,11 +20,11 @@ export default makeStyles(theme => ({
   title2: {
     marginRight: 117
   },
-  mb6: {
+  mb55: {
     [theme.breakpoints.down('lg')]: {
-      marginBottom: 31
+      marginBottom: 28
     },
-    marginBottom: theme.spacing(5)
+    marginBottom: 55
   },
   loginWithGoogle: {
     width: '100%',
@@ -32,8 +32,12 @@ export default makeStyles(theme => ({
     borderRadius: '8px',
   },
   divider: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 20,
+      marginBottom: 12
+    },
     width: '100%',
-    marginTop: '20px ! important',
+    marginTop: '26px ! important',
     marginBottom: '10px ! important',
   },
   forgotPassword: {
@@ -74,7 +78,7 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     [theme.breakpoints.down('lg')]: {
-      marginTop: 22,
+      marginTop: 62,
       marginBottom: 6
     },
     marginTop: 69,

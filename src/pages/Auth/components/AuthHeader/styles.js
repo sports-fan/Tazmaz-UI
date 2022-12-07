@@ -15,6 +15,21 @@ export default makeStyles(theme => ({
     position: 'relative',
     paddingBottom: 73
   },
+  loginLogo: {
+    [theme.breakpoints.down('lg')]: {
+      right: 30
+    },
+    [theme.breakpoints.down('xl')]: {
+      right: 60
+    },
+    [theme.breakpoints.down('sm')]: {
+      top: 28,
+      right: 20
+    },
+    position: 'absolute',
+    top: 25,
+    right: 86
+  },
   logo: {
     [theme.breakpoints.down('lg')]: {
       right: 30
@@ -23,11 +38,11 @@ export default makeStyles(theme => ({
       right: 60
     },
     [theme.breakpoints.down('sm')]: {
-      top: 50,
+      top: 54,
       right: 20
     },
     position: 'absolute',
-    top: 25,
+    top: 21,
     right: 86
   },
   logoDark: {
@@ -45,7 +60,7 @@ export default makeStyles(theme => ({
       right: 16
     },
     position: 'absolute',
-    top: 30,
+    top: 38,
     right: 90
   },
   backToHome: {
@@ -76,7 +91,7 @@ export default makeStyles(theme => ({
     justifyContent:'flex-end',
     alignItems: 'center',
     left: 28,
-    top: 48,
+    top: 44,
   },
   textLight: {
     color: '#FFFFFF',

@@ -43,7 +43,10 @@ const LoginForm = ({t}) => {
       password: ''
     }
   })
-  const [loginRes, setLoginRes] = useState({})
+  const [alertInfo, setAlertInfo] = useState({
+    status: '',
+    message: ''
+  })
   const [open, setOpen] = useState(false)
 
   const authOptions = useMemo(() => ({
@@ -54,6 +57,17 @@ const LoginForm = ({t}) => {
     nonce: 'nonce',
     usePopup: true
   }), [])
+
+  useEffect(() => {
+    const start = ()=> {
+      gapi.client.init({
+        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+        scope: 'email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
 
   const handleForgetPassword = useCallback((e) => {
     e.preventDefault()
@@ -71,24 +85,21 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       console.log(res.data)
+      setOpen(true)
+      setAlertInfo({
+        status: 'success',
+        message: res.data.message
+      })
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setLoginRes(err.response.data)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
     })
   }, [watch])
-
-  useEffect(() => {
-    const start = ()=> {
-      gapi.client.init({
-        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
-        scope: 'email',
-      });
-    }
-
-    gapi.load('client:auth2', start);
-  }, []);
 
   const handleLogin = useCallback((data) => {
     axios({
@@ -110,19 +121,25 @@ const LoginForm = ({t}) => {
         navigate("/auth/login/2fa")
       } else {
         setOpen(true)
-        setLoginRes(res.data)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
       }
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setLoginRes(err.response.data)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
     })
   }, [navigate])
 
   const handleGoogleLogin = useCallback((res) => {
     console.log('successfully logedin with Google' , res, '========')
-    const accessToken = res.accessToken
+    const tokenId = res.tokenId
     const email = res.profileObj.email
     axios({
       url: '/public/login',
@@ -132,26 +149,40 @@ const LoginForm = ({t}) => {
         "content-type": 'application/json'
       },
       data: {
-        email: email,
-        providerAccessToken: accessToken,
-        loginType: "DEFAULT"
+        email,
+        providerAccessToken: tokenId,
+        loginType: "GOOGLE"
       },
     })
     .then(res => {
       if (res.data.success) {
-        sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        // sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
+      } else {
+        setOpen(true)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
       }
     })
     .catch(err => {
       console.log(err)
       setOpen(true)
-      setLoginRes(err.response.data)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
     })
   }, [navigate])
 
   const handleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
+    setOpen(true)
+      setAlertInfo({
+        status: 'error',
+        message: res.response.data
+      })
   }, [])
 
   const handleAppleLogin = useCallback((res) => {
@@ -162,7 +193,7 @@ const LoginForm = ({t}) => {
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide theme="dark" logo={TazmazLogo}>
+        <AuthRightSide theme="dark" logo={TazmazLogo} login={true}>
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
@@ -259,7 +290,6 @@ const LoginForm = ({t}) => {
                 </div>
               </Container>
             </Grid>
-            
           </Grid>
         </AuthRightSide>
       </Grid>
@@ -268,7 +298,8 @@ const LoginForm = ({t}) => {
       </Grid>
       <Notification
         open={open}
-        message={loginRes?.message || ''}
+        message={alertInfo.message}
+        variant={alertInfo.status}
         onClose={() => setOpen(false)}
       />
     </Grid>

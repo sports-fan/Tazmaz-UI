@@ -16,7 +16,7 @@ export default makeStyles(theme => ({
   back: {
     [theme.breakpoints.down('sm')]: {
       position: 'absolute',
-      top: 60,
+      top: 56,
       left: 20
     },
     display: 'flex',

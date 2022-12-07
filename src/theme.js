@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const primary = '#474E9F'
 const secondary = '#D1D6E7'
-const info = '#F0D233'
+const info = '#1A94B6'
 const success = '#2AC584'
 const error = '#FF5151'
 

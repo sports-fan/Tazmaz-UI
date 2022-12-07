@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginBottom: 0
     },
-    marginBottom: 48
+    marginBottom: 45
 
   }
 }))

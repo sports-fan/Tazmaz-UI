@@ -2,26 +2,26 @@ import { makeStyles } from "@mui/styles"
 
 export default makeStyles(theme => ({
   main: {
-    [theme.breakpoints.down('sm')]: {
-      position: 'relative'
-    },
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#474E9F',
   },
   logo: {
     [theme.breakpoints.down('sm')]: {
       position: 'absolute',
-      top: 19,
+      marginTop: 54,
       right: 20,
     },
-    paddingTop: 30
+    marginTop: 35
   },
   stepper: {
     [theme.breakpoints.down('sm')]: {
-      paddingTop: 49
+      marginTop: 103,
+      marginBottom: 18
     },
+    marginTop: 45,
+    marginBottom: 24
   }
 }))
