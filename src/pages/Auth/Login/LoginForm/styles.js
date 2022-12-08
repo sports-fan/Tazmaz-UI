@@ -54,6 +54,6 @@ export default makeStyles(theme => ({
     marginTop: 8
   },
   u: {
-    textDecoration: 'none'
+    color: '#474E9F'
   }
 }))

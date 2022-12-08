@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, useContext } from 'react';
+import { useCallback, useEffect, useState, useContext } from 'react';
 import { Typography, Grid, Divider, Button, useMediaQuery } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { Link, useNavigate } from "react-router-dom";
@@ -30,6 +30,15 @@ const schema = yup.object({
   email: yup.string().email("Invalid email format").required("שדה חובה"),
 })
 
+const authOptions = {
+  clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
+  redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
+  scope: 'email name',
+  state: 'state',
+  nonce: 'nonce',
+  usePopup: true
+}
+
 const RegistrationOptions = ({t}) => {
   const classes = useStyles()
   const {registerPage} = useContext(AuthContext)
@@ -45,34 +54,29 @@ const RegistrationOptions = ({t}) => {
     resolver: yupResolver(schema),
     defaultValues: { email: ''}
   })
+  
+    useEffect(() => {
+      const start = ()=> {
+        gapi.client.init({
+          clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+          scope: 'email',
+        });
+      }
+  
+      gapi.load('client:auth2', start);
+    }, []);
 
   const handlChekced = useCallback((e) => {
     setChecked(e.target.checked)
   },[])
-  
-  const authOptions = useMemo(() => ({
-      clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
-      redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
-      scope: 'email name',
-      state: 'state',
-      nonce: 'nonce',
-      usePopup: true
-  }), [])
 
-  useEffect(() => {
-    if (checked) {
-      window.open('/term&policy','_blank').focus()
-    }
+  const handleTerms = useCallback(() => {
+    window.open('/termsofservice','_blank').focus()
+  }, [])
 
-    const start = ()=> {
-      gapi.client.init({
-        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
-        scope: 'email',
-      });
-    }
-
-    gapi.load('client:auth2', start);
-  }, [checked]);
+  const handlePolicy = useCallback(() => {
+    window.open('/termsofservice','_blank').focus()
+  }, [])
 
   const handleEmailVerification = useCallback((data) => {
     if (checked) {
@@ -188,6 +192,7 @@ const RegistrationOptions = ({t}) => {
                     <FormButton
                       endIcon={<img src={LeftArrow} alt="logo"/>}
                       type="submit"
+                      error={alertInfo.message}
                       text={t('registrationOption.button')}
                       color="primary"
                       variant="contained"
@@ -200,9 +205,12 @@ const RegistrationOptions = ({t}) => {
                       </Typography>
                       <div className={classes.underlined}>
                         <Typography variant='body2'>
-                          <u className={classes.u}>
-                            {t('registrationOption.termsAndPolicy')}  
-                          </u>                      
+                          <u className={classes.u} onClick={handleTerms}>
+                            {t('registrationOption.terms')}  
+                          </u>
+                          <u className={classes.u} onClick={handlePolicy}>
+                            {t('registrationOption.policy')}  
+                          </u> 
                         </Typography>
                       </div>
                     </div>

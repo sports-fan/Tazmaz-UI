@@ -339,6 +339,7 @@ const RegistrationForm = ({t}) => {
                     <Grid item lg={6} xs={6}>
                       <FormButton
                         type='submit'
+                        error={alertInfo.message}
                         text={t('registrationForm.button1')}
                         startIcon={<img src={RightArrow} alt="logo"/>}
                         variant="contained"

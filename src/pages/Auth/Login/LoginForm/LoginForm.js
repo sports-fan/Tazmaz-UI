@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useMemo, useContext } from 'react';
+import { useCallback, useState, useEffect, useContext } from 'react';
 import { Typography, Grid, Divider, Button } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { Link, useNavigate } from "react-router-dom";
@@ -29,7 +29,16 @@ const schema = yup.object({
   password: yup.string().required("מספר עוסק/ת.ז. שגוי")
     // .min(2, '8 characters minimum')
     // .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
-})
+  })
+
+  const authOptions = {
+    clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
+    redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
+    scope: 'email name',
+    state: 'state',
+    nonce: 'nonce',
+    usePopup: true
+  }
 
 const LoginForm = ({t}) => {
   const classes = useStyles()
@@ -48,15 +57,6 @@ const LoginForm = ({t}) => {
     message: ''
   })
   const [open, setOpen] = useState(false)
-
-  const authOptions = useMemo(() => ({
-    clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
-    redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
-    scope: 'email name',
-    state: 'state',
-    nonce: 'nonce',
-    usePopup: true
-  }), [])
 
   useEffect(() => {
     const start = ()=> {
@@ -120,7 +120,7 @@ const LoginForm = ({t}) => {
         sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
-        setOpen(true)
+        // setOpen(true)
         setAlertInfo({
           status: 'warning',
           message: res.data.message
@@ -129,7 +129,7 @@ const LoginForm = ({t}) => {
     })
     .catch(err => {
       console.log(err)
-      setOpen(true)
+      // setOpen(true)
       setAlertInfo({
         status: 'error',
         message: err.response.data.message || err.response.data
@@ -271,6 +271,7 @@ const LoginForm = ({t}) => {
                   <div className={classes.submitButton}>
                     <FormButton
                       type="submit"
+                      error={alertInfo.message}
                       text={t('login.manageTheBusiness')}
                       color="primary"
                       variant="contained"

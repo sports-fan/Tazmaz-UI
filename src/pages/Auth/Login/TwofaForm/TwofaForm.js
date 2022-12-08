@@ -160,6 +160,7 @@ const TwofaForm = ({t}) => {
                   <Grid item lg={9} md={8} sm={5} xs={8}>
                     <FormButton
                       type="submit"
+                      error={alertInfo.message}
                       text={t('2fa.button2')}
                       variant="contained"
                       color="primary"

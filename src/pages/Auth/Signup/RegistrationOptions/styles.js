@@ -51,7 +51,7 @@ export default makeStyles(theme => ({
     marginTop: 15
   },
   forgotText: {
-    [theme.breakpoints.down('lg')]: {
+    [theme.breakpoints.down(1880)]: {
       flexDirection: 'column',
       alignItems: 'flex-start'
     },
@@ -66,10 +66,10 @@ export default makeStyles(theme => ({
   },
   u: {
     color: theme.palette.primary.main,
-    paddingRight: 5
+    cursor: 'pointer'
   },
   returnTologin: {
-    textDecoration: 'none'
+    color: '#474E9F'
   },
   formButton: {
     marginTop: 10
