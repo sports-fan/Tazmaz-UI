@@ -80,7 +80,7 @@ const LoginForm = ({t}) => {
         "content-type": 'application/json'
       },
       data: {
-        email: email
+        email
       },
     })
     .then(res => {
@@ -156,10 +156,10 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       if (res.data.success) {
-        // sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
-        setOpen(true)
+        // setOpen(true)
         setAlertInfo({
           status: 'warning',
           message: res.data.message
@@ -168,7 +168,7 @@ const LoginForm = ({t}) => {
     })
     .catch(err => {
       console.log(err)
-      setOpen(true)
+      // setOpen(true)
       setAlertInfo({
         status: 'error',
         message: err.response.data.message || err.response.data
@@ -176,7 +176,7 @@ const LoginForm = ({t}) => {
     })
   }, [navigate])
 
-  const handleFailure = useCallback((res) => {
+  const handleGoogleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
     setOpen(true)
       setAlertInfo({
@@ -187,8 +187,42 @@ const LoginForm = ({t}) => {
 
   const handleAppleLogin = useCallback((res) => {
     console.log('successfully loged in Apple', res, '******')
-    navigate("/auth/signup/2")
-  }, [navigate])
+    const tokenId = res.authorization.id_token
+    const email  = watch('email')
+    axios({
+      url: '/public/login',
+      method: "POST",
+      headers: {
+        "accept": 'application/json',
+        "content-type": 'application/json'
+      },
+      data: {
+        email,
+        providerAccessToken: tokenId,
+        loginType: "APPLE"
+      },
+    })
+    .then(res => {
+      if (res.data.success) {
+        sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        navigate("/auth/login/2fa")
+      } else {
+        // setOpen(true)
+        setAlertInfo({
+          status: 'warning',
+          message: res.data.message
+        })
+      }
+    })
+    .catch(err => {
+      console.log(err)
+      // setOpen(true)
+      setAlertInfo({
+        status: 'error',
+        message: err.response.data.message || err.response.data
+      })
+    })
+  }, [navigate, watch])
 
   return (
     <Grid container>
@@ -220,7 +254,7 @@ const LoginForm = ({t}) => {
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   className={classes.loginWithGoogle}
                   onSuccess={handleGoogleLogin}
-                  onFailure={handleFailure}
+                  onFailure={handleGoogleFailure}
                   cookiePolicy={'single_host_origin'}
                   render={(renderProps) => (
                     <Button
