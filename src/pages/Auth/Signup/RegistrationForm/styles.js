@@ -13,19 +13,6 @@ export default makeStyles(theme => ({
     marginTop: 61,
     marginBottom: 61
   },
-  phoneNumber: {
-    position: 'absolute',
-    top: '59px !important',
-    right: '5px !important'
-  },
-  firstName: {
-    position: 'absolute',
-    top: '57px !important',
-  },
-  lastName: {
-    position: 'absolute',
-    top: '57px !important',
-  },
   leftBGColor: {
     backgroundColor: '#F9F9F9'
   },
@@ -50,8 +37,4 @@ export default makeStyles(theme => ({
     marginTop: 126,
     marginBottom: 49
   },
-  phonePrefix: {
-    position: 'absolute',
-    top: 59,
-  }
 }))

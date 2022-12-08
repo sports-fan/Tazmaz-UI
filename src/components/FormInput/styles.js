@@ -22,10 +22,8 @@ export default makeStyles(theme => ({
     display:'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    position: 'relative',
   },
   helperText: {
-    position: 'absolute',
-    top: 57,
+    paddingTop: 10
   }
 }))
