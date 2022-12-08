@@ -128,6 +128,15 @@ const theme = createTheme({
           }
         }
       }
+    },
+    MuiStepConnector: {
+      styleOverrides: {
+        line: {
+          '$.Mui-completed Mui-active': {
+            borderColor: '#FFFFFF',
+          }
+        }
+      }
     }
   },
   palette: {

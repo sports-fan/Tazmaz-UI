@@ -14,17 +14,21 @@ const CustomStepper = ({stepNum}) => {
     t('common.step3'),
   ]
 
-  const CustomStepConnector = styled(StepConnector)(({ theme }) => ({
+  const CustomStepConnector = styled(StepConnector)(({ theme, ...others }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
       top: 18,
-      left: 'calc(-50% + 17px)',
-      right: 'calc(50% + 17px)',
-      borderColor: 'rgba(255, 255, 255, 0.2)'
+      left: 'calc(-50% + 20px)',
+      right: 'calc(50% + 20px)',
     },
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#FFFFFF',
+      borderColor: 'rgba(255, 255, 255, 0.2)',
       borderTopWidth: 3,
       borderRadius: 1,
+    },
+    [`&.${stepConnectorClasses.completed}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor: '#ffffff'
+      },
     },
   }));
 

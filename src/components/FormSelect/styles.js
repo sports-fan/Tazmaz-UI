@@ -7,8 +7,7 @@ export default makeStyles(theme => ({
     alignItems: 'flex-start'
   },
   helperText: {
-    position: 'absolute',
-    top: 57,
+    paddingTop: 10
   },
   placeholder: {
     color: '#A6ADBF'

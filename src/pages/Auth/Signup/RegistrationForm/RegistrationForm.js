@@ -37,7 +37,7 @@ const schema = yup.object({
     .min(8, '8 characters minimum')
     .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
     .required("מספר עוסק/ת.ז. שגוי"),
-  phonePrefix: yup.string().required("required"),
+  phonePrefix: yup.string().required(""),
   phoneNumber: yup.string()
     .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
     .required("מספר עוסק/ת.ז. שגוי"),
@@ -49,7 +49,6 @@ const schema = yup.object({
 const RegistrationForm = ({t}) => {
   const classes = useStyles()
   const { registerDetailsPage } = useContext(AuthContext)
-  console.log(registerDetailsPage)
   const [roleOptions, setRoleOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
@@ -129,7 +128,7 @@ const RegistrationForm = ({t}) => {
         sessionStorage.setItem("userId", res.data.data.userId)
         navigate("/auth/signup/3")
       } else {
-        setOpen(true)
+        // setOpen(true)
         setAlertInfo({
           status: 'warning',
           message: res.data.message
@@ -138,7 +137,7 @@ const RegistrationForm = ({t}) => {
     })
     .catch(err => {
       console.log(err)
-      setOpen(true)
+      // setOpen(true)
       setAlertInfo({
         status: 'error',
         message: err.response.data.message || err.response.data
@@ -211,7 +210,7 @@ const RegistrationForm = ({t}) => {
                     }
                   />
                   <Grid container columnSpacing={2}>
-                    <Grid item lg={9.5} xs={9}>
+                    <Grid item md={8} lg={9} xs={8}>
                       <Controller
                         name="phoneNumber"
                         control={control}
@@ -219,7 +218,6 @@ const RegistrationForm = ({t}) => {
                         <FormInput
                           name="phoneNumber"
                           type="number"
-                          helperClass={classes.phoneNumber}
                           id="signup-phone-number"
                           placeholder={t('registrationForm.phone')}
                           error={errors?.phoneNumber}
@@ -228,7 +226,7 @@ const RegistrationForm = ({t}) => {
                         />}
                       />
                     </Grid>
-                    <Grid item lg={2.5} xs={3}>
+                    <Grid item md={4} lg={3} xs={4}>
                       <Controller 
                         name="phonePrefix"
                         control={control}
@@ -248,7 +246,6 @@ const RegistrationForm = ({t}) => {
                               {value: '038', label: '038'},
                               {value: '1', label: '1'},
                             ]}
-                            helperClass={classes.phonePrefix}
                             error={errors?.phonePrefix}
                             field={field}
                             form={formState}
@@ -266,7 +263,6 @@ const RegistrationForm = ({t}) => {
                           <FormInput
                             name="firstName"
                             id="signup-firstName"
-                            helperClass={classes.firstName}
                             label={t('registrationForm.firstName')}
                             error={errors.firstName}
                             field={field}
@@ -283,7 +279,6 @@ const RegistrationForm = ({t}) => {
                           <FormInput
                             name="lastName"
                             id="signup-lastName"
-                            helperClass={classes.lastName}
                             label={t('registrationForm.lastName')}
                             error={errors?.lastName}
                             field={field}
@@ -339,6 +334,7 @@ const RegistrationForm = ({t}) => {
                     <Grid item lg={6} xs={6}>
                       <FormButton
                         type='submit'
+                        error={alertInfo.message}
                         text={t('registrationForm.button1')}
                         startIcon={<img src={RightArrow} alt="logo"/>}
                         variant="contained"
