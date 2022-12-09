@@ -188,7 +188,7 @@ const LoginForm = ({t}) => {
   const handleAppleLogin = useCallback((res) => {
     console.log('successfully loged in Apple', res, '******')
     const tokenId = res.authorization.id_token
-    const email  = watch('email')
+    const email  = res.consent.user.accountName
     axios({
       url: '/public/login',
       method: "POST",
@@ -222,7 +222,7 @@ const LoginForm = ({t}) => {
         message: err.response.data.message || err.response.data
       })
     })
-  }, [navigate, watch])
+  }, [navigate])
 
   return (
     <Grid container>

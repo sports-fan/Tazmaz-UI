@@ -24,10 +24,12 @@ export default makeStyles(theme => ({
     },
     display: 'flex',
   },
+  switchDiv: {
+    marginTop: 16
+  },
   switch: {
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: 8
   },
   switchLeft: {
     display: 'flex',
@@ -54,6 +56,12 @@ export default makeStyles(theme => ({
     marginBottom: 5
 },
   formButton: {
-    marginBottom: 8
+    marginTop: 8
+  },
+  couponInput: {
+    '& .MuiInputBase-root.Mui-disabled': {
+      backgroundColor: 'transparent',
+      color: '#A6ADBF'
+    },
   },
 }))
