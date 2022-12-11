@@ -26,6 +26,7 @@ const SelectSubscription = ({t}) => {
   const classes = useStyles()
   const [subcriptions, setSubcriptions] = useState([])
   const [couponStatus, setCouponStatus] = useState(false)
+  const [couponLabel, setCouponLabel] = useState('')
   const [filter, setFilter] = useState('MONTHLY')
   const navigate = useNavigate()
   const matches = useMediaQuery('(max-width:600px)')
@@ -64,6 +65,7 @@ const SelectSubscription = ({t}) => {
       if (res.data.success) {
         setSubcriptions(res.data.data)
         setCouponStatus(true)
+        setCouponLabel(res.data.message)
       } else {
         setAlertInfo({
           status: 'warning',
@@ -152,7 +154,7 @@ const SelectSubscription = ({t}) => {
         </Grid>
         <div className={classes.mt36}></div>
         <div className={classes.formTitle}>
-          <Typography variant="body1">{couponStatus ? t('subscription.couponLabel2') : t('subscription.couponLabel')}</Typography>
+          <Typography variant="body1">{couponLabel || t('subscription.couponLabel')}</Typography>
         </div>
         <form onSubmit={handleSubmit(handleSubmitCoupon)}>
           <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-start">

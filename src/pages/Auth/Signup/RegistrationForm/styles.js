@@ -34,7 +34,7 @@ export default makeStyles(theme => ({
       marginTop: 58,
       marginBottom: 50
     },
-    marginTop: 126,
+    marginTop: 71,
     marginBottom: 49
   },
 }))

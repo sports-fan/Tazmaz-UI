@@ -59,9 +59,8 @@ export default makeStyles(theme => ({
     marginTop: 8
   },
   couponInput: {
-    '& .MuiInputBase-root.Mui-disabled': {
-      backgroundColor: 'transparent',
-      color: '#A6ADBF'
+    "& .MuiInputBase-input.Mui-disabled": {
+      WebkitTextFillColor: "#A6ADBF",
     },
   },
 }))

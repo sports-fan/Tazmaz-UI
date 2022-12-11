@@ -43,6 +43,7 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
+  businessId: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   area: yup.string().required("מספר עוסק/ת.ז. שגוי")
 }).required()
  
@@ -69,6 +70,7 @@ const RegistrationForm = ({t}) => {
       phonePrefix: '',
       phoneNumber: '',
       role: '',
+      businessId: '',
       businessName: '',
       area: ''
     }
@@ -115,8 +117,8 @@ const RegistrationForm = ({t}) => {
         password: data.password,
         tosVersionSigned: 1.0,
         privacyPolicySigned: 1.0,
-        phoneNumber: "+927501234567",//"+".concat(data.phonePrefix).concat(data.phoneNumber),
-        businessId:"1234444499",
+        phoneNumber: data.phoneNumber,
+        businessId:data.businessId,
         businessName: data.businessName,
         rolePosition: data.role,
         registerType: 'DEFAULT'
@@ -245,8 +247,6 @@ const RegistrationForm = ({t}) => {
                               {value: '057', label: '057'},
                               {value: '058', label: '058'},
                               {value: '059', label: '059'},
-                              {value: '038', label: '038'},
-                              {value: '1', label: '1'},
                             ]}
                             error={errors?.phonePrefix}
                             field={field}
@@ -306,13 +306,27 @@ const RegistrationForm = ({t}) => {
                     }
                   />
                   <Controller 
+                    name="businessId"
+                    control={control}
+                    render={({field, formState}) =>
+                      <FormInput
+                        name="businessId"
+                        id="signup-business-id"
+                        placeholder={t('registrationForm.businessId')}
+                        error={errors?.businessId}
+                        field={field}
+                        form={formState}
+                      />
+                    }
+                  />
+                  <Controller 
                     name="businessName"
                     control={control}
                     render={({field, formState}) =>
                       <FormInput
                         name="businessName"
                         id="signup-business-name"
-                        placeholder={t('registrationForm.business')}
+                        placeholder={t('registrationForm.businessName')}
                         error={errors?.businessName}
                         field={field}
                         form={formState}
