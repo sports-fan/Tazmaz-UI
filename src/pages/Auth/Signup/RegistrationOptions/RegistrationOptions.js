@@ -130,6 +130,8 @@ const RegistrationOptions = ({t}) => {
 
   const handleAppleLogin = useCallback((res) => {
     console.log('successfully loged in Apple', res, '******')
+    const email  = res.consent.user.accountName
+    sessionStorage.setItem('verifiedEmail', email);
     navigate("/auth/signup/2")
   }, [navigate])
 

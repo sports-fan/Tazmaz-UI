@@ -27,11 +27,11 @@ import { AuthContext } from 'contexts/AuthContext';
 
 const schema = yup.object({
   firstName: yup.string()
-    .required("מספר עוסק/ת.ז. שגוי")
-    .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
+  // .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
+    .required("מספר עוסק/ת.ז. שגוי"),
   lastName: yup.string()
-    .required("מספר עוסק/ת.ז. שגוי")
-    .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
+    // .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
+    .required("מספר עוסק/ת.ז. שגוי"),
   email: yup.string("מספר עוסק/ת.ז. שגוי"),
   password: yup.string()
     .min(8, '8 characters minimum')
@@ -39,10 +39,11 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   phonePrefix: yup.string().required(""),
   phoneNumber: yup.string()
-    .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
+    // .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
+  businessId: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   area: yup.string().required("מספר עוסק/ת.ז. שגוי")
 }).required()
  
@@ -69,6 +70,7 @@ const RegistrationForm = ({t}) => {
       phonePrefix: '',
       phoneNumber: '',
       role: '',
+      businessId: '',
       businessName: '',
       area: ''
     }
@@ -115,8 +117,8 @@ const RegistrationForm = ({t}) => {
         password: data.password,
         tosVersionSigned: 1.0,
         privacyPolicySigned: 1.0,
-        phoneNumber:"+".concat(data.phonePrefix).concat(data.phoneNumber),
-        businessId:"528325833",
+        phoneNumber: data.phoneNumber,
+        businessId:data.businessId,
         businessName: data.businessName,
         rolePosition: data.role,
         registerType: 'DEFAULT'
@@ -125,7 +127,9 @@ const RegistrationForm = ({t}) => {
     .then(res => {
       console.log(res.data)
       if (res.data.success) {
-        sessionStorage.setItem("userId", res.data.data.userId)
+        sessionStorage.setItem("userId", res.data.data.result.account.userId)
+        sessionStorage.setItem('accessToken', res.data.access_token)
+        sessionStorage.setItem('refreshToken', res.data.refresh_token)
         navigate("/auth/signup/3")
       } else {
         // setOpen(true)
@@ -243,8 +247,6 @@ const RegistrationForm = ({t}) => {
                               {value: '057', label: '057'},
                               {value: '058', label: '058'},
                               {value: '059', label: '059'},
-                              {value: '038', label: '038'},
-                              {value: '1', label: '1'},
                             ]}
                             error={errors?.phonePrefix}
                             field={field}
@@ -304,13 +306,27 @@ const RegistrationForm = ({t}) => {
                     }
                   />
                   <Controller 
+                    name="businessId"
+                    control={control}
+                    render={({field, formState}) =>
+                      <FormInput
+                        name="businessId"
+                        id="signup-business-id"
+                        placeholder={t('registrationForm.businessId')}
+                        error={errors?.businessId}
+                        field={field}
+                        form={formState}
+                      />
+                    }
+                  />
+                  <Controller 
                     name="businessName"
                     control={control}
                     render={({field, formState}) =>
                       <FormInput
                         name="businessName"
                         id="signup-business-name"
-                        placeholder={t('registrationForm.business')}
+                        placeholder={t('registrationForm.businessName')}
                         error={errors?.businessName}
                         field={field}
                         form={formState}

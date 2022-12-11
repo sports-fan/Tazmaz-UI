@@ -26,7 +26,7 @@ const Signup = () => {
         path='/3'
         element={
           <PrivateRoute
-            isAuthenticated={ hasVerifedEmail}
+            isAuthenticated={() => Boolean(sessionStorage.getItem("userId")) && hasVerifedEmail}
             redirectTo="/auth/signup/1"
             component={SelectSubscription}
           />
