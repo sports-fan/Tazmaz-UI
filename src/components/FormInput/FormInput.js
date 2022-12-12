@@ -1,4 +1,4 @@
-import { FormHelperText, InputAdornment, OutlinedInput, FormControl, InputLabel } from "@mui/material"
+import { FormHelperText, InputAdornment, TextField } from "@mui/material"
 import cn from 'classnames'
 import useStyles from './styles'
 // import * as R from 'ramda'
@@ -6,15 +6,17 @@ import useStyles from './styles'
 const FormInput = ({helperClass, field, error, name, form, label, startAdornment, endAdornment, icon, className, id, readOnly, ...props}) => {
   const classes = useStyles()
   return (
-    <FormControl fullWidth className={cn(classes.main, className)}>
-      {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
-      <OutlinedInput
+    <div className={cn(classes.main, className)}>
+      <TextField
         id={id}
         dir='rtl'
         label={label}
         error={Boolean(error)}
         className={cn(classes.input)}
-        endAdornment={icon && <InputAdornment position="end">{icon}</InputAdornment>}
+        InputLabelProps={{ shrink: true }}
+        InputProps={{
+          endAdornment: (icon && <InputAdornment position="end">{icon}</InputAdornment>)
+        }}
         {...field}
         {...props}
       />
@@ -23,7 +25,7 @@ const FormInput = ({helperClass, field, error, name, form, label, startAdornment
           {error.message}
         </FormHelperText>
       }
-    </FormControl>
+    </div>
   )
 }
 

@@ -57,7 +57,7 @@ const theme = createTheme({
     MuiFormControl: {
       styleOverrides: {
         root: {
-          marginBottom: 8,
+          width: '100%',
           marginTop: 8,
         }
       }
@@ -65,6 +65,7 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
+          marginBottom: 8,
           width: '100%',
           height: 50,
           borderRadius: 8,
@@ -82,9 +83,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: 14,
-          lineHeight: 0,
+          lineHeight: '14px',
           marginTop: 0,
-          marginBottom: 0
+          marginBottom: 0,
         }
       }
     },
@@ -95,6 +96,21 @@ const theme = createTheme({
         }
       }
     },
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          marginRight: 10
+        }
+      }
+    },
+    MuiInputAdornment: {
+      styleOverrides: {
+        root: {
+          marginRight: 7
+        }
+      }
+    },
+
     MuiAlert: {
       styleOverrides: {
         root: {
@@ -199,7 +215,12 @@ const theme = createTheme({
     subtitle1: {
       fontSize: '24px',
       lineHeight: '18px'
+    },
+    subtitle2: {
+      fontSize: '15px',
+      lineHeight: '21px'
     }
+    
   },
   direction: 'rtl',
 });

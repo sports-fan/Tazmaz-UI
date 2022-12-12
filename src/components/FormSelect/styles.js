@@ -7,9 +7,12 @@ export default makeStyles(theme => ({
     alignItems: 'flex-start'
   },
   helperText: {
-    paddingTop: 10
+    // paddingTop: 5,
+    // paddingBottom: 5,
   },
   placeholder: {
-    color: '#A6ADBF'
+    color: '#A6ADBF',
+    fontSize: 18,
+    fontWeight: 400,
   }
 }))

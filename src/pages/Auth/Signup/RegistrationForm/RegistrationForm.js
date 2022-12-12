@@ -27,10 +27,10 @@ import { AuthContext } from 'contexts/AuthContext';
 
 const schema = yup.object({
   firstName: yup.string()
-  // .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
+    .matches(/^[\u0590-\u05fe]+$/i,'Should be Latin letters')
     .required("מספר עוסק/ת.ז. שגוי"),
   lastName: yup.string()
-    // .matches(/^[\u0590-\u05fe]+$/i,'Shoudl be Latin letters.'),
+    .matches(/^[\u0590-\u05fe]+$/i,'Should be Latin letters')
     .required("מספר עוסק/ת.ז. שגוי"),
   email: yup.string("מספר עוסק/ת.ז. שגוי"),
   password: yup.string()
@@ -43,7 +43,9 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  businessId: yup.string().required("מספר עוסק/ת.ז. שגוי"),
+  businessId: yup.number()
+    .required("מספר עוסק/ת.ז. שגוי")
+    .typeError('only number'),
   area: yup.string().required("מספר עוסק/ת.ז. שגוי")
 }).required()
  
@@ -144,7 +146,7 @@ const RegistrationForm = ({t}) => {
       // setOpen(true)
       setAlertInfo({
         status: 'error',
-        message: err.response.data.message || err.response.data
+        message: err.response.data.message.join(", ") || err.response.data
       })
     })
   }, [navigate])
@@ -248,6 +250,7 @@ const RegistrationForm = ({t}) => {
                               {value: '058', label: '058'},
                               {value: '059', label: '059'},
                             ]}
+                            placeholder="054"
                             error={errors?.phonePrefix}
                             field={field}
                             form={formState}
@@ -265,6 +268,7 @@ const RegistrationForm = ({t}) => {
                           <FormInput
                             name="firstName"
                             id="signup-firstName"
+                            placeholder={t('registrationForm.firstName')}
                             label={t('registrationForm.firstName')}
                             error={errors.firstName}
                             field={field}
@@ -281,6 +285,7 @@ const RegistrationForm = ({t}) => {
                           <FormInput
                             name="lastName"
                             id="signup-lastName"
+                            placeholder={t('registrationForm.lastName')}
                             label={t('registrationForm.lastName')}
                             error={errors?.lastName}
                             field={field}

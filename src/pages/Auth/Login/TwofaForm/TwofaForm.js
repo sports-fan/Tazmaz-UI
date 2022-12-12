@@ -169,7 +169,7 @@ const TwofaForm = ({t}) => {
                 </Grid>
               </form>
               <div className={classes.text}>
-                <Typography variant='caption'>
+                <Typography variant='subtitle2'>
                   {t('2fa.message')}
                   <Link to='/' className={classes.resend} onClick={handleResend}>
                     <b>{t('2fa.boldMessage')}</b>
