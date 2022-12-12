@@ -110,7 +110,7 @@ const RegistrationOptions = ({t}) => {
         })
       })
     } else {
-      setOpen(true)
+      // setOpen(true)
       setAlertInfo({
         status: 'warning',
         message: 'Please read our terms & policy'

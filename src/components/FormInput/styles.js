@@ -17,6 +17,18 @@ export default makeStyles(theme => ({
       WebkitTextFillColor: "black",
       WebkitBackgroundColor: '#F5F5F5'
     },
+    "& input::placeholder": {
+      color: "#A6ADBF",
+      fontSize: 18,
+      fontWeight: 400,
+      lineHeight: '18px',
+      opacity: 1
+    },
+    "& label": {
+      color: "#A6ADBF",
+      fontWeight: 400,
+      lineHeight: '18px'
+    }
   },
   main: {
     display:'flex',
@@ -24,6 +36,6 @@ export default makeStyles(theme => ({
     alignItems: 'flex-start',
   },
   helperText: {
-    paddingTop: 10
+    paddingRight: 14,
   }
 }))

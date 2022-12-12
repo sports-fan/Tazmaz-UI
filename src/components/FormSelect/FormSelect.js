@@ -4,7 +4,7 @@ import { MenuItem, FormControl, Select, FormHelperText } from '@mui/material';
 
 import useStyles from './styles'
 
-const FormSelect = ({helperClass, error, options, className, field, placeholder}) => {
+const FormSelect = ({helperClass, error, options, className, field, placeholder, placeholderClass}) => {
   const classes = useStyles()
   return (
     <FormControl sx={{width: '100%' }} className={classes.main}>
@@ -14,7 +14,7 @@ const FormSelect = ({helperClass, error, options, className, field, placeholder}
         defaultValue="none"
         {...field}
         error={Boolean(error)}
-        renderValue={field.value !== "" ? undefined : (selected) => <div className={classes.placeholder}>{placeholder}</div>}
+        renderValue={field.value !== "" ? undefined : (selected) => <div className={cn(classes.placeholder, placeholderClass)}>{placeholder}</div>}
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>

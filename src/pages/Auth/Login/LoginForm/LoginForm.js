@@ -85,7 +85,7 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       console.log(res.data)
-      setOpen(true)
+      // setOpen(true)
       setAlertInfo({
         status: 'success',
         message: res.data.message
@@ -93,7 +93,7 @@ const LoginForm = ({t}) => {
     })
     .catch(err => {
       console.log(err)
-      setOpen(true)
+      // setOpen(true)
       setAlertInfo({
         status: 'error',
         message: err.response.data.message || err.response.data
@@ -313,7 +313,7 @@ const LoginForm = ({t}) => {
                   </div>
                 </form>
                 <div className={classes.forgetText}>
-                  <Typography>
+                  <Typography variant='subtitle2'>
                     <Link to='/' className={classes.forgetTag} onClick={handleForgetPassword}>
                       {t('login.forgetYourPassword')}
                     </Link>

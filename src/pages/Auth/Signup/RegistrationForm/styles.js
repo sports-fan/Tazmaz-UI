@@ -23,7 +23,7 @@ export default makeStyles(theme => ({
     backgroundColor: theme.palette.primary.main,
   },
   email: {
-    marginBottom: theme.spacing(1),
+    // marginBottom: theme.spacing(1),
     '& .MuiInputBase-root.Mui-disabled': {
       backgroundColor: '#F5F5F5',
       color: '#ffffff'
