@@ -122,7 +122,8 @@ const RegistrationOptions = ({t}) => {
     console.log('successfully logedin with Google' , res, '========')
     sessionStorage.setItem('verifiedEmail', res.profileObj.email);
     navigate("/auth/signup/2")
-  }, [navigate])
+  
+}, [navigate])
 
   const handleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
@@ -166,7 +167,7 @@ const RegistrationOptions = ({t}) => {
                   cookiePolicy={'single_host_origin'}
                   render={(renderProps) => (
                     <Button
-                      onClick={renderProps.onClick}
+                      onClick={checked && renderProps.onClick}
                       className={classes.loginWithGoogle}
                       endIcon={<img src={GoogleIcon} alt="logo"/>}
                       color="secondary"

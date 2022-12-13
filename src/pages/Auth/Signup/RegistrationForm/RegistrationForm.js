@@ -43,9 +43,9 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  businessId: yup.number()
-    .required("מספר עוסק/ת.ז. שגוי")
-    .typeError('only number'),
+  businessId: yup.string()
+    .matches(/^[0-9]/, "only numbers")
+    .required("מספר עוסק/ת.ז. שגוי"),
   area: yup.string().required("מספר עוסק/ת.ז. שגוי")
 }).required()
  
@@ -119,7 +119,7 @@ const RegistrationForm = ({t}) => {
         password: data.password,
         tosVersionSigned: 1.0,
         privacyPolicySigned: 1.0,
-        phoneNumber: data.phoneNumber,
+        phoneNumber: data.phonePrefix + data.phoneNumber,
         businessId:data.businessId,
         businessName: data.businessName,
         rolePosition: data.role,
@@ -250,7 +250,7 @@ const RegistrationForm = ({t}) => {
                               {value: '058', label: '058'},
                               {value: '059', label: '059'},
                             ]}
-                            placeholder="054"
+                            placeholder="קידומת"
                             error={errors?.phonePrefix}
                             field={field}
                             form={formState}
