@@ -24,6 +24,7 @@ import FormSelect from 'components/FormSelect'
 import FormButton from 'components/FormButton'
 import ConfirmModal from 'components/ConfirmModal';
 import { AuthContext } from 'contexts/AuthContext';
+import FormPasswordInput from 'components/FormPasswordInput';
 
 const schema = yup.object({
   firstName: yup.string()
@@ -55,6 +56,7 @@ const RegistrationForm = ({t}) => {
   const [roleOptions, setRoleOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [open, setOpen] = useState(false)
   const [alertInfo, setAlertInfo] = useState({
     status: '',
@@ -106,6 +108,14 @@ const RegistrationForm = ({t}) => {
       setSectorOptions(options)
     })
     .catch(err => {console.log(err)})
+  }, [])
+
+  const handleMouseDownPassword = useCallback(e => {
+    e.preventDefault()
+  }, [])
+
+  const handleClickShowPassword = useCallback(() => {
+    setShowPassword(prevState => !prevState)
   }, [])
 
   const handleRegister = useCallback(data => {
@@ -202,16 +212,18 @@ const RegistrationForm = ({t}) => {
                     name="password"
                     control={control}
                     render={({field, formState}) =>
-                      <FormInput
+                      <FormPasswordInput
                         name="password"
-                        type="password"
                         id="signup-password"
+                        showPassword={showPassword}
                         icon={<img src={KeyIcon} alt="logo"/>}
                         placeholder={t('registrationForm.password')}
                         error={errors?.password}
                         autoComplete="current-password"
                         field={field}
                         form={formState}
+                        onMouseDownPassword={handleMouseDownPassword}
+                        onClickShowPassword={handleClickShowPassword}
                       />
                     }
                   />

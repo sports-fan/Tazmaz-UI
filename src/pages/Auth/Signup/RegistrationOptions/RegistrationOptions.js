@@ -78,6 +78,13 @@ const RegistrationOptions = ({t}) => {
     window.open('/termsofservice','_blank').focus()
   }, [])
 
+  const setMessage = useCallback(() => {
+    setAlertInfo({
+      status: 'warning',
+      message: 'Please read our terms & policy'
+    })
+  }, [])
+
   const handleEmailVerification = useCallback((data) => {
     if (checked) {
       axios({
@@ -152,7 +159,7 @@ const RegistrationOptions = ({t}) => {
                   onError={(error)=> console.error(error)}
                   render={(renderProps) => (
                     <Button
-                      onClick={renderProps.onClick}
+                      onClick={checked ? renderProps.onClick : setMessage}
                       endIcon={<img src={AppleIcon} alt="logo"/>}
                       color="secondary"
                       variant="outlined"
@@ -167,14 +174,14 @@ const RegistrationOptions = ({t}) => {
                   cookiePolicy={'single_host_origin'}
                   render={(renderProps) => (
                     <Button
-                      onClick={checked && renderProps.onClick}
+                      onClick={checked ? renderProps.onClick : setMessage}
                       className={classes.loginWithGoogle}
                       endIcon={<img src={GoogleIcon} alt="logo"/>}
                       color="secondary"
                       variant="outlined"
                     >{t('common.loginUsing')}</Button>
                   )}
-              />
+                />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleEmailVerification)}>
                   <Controller 
