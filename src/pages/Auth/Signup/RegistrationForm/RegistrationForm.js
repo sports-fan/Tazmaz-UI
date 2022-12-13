@@ -24,6 +24,7 @@ import FormSelect from 'components/FormSelect'
 import FormButton from 'components/FormButton'
 import ConfirmModal from 'components/ConfirmModal';
 import { AuthContext } from 'contexts/AuthContext';
+import FormPasswordInput from 'components/FormPasswordInput';
 
 const schema = yup.object({
   firstName: yup.string()
@@ -43,9 +44,9 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
-  businessId: yup.number()
-    .required("מספר עוסק/ת.ז. שגוי")
-    .typeError('only number'),
+  businessId: yup.string()
+    .matches(/^[0-9]/, "only numbers")
+    .required("מספר עוסק/ת.ז. שגוי"),
   area: yup.string().required("מספר עוסק/ת.ז. שגוי")
 }).required()
  
@@ -55,6 +56,7 @@ const RegistrationForm = ({t}) => {
   const [roleOptions, setRoleOptions] = useState([])
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [open, setOpen] = useState(false)
   const [alertInfo, setAlertInfo] = useState({
     status: '',
@@ -108,6 +110,14 @@ const RegistrationForm = ({t}) => {
     .catch(err => {console.log(err)})
   }, [])
 
+  const handleMouseDownPassword = useCallback(e => {
+    e.preventDefault()
+  }, [])
+
+  const handleClickShowPassword = useCallback(() => {
+    setShowPassword(prevState => !prevState)
+  }, [])
+
   const handleRegister = useCallback(data => {
     axios({
       url: '/public/register',
@@ -119,7 +129,7 @@ const RegistrationForm = ({t}) => {
         password: data.password,
         tosVersionSigned: 1.0,
         privacyPolicySigned: 1.0,
-        phoneNumber: data.phoneNumber,
+        phoneNumber: data.phonePrefix + data.phoneNumber,
         businessId:data.businessId,
         businessName: data.businessName,
         rolePosition: data.role,
@@ -202,16 +212,18 @@ const RegistrationForm = ({t}) => {
                     name="password"
                     control={control}
                     render={({field, formState}) =>
-                      <FormInput
+                      <FormPasswordInput
                         name="password"
-                        type="password"
                         id="signup-password"
+                        showPassword={showPassword}
                         icon={<img src={KeyIcon} alt="logo"/>}
                         placeholder={t('registrationForm.password')}
                         error={errors?.password}
                         autoComplete="current-password"
                         field={field}
                         form={formState}
+                        onMouseDownPassword={handleMouseDownPassword}
+                        onClickShowPassword={handleClickShowPassword}
                       />
                     }
                   />
@@ -250,7 +262,7 @@ const RegistrationForm = ({t}) => {
                               {value: '058', label: '058'},
                               {value: '059', label: '059'},
                             ]}
-                            placeholder="054"
+                            placeholder="קידומת"
                             error={errors?.phonePrefix}
                             field={field}
                             form={formState}

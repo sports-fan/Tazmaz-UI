@@ -23,6 +23,7 @@ import AppleIcon from 'assets/apple.svg'
 import useStyles from './styles'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
 import { AuthContext } from 'contexts/AuthContext';
+import FormPasswordInput from 'components/FormPasswordInput';
 
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
@@ -57,6 +58,7 @@ const LoginForm = ({t}) => {
     message: ''
   })
   const [open, setOpen] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     const start = ()=> {
@@ -68,6 +70,14 @@ const LoginForm = ({t}) => {
 
     gapi.load('client:auth2', start);
   }, []);
+
+  const handleMouseDownPassword = useCallback(e => {
+    e.preventDefault()
+  }, [])
+
+  const handleClickShowPassword = useCallback(() => {
+    setShowPassword(prevState => !prevState)
+  }, [])
 
   const handleForgetPassword = useCallback((e) => {
     e.preventDefault()
@@ -289,9 +299,9 @@ const LoginForm = ({t}) => {
                     name="password"
                     control={control}
                     render={({field, formState}) =>
-                      <FormInput
+                      <FormPasswordInput
                         name="password"
-                        type="password"
+                        showPassword={showPassword}
                         placeholder={t('login.password')}
                         icon={<img src={PasswordIcon} alt="password logo"/>}
                         id="login-password"
@@ -299,6 +309,8 @@ const LoginForm = ({t}) => {
                         error={errors?.password}
                         field={field}
                         form={formState}
+                        onMouseDownPassword={handleMouseDownPassword}
+                        onClickShowPassword={handleClickShowPassword}
                       />
                     }
                   />

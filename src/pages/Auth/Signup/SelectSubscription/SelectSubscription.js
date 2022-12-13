@@ -19,7 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object({
-  coupon: yup.string().required("מספר עוסק/ת.ז. שגוי")
+  coupon: yup.string()
 })
 
 const SelectSubscription = ({t}) => {
@@ -34,7 +34,7 @@ const SelectSubscription = ({t}) => {
     status: '',
     message: ''
   })
-  const {control, handleSubmit, formState: {errors}} = useForm({
+  const {control, handleSubmit, resetField } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       coupon: ''
@@ -43,8 +43,9 @@ const SelectSubscription = ({t}) => {
 
   const handleCancelCoupon = useCallback(e => {
     e.preventDefault()
+    resetField('coupon')
     setCouponStatus(false)
-  }, [])
+  }, [resetField])
 
   const handleSubmitCoupon = useCallback((data) => {
     const couponCode = data.coupon
@@ -189,7 +190,6 @@ const SelectSubscription = ({t}) => {
                           disabled={couponStatus}
                           readOnly={couponStatus}
                           placeholder={t('subscription.couponInput')}
-                          error={errors.coupon}
                           field={field}
                           form={formState}
                         />

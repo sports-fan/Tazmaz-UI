@@ -54,6 +54,13 @@ const theme = createTheme({
         })
       }
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: primary,
+        }
+      }
+    },
     MuiFormControl: {
       styleOverrides: {
         root: {
@@ -106,11 +113,18 @@ const theme = createTheme({
     MuiInputAdornment: {
       styleOverrides: {
         root: {
-          marginRight: 7
+          marginRight: 7,
         }
       }
     },
-
+    MuiTouchRipple: {
+      styleOverrides: {
+        root: {
+          width: 32,
+          height: 32
+        }
+      }
+    },
     MuiAlert: {
       styleOverrides: {
         root: {
