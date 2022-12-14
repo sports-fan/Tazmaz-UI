@@ -10,7 +10,6 @@ import * as yup from "yup";
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
 import Container from 'pages/Auth/components/Container'
 import AuthRightSide from 'pages/Auth/components/AuthRightSide'
-import Notification from 'components/Notification';
 import TazmazLogo from 'assets/tazmazLogWhite.svg'
 import TazmazLogoMobile from 'assets/tazmazLogoMobileWhite.svg'
 import UserIcon from 'assets/userIcon.svg'
@@ -57,7 +56,6 @@ const RegistrationForm = ({t}) => {
   const [sectorOptions, setSectorOptions] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const [open, setOpen] = useState(false)
   const [alertInfo, setAlertInfo] = useState({
     status: '',
     message: ''
@@ -139,7 +137,7 @@ const RegistrationForm = ({t}) => {
     .then(res => {
       console.log(res.data)
       if (res.data.success) {
-        sessionStorage.setItem("userId", res.data.data.result.account.userId)
+        sessionStorage.setItem("userId", res.data.result.account.userId)
         sessionStorage.setItem('accessToken', res.data.access_token)
         sessionStorage.setItem('refreshToken', res.data.refresh_token)
         navigate("/auth/signup/3")
@@ -398,12 +396,6 @@ const RegistrationForm = ({t}) => {
         title="Are you sure to go back?"
         onClose={handleModalClose}
         onClick={handleBack}
-      />
-      <Notification
-        open={open}
-        message={alertInfo.message}
-        variant={alertInfo.status}
-        onClose={() => setOpen(false)}
       />
     </Grid>
   )

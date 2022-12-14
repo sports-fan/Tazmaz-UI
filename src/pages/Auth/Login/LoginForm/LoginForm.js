@@ -10,7 +10,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
 
-import Notification from 'components/Notification';
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import FormInput from 'components/FormInput'
@@ -57,7 +56,6 @@ const LoginForm = ({t}) => {
     status: '',
     message: ''
   })
-  const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
@@ -188,11 +186,11 @@ const LoginForm = ({t}) => {
 
   const handleGoogleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
-    setOpen(true)
-      setAlertInfo({
-        status: 'error',
-        message: res.response.data
-      })
+    // setOpen(true)
+    // setAlertInfo({
+    //   status: 'error',
+    //   message: res.response.data
+    // })
   }, [])
 
   const handleAppleLogin = useCallback((res) => {
@@ -343,12 +341,6 @@ const LoginForm = ({t}) => {
       <Grid item md={8}>
         <AuthLeftSide bgColor={loginPage.background} titleColor={classes.titleColor} icon={loginPage.image} title={loginPage.title}/>
       </Grid>
-      <Notification
-        open={open}
-        message={alertInfo.message}
-        variant={alertInfo.status}
-        onClose={() => setOpen(false)}
-      />
     </Grid>
   )
 }
