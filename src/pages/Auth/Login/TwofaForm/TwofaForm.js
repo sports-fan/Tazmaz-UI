@@ -7,7 +7,6 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import axios from "axios";
 
-import Notification from 'components/Notification';
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
@@ -38,7 +37,6 @@ const TwofaForm = ({t}) => {
     status: '',
     message: ''
   })
-  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (sessionStorage.getItem("twofaId")=== null) {
@@ -60,16 +58,15 @@ const TwofaForm = ({t}) => {
       },
     })
     .then(res => {
-      console.log(res.data)
-      setOpen(true)
-      setAlertInfo({
-        status: 'success',
-        message: res.data.message
-      })
+      // console.log(res.data)
+      // setOpen(true)
+      // setAlertInfo({
+      //   status: 'success',
+      //   message: res.data.message
+      // })
     })
     .catch(err => {
       console.log(err)
-      setOpen(true)
       setAlertInfo({
         status: 'error',
         message: err.response.data 
@@ -95,11 +92,10 @@ const TwofaForm = ({t}) => {
       console.log(res.data)
       if (res.data.success) {
         sessionStorage.setItem('access_token', res.data.access_token)
-        sessionStorage.setItem('refresh_token', res.data.access_token)
+        sessionStorage.setItem('refresh_token', res.data.refresh_token)
         sessionStorage.removeItem('twofaId')
         navigate('/')
       } else {
-        setOpen(true)
         setAlertInfo({
           status: 'warning',
           message: res.data.message
@@ -108,7 +104,6 @@ const TwofaForm = ({t}) => {
     })
     .catch(err => {
       console.log(err)
-      setOpen(true)
       setAlertInfo({
         status: 'error',
         message: err.response.data 
@@ -183,12 +178,6 @@ const TwofaForm = ({t}) => {
       <Grid item md={8}>
         <AuthLeftSide bgColor={loginPage.background} titleColor={classes.titleColor} icon={loginPage.image} title={loginPage.title}/>
       </Grid>
-      <Notification
-        open={open}
-        variant={alertInfo.status}
-        message={alertInfo.message}
-        onClose={() => setOpen(false)}
-      />
     </Grid>
   )
 }

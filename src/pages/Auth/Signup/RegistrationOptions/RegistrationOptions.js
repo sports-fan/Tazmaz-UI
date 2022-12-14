@@ -10,7 +10,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
 
-import Notification from 'components/Notification';
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import FormInput from 'components/FormInput'
@@ -43,7 +42,6 @@ const RegistrationOptions = ({t}) => {
   const classes = useStyles()
   const {registerPage} = useContext(AuthContext)
   const [checked, setChecked] = useState(false)
-  const [open, setOpen] = useState(false)
   const [alertInfo, setAlertInfo] = useState({
     status: '',
     message: ''
@@ -110,7 +108,6 @@ const RegistrationOptions = ({t}) => {
       })
       .catch(err => {
         console.log(err)
-        setOpen(true)
         setAlertInfo({
           status: 'error',
           message: err.response.data.message || err.response.data
@@ -244,12 +241,6 @@ const RegistrationOptions = ({t}) => {
       <Grid item md={8}>
         <AuthLeftSide bgColor={registerPage.background} titleColor={classes.titleColor} icon={registerPage.image} title={registerPage.title}/>
       </Grid>
-      <Notification
-        open={open}
-        message={alertInfo.message}
-        variant={alertInfo.status}
-        onClose={() => setOpen(false)}
-      />
     </Grid>
   )
 }
