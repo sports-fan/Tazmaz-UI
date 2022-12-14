@@ -259,6 +259,7 @@ const RegistrationForm = ({t}) => {
                               {value: '057', label: '057'},
                               {value: '058', label: '058'},
                               {value: '059', label: '059'},
+                              {value: '1', label: '1'},
                             ]}
                             placeholder="קידומת"
                             error={errors?.phonePrefix}

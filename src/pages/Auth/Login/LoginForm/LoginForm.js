@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from "axios";
 
+import Notification from 'components/Notification';
 import FormButton from 'components/FormButton'
 import Container from 'pages/Auth/components/Container'
 import FormInput from 'components/FormInput'
@@ -56,6 +57,8 @@ const LoginForm = ({t}) => {
     status: '',
     message: ''
   })
+  const [error, setError] = useState('')
+  const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
@@ -93,7 +96,7 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       console.log(res.data)
-      // setOpen(true)
+      setOpen(true)
       setAlertInfo({
         status: 'success',
         message: res.data.message
@@ -101,11 +104,7 @@ const LoginForm = ({t}) => {
     })
     .catch(err => {
       console.log(err)
-      // setOpen(true)
-      setAlertInfo({
-        status: 'error',
-        message: err.response.data.message || err.response.data
-      })
+      setError(err.response.data.message || err.response.data)
     })
   }, [watch])
 
@@ -128,20 +127,12 @@ const LoginForm = ({t}) => {
         sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
-        // setOpen(true)
-        setAlertInfo({
-          status: 'warning',
-          message: res.data.message
-        })
+        setError(res.data.message)
       }
     })
     .catch(err => {
       console.log(err)
-      // setOpen(true)
-      setAlertInfo({
-        status: 'error',
-        message: err.response.data.message || err.response.data
-      })
+      setError(err.response.data.message || err.response.data)
     })
   }, [navigate])
 
@@ -167,30 +158,17 @@ const LoginForm = ({t}) => {
         sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
-        // setOpen(true)
-        setAlertInfo({
-          status: 'warning',
-          message: res.data.message
-        })
+        setError(res.data.message)
       }
     })
     .catch(err => {
       console.log(err)
-      // setOpen(true)
-      setAlertInfo({
-        status: 'error',
-        message: err.response.data.message || err.response.data
-      })
+      setError(err.response.data.message || err.response.data)
     })
   }, [navigate])
 
   const handleGoogleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
-    // setOpen(true)
-    // setAlertInfo({
-    //   status: 'error',
-    //   message: res.response.data
-    // })
   }, [])
 
   const handleAppleLogin = useCallback((res) => {
@@ -216,10 +194,7 @@ const LoginForm = ({t}) => {
         navigate("/auth/login/2fa")
       } else {
         // setOpen(true)
-        setAlertInfo({
-          status: 'warning',
-          message: res.data.message
-        })
+        setError(res.data.message)
       }
     })
     .catch(err => {
@@ -315,7 +290,7 @@ const LoginForm = ({t}) => {
                   <div className={classes.submitButton}>
                     <FormButton
                       type="submit"
-                      error={alertInfo.message}
+                      error={error}
                       text={t('login.manageTheBusiness')}
                       color="primary"
                       variant="contained"
@@ -341,6 +316,12 @@ const LoginForm = ({t}) => {
       <Grid item md={8}>
         <AuthLeftSide bgColor={loginPage.background} titleColor={classes.titleColor} icon={loginPage.image} title={loginPage.title}/>
       </Grid>
+      <Notification
+        open={open}
+        message={alertInfo.message}
+        variant={alertInfo.status}
+        onClose={() => setOpen(false)}
+      />
     </Grid>
   )
 }

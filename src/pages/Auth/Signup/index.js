@@ -8,7 +8,6 @@ import Welcome from './Welcome';
 
 const Signup = () => {
   const hasVerifedEmail = Boolean(sessionStorage.getItem("verifiedEmail"))
-  const hasUserId = Boolean(sessionStorage.getItem("userId"))
   return (
     <Routes>
       <Route path='/1' element={<RegistrationOptions />} />
@@ -36,7 +35,7 @@ const Signup = () => {
         path='/4'
         element={
           <PrivateRoute 
-            isAuthenticated={hasUserId && hasVerifedEmail}
+            isAuthenticated={() => Boolean(sessionStorage.getItem("userId")) && hasVerifedEmail}
             redirectTo="/auth/signup/1"
             component={Welcome}
           />
