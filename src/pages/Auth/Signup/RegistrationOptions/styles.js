@@ -40,7 +40,7 @@ export default makeStyles(theme => ({
     marginTop: '26px ! important',
     marginBottom: '10px ! important',
   },
-  forgotPassword: {
+  termAndPolicy: {
     [theme.breakpoints.down('lg')]: {
       alignItems: 'flex-start'
     },
@@ -74,7 +74,7 @@ export default makeStyles(theme => ({
   formButton: {
     marginTop: 10
   },
-  register: {
+  redirectToLogin: {
     display: 'flex',
     justifyContent: 'center',
     [theme.breakpoints.down('lg')]: {

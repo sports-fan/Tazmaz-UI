@@ -3,6 +3,7 @@ import TazmazIcon from '../../../../assets/tazmazLogWhite.svg'
 import CustomStepper from 'components/CustomStepper'
 import { Grid } from '@mui/material'
 
+// reusable header component on stage 3 and stage 4
 const SelectSubscriptionHeader = ({stepNum}) => {
   const classes = useStyles()
   return (

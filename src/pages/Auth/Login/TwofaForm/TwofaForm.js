@@ -41,12 +41,14 @@ const TwofaForm = ({t}) => {
   const [error, setError] = useState('')
   const [open, setOpen] = useState(false)
 
+  // redirects to login page if not logged in.
   useEffect(() => {
-    if (sessionStorage.getItem("twofaId")=== null) {
+    if (sessionStorage.getItem("twofaId") === null) {
       navigate('/auth/login')
     }
   }, [navigate])
 
+  // handler for re-sending twofa id
   const handleResend = useCallback((e) => {
     e.preventDefault()
     axios({
@@ -73,8 +75,8 @@ const TwofaForm = ({t}) => {
     })
   }, [])
 
+  // handler for submitting twofa id
   const handleTwofa = useCallback((data) => {
-    console.log(data.passcode)
     axios({
       url: '/api/auth/twofa',
       method: "POST",
@@ -88,7 +90,6 @@ const TwofaForm = ({t}) => {
       },
     })
     .then(res => {
-      console.log(res.data)
       if (res.data.success) {
         sessionStorage.setItem('access_token', res.data.access_token)
         sessionStorage.setItem('refresh_token', res.data.refresh_token)
@@ -104,6 +105,7 @@ const TwofaForm = ({t}) => {
     })
   }, [navigate])
 
+  // handler for going back
   const handleBack = useCallback(() => {
     navigate('/auth/login')
   }, [navigate])
@@ -111,7 +113,7 @@ const TwofaForm = ({t}) => {
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide theme="dark" login={true} logo={TazmazLogo}>
+        <AuthRightSide theme="dark" login={true} logo={TazmazLogo}> {/* right side of 2fa page with dark logo */}
           <Grid container justifyContent='center' className={classes.main}>
             <Grid item lg={8.5} sm={12}>
               <Container>
@@ -122,7 +124,7 @@ const TwofaForm = ({t}) => {
                   {t('2fa.description')}
                 </Typography>
               </Container>
-              <form onSubmit={handleSubmit(handleTwofa)}>
+              <form onSubmit={handleSubmit(handleTwofa)}> {/* form for submitting passcode */}
                 <Controller
                   name="passcode"
                   control={control}
@@ -138,7 +140,7 @@ const TwofaForm = ({t}) => {
                 />
                 <Grid container  justifyContent='center' columnSpacing={{lg: 1.5, sm: 8, md: 10, xs: 8}} className={classes.actions}>
                   <Grid item lg={3} xl={2} md={2} sm={1} xs={2}>
-                    <FormButton
+                    <FormButton // button to go back
                       text={t('2fa.button1')}
                       variant="contained"
                       color="black"
@@ -146,7 +148,7 @@ const TwofaForm = ({t}) => {
                     />
                   </Grid>
                   <Grid item lg={9} md={8} sm={5} xs={8}>
-                    <FormButton
+                    <FormButton // submit button for sending passcode
                       type="submit"
                       error={error}
                       text={t('2fa.button2')}
@@ -156,7 +158,7 @@ const TwofaForm = ({t}) => {
                   </Grid>
                 </Grid>
               </form>
-              <div className={classes.text}>
+              <div className={classes.text}> {/* resend code*/}
                 <Typography variant='subtitle2'>
                   {t('2fa.message')}
                   <Link to='/' className={classes.resend} onClick={handleResend}>

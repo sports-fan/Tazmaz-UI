@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, FormHelperText } from '@mui/material'
 import useStyles from './styles'
 
-const FormButton = ({onClick, error, startIcon, endIcon, text, className, ...props}) => {
+const FormButton = ({onClick, error, startIcon, endIcon, text, className, ...others}) => {
   const classes = useStyles()
   return (
     <div className={classes.main}>
@@ -11,7 +11,7 @@ const FormButton = ({onClick, error, startIcon, endIcon, text, className, ...pro
         startIcon={startIcon}
         endIcon={endIcon}
         onClick={onClick}
-        {...props}
+        {...others}
       >
         {text}
       </Button>

@@ -6,6 +6,7 @@ import IosArrow from '../../../../assets/iosArrow.svg'
 import IosArrowWhilte from '../../../../assets/iosArrowWhite.svg'
 import { Link } from 'react-router-dom';
 
+// resuable layout componnet for stage 3 and stage 4.
 const SelectSubscriptionLayout = ({children}) => {
   const classes = useStyles()
   const { t } = useTranslation()

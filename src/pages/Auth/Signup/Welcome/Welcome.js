@@ -15,8 +15,8 @@ const Welcome = ({t}) => {
   const matches = useMediaQuery('(max-width:600px)');
   return (
     <div>
-      <SelectSubscriptionHeader stepNum={3}/>
-      <SelectSubscriptionLayout className={classes.mainDiv}>
+      <SelectSubscriptionHeader stepNum={3}/> {/* header of stage 4 */}
+      <SelectSubscriptionLayout className={classes.mainDiv}> {/* body of stage 4 */}
         <div className={classes.main}>
           <div className={classes.title}>
             <Typography variant='h3' color="primary" mb={matches?1.5:2.5}>{t('welcome.des1')}</Typography>

@@ -5,6 +5,7 @@ import GirlIconMobile from '../../../../assets/girlIconMobile.svg'
 import useStyles from './styes'
 import AuthHeader from '../AuthHeader'
 
+// resulable component for login, 2fa, stage1 and stage2
 const AuthRightSide = ({children, backURL, steper, logo, login, bottomDisabled, className, theme}) => {
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)')

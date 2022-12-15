@@ -28,18 +28,17 @@ import FormPasswordInput from 'components/FormPasswordInput';
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("מספר עוסק/ת.ז. שגוי"),
   password: yup.string().required("מספר עוסק/ת.ז. שגוי")
-    // .min(2, '8 characters minimum')
-    // .matches(/^[A-Za-z0-9]\w{7,20}$/, ' A-Z, a-z, 0-9, 20 characters maximum')
-  })
+})
 
-  const authOptions = {
-    clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
-    redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
-    scope: 'email name',
-    state: 'state',
-    nonce: 'nonce',
-    usePopup: true
-  }
+// Auth options for google
+const authOptions = {
+  clientId: process.env.REACT_APP_APPLE_CLIENT_ID,
+  redirectURI: process.env.REACT_APP_APPLE_REDIRECT_URL,
+  scope: 'email name',
+  state: 'state',
+  nonce: 'nonce',
+  usePopup: true
+}
 
 const LoginForm = ({t}) => {
   const classes = useStyles()
@@ -61,6 +60,7 @@ const LoginForm = ({t}) => {
   const [open, setOpen] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
+  // initialize the client for google login
   useEffect(() => {
     const start = ()=> {
       gapi.client.init({
@@ -72,6 +72,7 @@ const LoginForm = ({t}) => {
     gapi.load('client:auth2', start);
   }, []);
 
+  // handlers for showing password
   const handleMouseDownPassword = useCallback(e => {
     e.preventDefault()
   }, [])
@@ -80,6 +81,7 @@ const LoginForm = ({t}) => {
     setShowPassword(prevState => !prevState)
   }, [])
 
+  // handler for forget password api
   const handleForgetPassword = useCallback((e) => {
     e.preventDefault()
     const email  = watch('email')
@@ -95,7 +97,6 @@ const LoginForm = ({t}) => {
       },
     })
     .then(res => {
-      console.log(res.data)
       setOpen(true)
       setAlertInfo({
         status: 'success',
@@ -137,7 +138,6 @@ const LoginForm = ({t}) => {
   }, [navigate])
 
   const handleGoogleLogin = useCallback((res) => {
-    console.log('successfully logedin with Google' , res, '========')
     const tokenId = res.tokenId
     const email = res.profileObj.email
     axios({
@@ -172,7 +172,6 @@ const LoginForm = ({t}) => {
   }, [])
 
   const handleAppleLogin = useCallback((res) => {
-    console.log('successfully loged in Apple', res, '******')
     const tokenId = res.authorization.id_token
     const email  = res.consent.user.accountName
     axios({
@@ -193,24 +192,19 @@ const LoginForm = ({t}) => {
         sessionStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
-        // setOpen(true)
         setError(res.data.message)
       }
     })
     .catch(err => {
       console.log(err)
-      // setOpen(true)
-      setAlertInfo({
-        status: 'error',
-        message: err.response.data.message || err.response.data
-      })
+      setError(err.response.data.message || err.response.data)
     })
   }, [navigate])
 
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide theme="dark" logo={TazmazLogo} login={true}>
+        <AuthRightSide theme="dark" logo={TazmazLogo} login={true}>{/* right side of login page with dark logo */}
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={8} sm={12}>
               <Container>
@@ -218,7 +212,7 @@ const LoginForm = ({t}) => {
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb} ></div>
                 <Typography variant='body1' className={classes.caramelize} mb={1.25} align='left'>{t('login.caramelizeTheSync')}</Typography>
-                <AppleSignin
+                <AppleSignin // customized apple login button
                   authOptions={authOptions}
                   onSuccess={handleAppleLogin}
                   onError={(error)=> console.error(error)}
@@ -233,7 +227,7 @@ const LoginForm = ({t}) => {
                     </Button>
                   )}
                 />
-                <GoogleLogin
+                <GoogleLogin // customized google login button
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   className={classes.loginWithGoogle}
                   onSuccess={handleGoogleLogin}
@@ -252,7 +246,7 @@ const LoginForm = ({t}) => {
                   )}
                 />
                 <Divider className={classes.divider} color='secondary'>או</Divider>
-                <form onSubmit={handleSubmit(handleLogin)}>
+                <form onSubmit={handleSubmit(handleLogin)}> {/* form for login*/}
                   <Controller 
                     name="email"
                     control={control}
@@ -288,7 +282,7 @@ const LoginForm = ({t}) => {
                     }
                   />
                   <div className={classes.submitButton}>
-                    <FormButton
+                    <FormButton // submit button for logging in
                       type="submit"
                       error={error}
                       text={t('login.manageTheBusiness')}
@@ -297,6 +291,7 @@ const LoginForm = ({t}) => {
                     />
                   </div>
                 </form>
+                {/* forget password section */}
                 <div className={classes.forgetText}>
                   <Typography variant='subtitle2'>
                     <Link to='/' className={classes.forgetTag} onClick={handleForgetPassword}>
@@ -304,6 +299,7 @@ const LoginForm = ({t}) => {
                     </Link>
                   </Typography>
                 </div>
+                {/* Naviage to login page */}
                 <div className={classes.register}>
                   <Typography variant='body1' mr={1}>{t('login.notRegistered')}</Typography>
                   <Link className={classes.u} to="/auth/signup/1">{t('login.forQuickRegistration')}</Link>
@@ -313,10 +309,11 @@ const LoginForm = ({t}) => {
           </Grid>
         </AuthRightSide>
       </Grid>
+      {/* Left side of login page which is dynamic by response */}
       <Grid item md={8}>
         <AuthLeftSide bgColor={loginPage.background} titleColor={classes.titleColor} icon={loginPage.image} title={loginPage.title}/>
       </Grid>
-      <Notification
+      <Notification // Alert for showing status of forgetting password api
         open={open}
         message={alertInfo.message}
         variant={alertInfo.status}

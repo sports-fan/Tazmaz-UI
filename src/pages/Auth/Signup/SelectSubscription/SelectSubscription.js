@@ -5,6 +5,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+import Notification from 'components/Notification';
 import CustomSwitch from "components/CustomSwitch"
 import FormButton from "components/FormButton"
 import FormInput from "components/FormInput"
@@ -30,6 +31,8 @@ const SelectSubscription = ({t}) => {
   const [filter, setFilter] = useState('MONTHLY')
   const navigate = useNavigate()
   const matches = useMediaQuery('(max-width:600px)')
+  const [open, setOpen] = useState(false)
+  const [error, setError] = useState('')
   const [alertInfo, setAlertInfo] = useState({
     status: '',
     message: ''
@@ -41,12 +44,14 @@ const SelectSubscription = ({t}) => {
     }
   })
 
+  // handler for cancelling coupon verification
   const handleCancelCoupon = useCallback(e => {
     e.preventDefault()
     resetField('coupon')
     setCouponStatus(false)
   }, [resetField])
 
+  // handler for submitting coupon code
   const handleSubmitCoupon = useCallback((data) => {
     const couponCode = data.coupon
     const accessToken = sessionStorage.getItem("accessToken")
@@ -62,27 +67,26 @@ const SelectSubscription = ({t}) => {
       data: { couponCode },
     })
     .then(res => {
-      console.log(res.data)
       if (res.data.success) {
         setSubcriptions(res.data.data)
         setCouponStatus(true)
         setCouponLabel(res.data.message)
-      } else {
+        setOpen(true)
         setAlertInfo({
-          status: 'warning',
-          message: res.data.message
+          status: "success",
+          message: "The coupon code is verified succesfully"
         })
+      } else {
+        setError(res.data.message)
       }
     })
     .catch(err => {
       console.log(err)
-      setAlertInfo({
-        status: 'error',
-        message: err.response.data.message || err.response.data
-      })
+      setError(err.response.data.message || err.response.data)
     })
   }, [])
   
+  // handler for clicking subscription
   const handleSubscriptionClick = useCallback((id) => {
     const accessToken = sessionStorage.getItem("accessToken")
     axios({
@@ -97,36 +101,30 @@ const SelectSubscription = ({t}) => {
       data: { subscriptionId: subcriptions[id].subscriptionId },
     })
     .then(res => {
-      console.log(res.data)
       if (res.data.success) {
         sessionStorage.setItem("PassedStage3", true)
         navigate('/auth/signup/4')
       } else {
-        setAlertInfo({
-          status: 'warning',
-          message: res.data.message
-        })
+        setError( res.data.message)
       }
     })
     .catch(err => {
       console.log(err)
-      setAlertInfo({
-        status: 'error',
-        message: err.response.data.message || err.response.data
-      })
+      setError(err.response.data.message || err.response.data)
     })
   }, [navigate, subcriptions])
-
+  
+  // handler for switching monthly and yearly
   const handleSwitchChange = useCallback((e) => {
     if (e.target.checked)
       setFilter('YEARLY')
     else
       setFilter('MONTHLY')
   }, [])
-
+  
+  // get subsciption lists when loading page.
   useEffect(() => {
     if (couponStatus) return
-    console.log("UseEffect called")
     axios({
       url: '/public/subscriptions',
       method: "GET",
@@ -137,16 +135,17 @@ const SelectSubscription = ({t}) => {
     .catch(err => {console.log(err)})
   }, [couponStatus])
 
+  // sort and filter the subscriptions
   const filteredSubscriptions = useMemo(() => {
     const sorted = subcriptions.sort(compareSubscription)
     const filtered = sorted.filter(item => item.type === filter)
     return filtered
   }, [filter, subcriptions])
-  
+
   return (
     <div className={classes.main}>
-      <SelectSubscriptionHeader stepNum={2}/>
-      <SelectSubscriptionLayout>
+      <SelectSubscriptionHeader stepNum={2}/> {/* header of stage 3 */}
+      <SelectSubscriptionLayout> {/* body of stage 3 */}
         <Grid container justifyContent="center">
           <Grid item lg={4} xs={12}>
             <div className={classes.title}>
@@ -158,7 +157,7 @@ const SelectSubscription = ({t}) => {
         <div className={classes.formTitle}>
           <Typography variant="body1">{couponStatus? couponLabel : t('subscription.couponLabel')}</Typography>
         </div>
-        <form onSubmit={handleSubmit(handleSubmitCoupon)}>
+        <form onSubmit={handleSubmit(handleSubmitCoupon)}> {/* form for coupon code for verification */}
           <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-start">
             <Grid item lg={4} xs={12}/>
             <Grid item lg={4} xs={12} className={classes.switch}>
@@ -206,7 +205,7 @@ const SelectSubscription = ({t}) => {
                       color="error"
                       type="button"
                       variant="contained"
-                      error={alertInfo.message}
+                      error={error}
                       onClick={handleCancelCoupon}
                       text={t('subscription.couponCancel')}
                     /> :
@@ -214,7 +213,7 @@ const SelectSubscription = ({t}) => {
                       color="primary"
                       type="submit"
                       variant="contained"
-                      error={alertInfo.message}
+                      error={error}
                       text={t('subscription.couponButton')}
                     />
                   }
@@ -226,7 +225,7 @@ const SelectSubscription = ({t}) => {
         </form>
         <div className={classes.mt}></div>
         <Grid container rowSpacing={matches ? 0 : 3} columnSpacing={matches ? 1:4.1} justifyContent='center' alignItems="flex-end" className={classes.subscriptions}>
-          {filteredSubscriptions.map((subcription, id) =>
+          {filteredSubscriptions.map((subcription, id) => // listing subscriptions
             <Grid key={id} item lg={2.4} xs={12} sm={12} md={12}>
               <Subscription
                 key={id}
@@ -238,6 +237,12 @@ const SelectSubscription = ({t}) => {
           )}
         </Grid>
       </SelectSubscriptionLayout>
+      <Notification
+        open={open}
+        variant={alertInfo.status}
+        message={alertInfo.message}
+        onClose={() => setOpen(false)}
+      />
     </div>
   )
 }

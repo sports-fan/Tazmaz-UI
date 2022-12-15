@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import useStyles from './styles'
 import cn from 'classnames'
 
+// reusable component for login, 2fa, stage 1 and stage 2
 const AuthLeftSide = ({icon, title, className, titleColor, bgColor}) => {
   const classes = useStyles()
 

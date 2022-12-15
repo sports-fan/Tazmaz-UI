@@ -42,27 +42,24 @@ const RegistrationOptions = ({t}) => {
   const classes = useStyles()
   const {registerPage} = useContext(AuthContext)
   const [checked, setChecked] = useState(false)
-  const [alertInfo, setAlertInfo] = useState({
-    status: '',
-    message: ''
-  })
+  const [error, setError] = useState('')
   const navigate = useNavigate()
   const matches = useMediaQuery('(max-width:600px)')
   const {control, handleSubmit, formState: {errors}} = useForm({
     resolver: yupResolver(schema),
     defaultValues: { email: ''}
   })
-  
-    useEffect(() => {
-      const start = ()=> {
-        gapi.client.init({
-          clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
-          scope: 'email',
-        });
-      }
-  
-      gapi.load('client:auth2', start);
-    }, []);
+  // initialzie the client for google api
+  useEffect(() => {
+    const start = ()=> {
+      gapi.client.init({
+        clientId: process.env.REACT_PUBLIC_GOOGLE_CLIENT_ID,
+        scope: 'email',
+      });
+    }
+
+    gapi.load('client:auth2', start);
+  }, []);
 
   const handlChekced = useCallback((e) => {
     setChecked(e.target.checked)
@@ -77,12 +74,10 @@ const RegistrationOptions = ({t}) => {
   }, [])
 
   const setMessage = useCallback(() => {
-    setAlertInfo({
-      status: 'warning',
-      message: 'Please read our terms & policy'
-    })
+    setError('Please read our terms & policy')
   }, [])
 
+  // handler for verifying email
   const handleEmailVerification = useCallback((data) => {
     if (checked) {
       axios({
@@ -100,43 +95,32 @@ const RegistrationOptions = ({t}) => {
           sessionStorage.setItem('verifiedEmail', data.email);
           navigate("/auth/signup/2")
         } else {
-          setAlertInfo({
-            status: 'warning',
-            message: res.data.message
-          })
+          setError(res.data.message)
         }
       })
       .catch(err => {
         console.log(err)
-        setAlertInfo({
-          status: 'error',
-          message: err.response.data.message || err.response.data
-        })
+        setError(err.response.data.message || err.response.data)
       })
     } else {
-      // setOpen(true)
-      setAlertInfo({
-        status: 'warning',
-        message: 'Please read our terms & policy'
-      })
+      setError('Please read our terms & policy')
     }
   }, [navigate, checked])
 
+  // handler for google login
   const handleGoogleLogin = useCallback((res) => {
-    console.log('successfully logedin with Google' , res, '========')
     sessionStorage.setItem('verifiedEmail', res.profileObj.email);
     sessionStorage.setItem('registerType', "GOOGLE")
     sessionStorage.setItem('providerAccessToken', res.tokenId)
     navigate("/auth/signup/2")
-  
 }, [navigate])
 
   const handleFailure = useCallback((res) => {
     console.log('Google login Failed!', res)
   }, [])
 
+  // handler for apple login
   const handleAppleLogin = useCallback((res) => {
-    console.log('successfully loged in Apple', res, '******')
     const email  = res.consent.user.accountName
     sessionStorage.setItem('verifiedEmail', email);
     sessionStorage.setItem('registerType', "APPLE")
@@ -154,7 +138,7 @@ const RegistrationOptions = ({t}) => {
                 <Typography variant='h5' mb={1.9} align='left'><b>{t('login.miyabaMichorev')}</b></Typography>
                 <Typography variant='h6' align='left'>{t('login.description')}</Typography>
                 <div className={classes.mb55} ></div>
-                <AppleSignin
+                <AppleSignin // Customized apple login button
                   authOptions={authOptions}
                   onSuccess={handleAppleLogin}
                   onError={(error)=> console.error(error)}
@@ -167,7 +151,7 @@ const RegistrationOptions = ({t}) => {
                     >{t('common.loginUsing')}</Button>
                   )}
                 />
-                <GoogleLogin
+                <GoogleLogin // Customized google login button
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   className={classes.loginWithGoogle}
                   onSuccess={handleGoogleLogin}
@@ -186,7 +170,7 @@ const RegistrationOptions = ({t}) => {
                 <Divider className={classes.divider} color='secondary'>או</Divider>
                 <form onSubmit={handleSubmit(handleEmailVerification)}>
                   <Controller 
-                    name="email"
+                    name="email" // email field on stage 1
                     control={control}
                     render={({field, formState}) =>
                       <FormInput
@@ -200,16 +184,17 @@ const RegistrationOptions = ({t}) => {
                     }
                   />
                   <div className={classes.formButton}>
-                    <FormButton
+                    <FormButton // login button for submitting form data
                       endIcon={<img src={LeftArrow} alt="logo"/>}
                       type="submit"
-                      error={alertInfo.message}
+                      error={error}
                       text={t('registrationOption.button')}
                       color="primary"
                       variant="contained"
                     />
                   </div>
-                  <div className={classes.forgotPassword}>
+                  {/* Terms and policy */}
+                  <div className={classes.termAndPolicy}>
                     <div className={classes.forgotText}>
                       <Typography variant='body2'>
                         {t('registrationOption.confirm')}
@@ -231,7 +216,8 @@ const RegistrationOptions = ({t}) => {
                     />
                   </div>
                 </form>
-                <div className={classes.register}>
+                {/* Navigate to login page */}
+                <div className={classes.redirectToLogin}>
                   <Typography variant='body1'>
                     {t('registrationOption.registered')}
                     <Link to="/auth/login" className={classes.returnTologin}>{t('registrationOption.connect')}</Link>

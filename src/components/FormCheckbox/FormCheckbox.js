@@ -1,7 +1,6 @@
 import Checkbox from '@mui/material/Checkbox';
 
 const FormCheckbox = ({value, onClick}) => {
-
   return (
     <Checkbox
       checked={value}

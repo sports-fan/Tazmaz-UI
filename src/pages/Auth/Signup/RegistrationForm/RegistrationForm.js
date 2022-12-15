@@ -77,7 +77,7 @@ const RegistrationForm = ({t}) => {
       area: ''
     }
   })
-
+  //get the role and sector options when loading the page.
   useEffect(() => {
     axios({
       url: '/business/roles-options',
@@ -108,6 +108,7 @@ const RegistrationForm = ({t}) => {
     .catch(err => {console.log(err)})
   }, [])
 
+  // handler for showing password
   const handleMouseDownPassword = useCallback(e => {
     e.preventDefault()
   }, [])
@@ -115,7 +116,8 @@ const RegistrationForm = ({t}) => {
   const handleClickShowPassword = useCallback(() => {
     setShowPassword(prevState => !prevState)
   }, [])
-
+  
+  // handler for registration
   const handleRegister = useCallback(data => {
     const registerType = sessionStorage.getItem("registerType") || "DEFAULT"
     const providerAccessToken = sessionStorage.getItem("providerAccessToken") || undefined
@@ -146,7 +148,6 @@ const RegistrationForm = ({t}) => {
         sessionStorage.setItem('refreshToken', res.data.refresh_token)
         navigate("/auth/signup/3")
       } else {
-        // setOpen(true)
         setAlertInfo({
           status: 'warning',
           message: res.data.message
@@ -155,7 +156,6 @@ const RegistrationForm = ({t}) => {
     })
     .catch(err => {
       console.log(err)
-      // setOpen(true)
       setAlertInfo({
         status: 'error',
         message: err.response.data.message.join(", ") || err.response.data
@@ -178,8 +178,8 @@ const RegistrationForm = ({t}) => {
   return (
     <Grid container>
       <Grid item md={4} sm={12} xs={12}>
-        <AuthRightSide
-          theme="light"
+        <AuthRightSide // right side form of stage 2
+          theme="light" // Specifies light logo icon, by default dark.
           bottomDisabled={true}
           logo={matches? TazmazLogoMobile:TazmazLogo}
           className={classes.logoBGColor}
@@ -188,12 +188,12 @@ const RegistrationForm = ({t}) => {
           <Grid container justifyContent='center' className={classes.loginForm}>
             <Grid item lg={10} sm={12}>
               <Container>
-                <div className={classes.formTitle}>
+                <div className={classes.formTitle}> 
                   <Typography variant='h5'>{t('registrationForm.description1')}</Typography>
                   <Typography variant='h5'>{t('registrationForm.description2')}</Typography>
                 </div>
                 <form onSubmit={handleSubmit(handleRegister)}>
-                  <Controller 
+                  <Controller // email field on stage 2
                     name="email"
                     control={control}
                     render={({field, formState}) =>
@@ -210,7 +210,7 @@ const RegistrationForm = ({t}) => {
                       />
                     }
                   />
-                  <Controller 
+                  <Controller // password field on stage2
                     name="password"
                     control={control}
                     render={({field, formState}) =>
@@ -231,7 +231,7 @@ const RegistrationForm = ({t}) => {
                   />
                   <Grid container columnSpacing={2}>
                     <Grid item md={8} lg={8} xl={9} xs={8}>
-                      <Controller
+                      <Controller // phone number field on stage2
                         name="phoneNumber"
                         control={control}
                         render={({field, formState}) =>
@@ -247,7 +247,7 @@ const RegistrationForm = ({t}) => {
                       />
                     </Grid>
                     <Grid item md={4} lg={4} xl={3} xs={4}>
-                      <Controller 
+                      <Controller // phone prefix field on stage2
                         name="phonePrefix"
                         control={control}
                         render={({field, formState}) =>
@@ -276,7 +276,7 @@ const RegistrationForm = ({t}) => {
                   </Grid>
                   <Grid container columnSpacing={2}>
                     <Grid item lg={6} xs={12}>
-                      <Controller 
+                      <Controller // first name field on stage2
                         name="firstName"
                         control={control}
                         render={({field, formState}) =>
@@ -293,7 +293,7 @@ const RegistrationForm = ({t}) => {
                       />
                     </Grid>
                     <Grid item lg={6} xs={12}>
-                      <Controller 
+                      <Controller // last name field on stage2
                         name="lastName"
                         control={control}
                         render={({field, formState}) =>
@@ -310,7 +310,7 @@ const RegistrationForm = ({t}) => {
                       />
                     </Grid>
                   </Grid>
-                  <Controller 
+                  <Controller // role options on stage2
                     name="role"
                     control={control}
                     render={({field, formState}) =>
@@ -325,7 +325,7 @@ const RegistrationForm = ({t}) => {
                       />
                     }
                   />
-                  <Controller 
+                  <Controller // business id field on stage2
                     name="businessId"
                     control={control}
                     render={({field, formState}) =>
@@ -339,7 +339,7 @@ const RegistrationForm = ({t}) => {
                       />
                     }
                   />
-                  <Controller 
+                  <Controller // business name field on stage2
                     name="businessName"
                     control={control}
                     render={({field, formState}) =>
@@ -354,7 +354,7 @@ const RegistrationForm = ({t}) => {
                     }
                   />
                   <Controller 
-                    name="area"
+                    name="area" // sector options field on stage2
                     control={control}
                     render={({field, formState}) =>
                       <FormSelect // area
@@ -369,7 +369,7 @@ const RegistrationForm = ({t}) => {
                   <Grid container columnSpacing={2} className={classes.formActions} >
                     <Grid item lg={6} xs={6}>
                       <FormButton
-                        type='submit'
+                        type='submit' // register button for submitting form data
                         error={alertInfo.message}
                         text={t('registrationForm.button1')}
                         startIcon={<img src={RightArrow} alt="logo"/>}
@@ -378,7 +378,7 @@ const RegistrationForm = ({t}) => {
                       />
                     </Grid>
                     <Grid item lg={6} xs={6}>
-                      <FormButton
+                      <FormButton // button to go back
                         text={t('registrationForm.button2')}
                         variant="outlined"
                         color="primary"
@@ -393,6 +393,7 @@ const RegistrationForm = ({t}) => {
           </Grid>
         </AuthRightSide>
       </Grid>
+      {/* left side of page whch is dynamic by response */}
       <Grid item md={8}>
         <AuthLeftSide bgColor={registerDetailsPage.background} titleColor={classes.titleColor} icon={registerDetailsPage.image} title={registerDetailsPage.title}/>
       </Grid>
