@@ -19,7 +19,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const schema = yup.object({
-  coupon: yup.string()
+  coupon: yup.string().required('מספר עוסק/ת.ז. שגוי')
 })
 
 const SelectSubscription = ({t}) => {
@@ -34,7 +34,7 @@ const SelectSubscription = ({t}) => {
     status: '',
     message: ''
   })
-  const {control, handleSubmit, resetField } = useForm({
+  const {control, handleSubmit, resetField, formState: {errors} } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
       coupon: ''
@@ -99,6 +99,7 @@ const SelectSubscription = ({t}) => {
     .then(res => {
       console.log(res.data)
       if (res.data.success) {
+        sessionStorage.setItem("PassedStage3", true)
         navigate('/auth/signup/4')
       } else {
         setAlertInfo({
@@ -155,7 +156,7 @@ const SelectSubscription = ({t}) => {
         </Grid>
         <div className={classes.mt36}></div>
         <div className={classes.formTitle}>
-          <Typography variant="body1">{couponLabel || t('subscription.couponLabel')}</Typography>
+          <Typography variant="body1">{couponStatus? couponLabel : t('subscription.couponLabel')}</Typography>
         </div>
         <form onSubmit={handleSubmit(handleSubmitCoupon)}>
           <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-start">
@@ -190,6 +191,7 @@ const SelectSubscription = ({t}) => {
                           disabled={couponStatus}
                           readOnly={couponStatus}
                           placeholder={t('subscription.couponInput')}
+                          error={errors?.coupon}
                           field={field}
                           form={formState}
                         />

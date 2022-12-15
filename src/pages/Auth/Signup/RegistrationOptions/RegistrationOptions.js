@@ -122,9 +122,11 @@ const RegistrationOptions = ({t}) => {
     }
   }, [navigate, checked])
 
-  const handleLogin = useCallback((res) => {
+  const handleGoogleLogin = useCallback((res) => {
     console.log('successfully logedin with Google' , res, '========')
     sessionStorage.setItem('verifiedEmail', res.profileObj.email);
+    sessionStorage.setItem('registerType', "GOOGLE")
+    sessionStorage.setItem('providerAccessToken', res.tokenId)
     navigate("/auth/signup/2")
   
 }, [navigate])
@@ -137,6 +139,8 @@ const RegistrationOptions = ({t}) => {
     console.log('successfully loged in Apple', res, '******')
     const email  = res.consent.user.accountName
     sessionStorage.setItem('verifiedEmail', email);
+    sessionStorage.setItem('registerType', "APPLE")
+    sessionStorage.setItem('providerAccessToken', res.authorization.id_token)
     navigate("/auth/signup/2")
   }, [navigate])
 
@@ -166,7 +170,7 @@ const RegistrationOptions = ({t}) => {
                 <GoogleLogin
                   clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                   className={classes.loginWithGoogle}
-                  onSuccess={handleLogin}
+                  onSuccess={handleGoogleLogin}
                   onFailure={handleFailure}
                   cookiePolicy={'single_host_origin'}
                   render={(renderProps) => (

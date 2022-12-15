@@ -117,6 +117,9 @@ const RegistrationForm = ({t}) => {
   }, [])
 
   const handleRegister = useCallback(data => {
+    const registerType = sessionStorage.getItem("registerType") || "DEFAULT"
+    const providerAccessToken = sessionStorage.getItem("providerAccessToken") || undefined
+
     axios({
       url: '/public/register',
       method: "POST",
@@ -131,7 +134,8 @@ const RegistrationForm = ({t}) => {
         businessId:data.businessId,
         businessName: data.businessName,
         rolePosition: data.role,
-        registerType: 'DEFAULT'
+        registerType,
+        providerAccessToken
       },
     })
     .then(res => {
@@ -226,7 +230,7 @@ const RegistrationForm = ({t}) => {
                     }
                   />
                   <Grid container columnSpacing={2}>
-                    <Grid item md={8} lg={9} xs={8}>
+                    <Grid item md={8} lg={8} xl={9} xs={8}>
                       <Controller
                         name="phoneNumber"
                         control={control}
@@ -242,7 +246,7 @@ const RegistrationForm = ({t}) => {
                         />}
                       />
                     </Grid>
-                    <Grid item md={4} lg={3} xs={4}>
+                    <Grid item md={4} lg={4} xl={3} xs={4}>
                       <Controller 
                         name="phonePrefix"
                         control={control}

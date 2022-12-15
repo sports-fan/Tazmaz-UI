@@ -47,7 +47,7 @@ const Subscription = ({icon, onClick, subscription}) => {
             className={classes.button}
             text={t('subscription.subButton')}
             variant="contained"
-            color="primary"
+            color={mostPopular ? "info" : "primary"}
             onClick={onClick}
             sx={{
               ':hover': {

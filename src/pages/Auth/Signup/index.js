@@ -7,7 +7,6 @@ import SelectSubscription from './SelectSubscription';
 import Welcome from './Welcome';
 
 const Signup = () => {
-  const hasVerifedEmail = Boolean(sessionStorage.getItem("verifiedEmail"))
   return (
     <Routes>
       <Route path='/1' element={<RegistrationOptions />} />
@@ -25,7 +24,7 @@ const Signup = () => {
         path='/3'
         element={
           <PrivateRoute
-            isAuthenticated={() => Boolean(sessionStorage.getItem("userId")) && hasVerifedEmail}
+            isAuthenticated={() => Boolean(sessionStorage.getItem("userId"))}
             redirectTo="/auth/signup/1"
             component={SelectSubscription}
           />
@@ -34,8 +33,8 @@ const Signup = () => {
       <Route
         path='/4'
         element={
-          <PrivateRoute 
-            isAuthenticated={() => Boolean(sessionStorage.getItem("userId")) && hasVerifedEmail}
+          <PrivateRoute
+            isAuthenticated={() => sessionStorage.getItem("PassedStage3")}
             redirectTo="/auth/signup/1"
             component={Welcome}
           />
