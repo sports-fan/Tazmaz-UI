@@ -5,7 +5,6 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-import Notification from 'components/Notification';
 import CustomSwitch from "components/CustomSwitch"
 import FormButton from "components/FormButton"
 import FormInput from "components/FormInput"
@@ -31,12 +30,7 @@ const SelectSubscription = ({t}) => {
   const [filter, setFilter] = useState('MONTHLY')
   const navigate = useNavigate()
   const matches = useMediaQuery('(max-width:600px)')
-  const [open, setOpen] = useState(false)
   const [error, setError] = useState('')
-  const [alertInfo, setAlertInfo] = useState({
-    status: '',
-    message: ''
-  })
   const {control, handleSubmit, resetField, formState: {errors} } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -71,11 +65,6 @@ const SelectSubscription = ({t}) => {
         setSubcriptions(res.data.data)
         setCouponStatus(true)
         setCouponLabel(res.data.message)
-        setOpen(true)
-        setAlertInfo({
-          status: "success",
-          message: "The coupon code is verified succesfully"
-        })
       } else {
         setError(res.data.message)
       }
@@ -149,7 +138,7 @@ const SelectSubscription = ({t}) => {
         <Grid container justifyContent="center">
           <Grid item lg={4} xs={12}>
             <div className={classes.title}>
-              <Typography textAlign="center" variant="h4">{t('subscription.description')}</Typography>
+              <Typography textAlign="center" variant={matches ? "subtitle3": "subtitle4"}><b>{t('subscription.description')}</b></Typography>
             </div>
           </Grid>
         </Grid>
@@ -158,14 +147,14 @@ const SelectSubscription = ({t}) => {
           <Typography variant="body1">{couponStatus? couponLabel : t('subscription.couponLabel')}</Typography>
         </div>
         <form onSubmit={handleSubmit(handleSubmitCoupon)}> {/* form for coupon code for verification */}
-          <Grid container rowSpacing={5}  direction="row-reverse" alignItems="flex-start">
+          <Grid container rowSpacing={{xs: 8.9}}  direction="row-reverse" alignItems="flex-start">
             <Grid item lg={4} xs={12}/>
             <Grid item lg={4} xs={12} className={classes.switch}>
               <div className={classes.switchDiv}>
                 <CustomSwitch
                   onChange={handleSwitchChange}
                   right={
-                    <Typography variant="subtitle1" color="primary">{t('subscription.monthly')}</Typography>
+                    <Typography variant="subtitle1" color="primary"><b>{t('subscription.monthly')}</b></Typography>
                   }
                   left={
                     <div className={classes.switchLeft}>
@@ -237,12 +226,6 @@ const SelectSubscription = ({t}) => {
           )}
         </Grid>
       </SelectSubscriptionLayout>
-      <Notification
-        open={open}
-        variant={alertInfo.status}
-        message={alertInfo.message}
-        onClose={() => setOpen(false)}
-      />
     </div>
   )
 }

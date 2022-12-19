@@ -233,8 +233,17 @@ const theme = createTheme({
     subtitle2: {
       fontSize: '15px',
       lineHeight: '21px'
+    },
+    subtitle3: {
+      fontSize: '26px',
+      lineHeight: '30px',
+      fontWeight: 600
+    },
+    subtitle4: {
+      fontSize: '30px',
+      lineHeight: '30px',
+      fontWeight: 600
     }
-    
   },
   direction: 'rtl',
 });

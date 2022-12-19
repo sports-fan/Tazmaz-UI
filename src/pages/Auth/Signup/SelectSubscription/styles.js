@@ -4,11 +4,18 @@ export default makeStyles(theme => ({
   main: {
     height: '100%',
     minHeight: 1080,
+    minWidth: 375,
+    [theme.breakpoints.down('sm')]: {
+      position: 'relative',
+    },
   },
   title: {
     [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      top: 240,
+      paddingLeft: 26,
+      paddingRight: 6,
       marginTop: 0,
-      marginBottom: 0
     },
     display: 'flex',
     justifyContent: 'center',
@@ -17,10 +24,18 @@ export default makeStyles(theme => ({
   formTitle: {
     display: 'flex',
     justifyContent: 'flex-start',
+    [theme.breakpoints.down('lg')]: {
+      position: 'absolute',
+      top: 510
+    },
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      top: 425
+    },
   },
   formAction: {
     [theme.breakpoints.down('sm')]: {
-      marginTop: 39
+      marginTop: 39,
     },
     display: 'flex',
   },
@@ -38,13 +53,13 @@ export default makeStyles(theme => ({
   },
   mt36: {
     [theme.breakpoints.down('sm')]: {
-      marginTop: 18
+      marginTop: 12
     },
     marginTop: 36
   },
   mt: {
     [theme.breakpoints.down('sm')]: {
-      marginTop: 18
+      marginTop: 0
     },
     marginTop: 54
   },
@@ -54,8 +69,11 @@ export default makeStyles(theme => ({
     },
     height: 563,
     marginBottom: 5
-},
+  },
   formButton: {
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0
+    },
     marginTop: 8
   },
   couponInput: {
