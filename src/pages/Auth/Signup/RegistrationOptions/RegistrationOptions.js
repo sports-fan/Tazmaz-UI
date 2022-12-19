@@ -92,7 +92,7 @@ const RegistrationOptions = ({t}) => {
       .then(res => {
         console.log(res.data)
         if (res.data.success) {
-          sessionStorage.setItem('verifiedEmail', data.email);
+          localStorage.setItem('verifiedEmail', data.email);
           navigate("/auth/signup/2")
         } else {
           setError(res.data.message)
@@ -109,9 +109,9 @@ const RegistrationOptions = ({t}) => {
 
   // handler for google login
   const handleGoogleLogin = useCallback((res) => {
-    sessionStorage.setItem('verifiedEmail', res.profileObj.email);
-    sessionStorage.setItem('registerType', "GOOGLE")
-    sessionStorage.setItem('providerAccessToken', res.tokenId)
+    localStorage.setItem('verifiedEmail', res.profileObj.email);
+    localStorage.setItem('registerType', "GOOGLE")
+    localStorage.setItem('providerAccessToken', res.tokenId)
     navigate("/auth/signup/2")
 }, [navigate])
 
@@ -122,9 +122,9 @@ const RegistrationOptions = ({t}) => {
   // handler for apple login
   const handleAppleLogin = useCallback((res) => {
     const email  = res.consent.user.accountName
-    sessionStorage.setItem('verifiedEmail', email);
-    sessionStorage.setItem('registerType', "APPLE")
-    sessionStorage.setItem('providerAccessToken', res.authorization.id_token)
+    localStorage.setItem('verifiedEmail', email);
+    localStorage.setItem('registerType', "APPLE")
+    localStorage.setItem('providerAccessToken', res.authorization.id_token)
     navigate("/auth/signup/2")
   }, [navigate])
 

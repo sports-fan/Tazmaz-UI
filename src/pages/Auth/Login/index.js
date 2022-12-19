@@ -9,7 +9,7 @@ const Login = () => {
     <Routes>
       <Route path='/' element={<LoginForm />} />
       <Route path='/2fa' element={
-        <PrivateRoute isAuthenticated={() => Boolean(sessionStorage.getItem('twofaId'))} component={TwofaForm}/>}
+        <PrivateRoute isAuthenticated={() => Boolean(localStorage.getItem('twofaId'))} component={TwofaForm}/>}
       />
     </Routes>
   )

@@ -3,8 +3,8 @@ import { Typography, Grid, useMediaQuery } from '@mui/material'
 import { withTranslation } from 'react-i18next';
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { yupResolver } from '@hookform/resolvers/yup';
+import axios from "axios";
 import * as yup from "yup";
 
 import AuthLeftSide from 'pages/Auth/components/AuthLeftSide'
@@ -18,6 +18,7 @@ import RightArrow from 'assets/rightArrow.svg'
 import LeftArrow from 'assets/leftArrowPrimary.svg'
 import useStyles from './styles'
 import CustomStepper from 'components/CustomStepper'
+import NumberInput from 'components/NumberInput';
 import FormInput from 'components/FormInput'
 import FormSelect from 'components/FormSelect'
 import FormButton from 'components/FormButton'
@@ -39,7 +40,7 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   phonePrefix: yup.string().required(""),
   phoneNumber: yup.string()
-    // .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
+    .min(9, '9 numbers required')
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
@@ -67,7 +68,7 @@ const RegistrationForm = ({t}) => {
     defaultValues: {
       firstName: '',
       lastName: '',
-      email: sessionStorage.getItem('verifiedEmail'),
+      email: localStorage.getItem('verifiedEmail'),
       password: '',
       phonePrefix: '',
       phoneNumber: '',
@@ -119,8 +120,8 @@ const RegistrationForm = ({t}) => {
   
   // handler for registration
   const handleRegister = useCallback(data => {
-    const registerType = sessionStorage.getItem("registerType") || "DEFAULT"
-    const providerAccessToken = sessionStorage.getItem("providerAccessToken") || undefined
+    const registerType = localStorage.getItem("registerType") || "DEFAULT"
+    const providerAccessToken = localStorage.getItem("providerAccessToken") || undefined
 
     axios({
       url: '/public/register',
@@ -143,9 +144,9 @@ const RegistrationForm = ({t}) => {
     .then(res => {
       console.log(res.data)
       if (res.data.success) {
-        sessionStorage.setItem("userId", res.data.result.account.userId)
-        sessionStorage.setItem('accessToken', res.data.access_token)
-        sessionStorage.setItem('refreshToken', res.data.refresh_token)
+        localStorage.setItem("userId", res.data.result.account.userId)
+        localStorage.setItem('accessToken', res.data.access_token)
+        localStorage.setItem('refreshToken', res.data.refresh_token)
         navigate("/auth/signup/3")
       } else {
         setAlertInfo({
@@ -164,6 +165,7 @@ const RegistrationForm = ({t}) => {
   }, [navigate])
 
   const handleBack = useCallback(() => {
+    localStorage.removeItem('verifiedEmail')
     navigate("/auth/signup/1")
   }, [navigate])
 
@@ -235,9 +237,9 @@ const RegistrationForm = ({t}) => {
                         name="phoneNumber"
                         control={control}
                         render={({field, formState}) =>
-                        <FormInput
+                        <NumberInput
                           name="phoneNumber"
-                          type="number"
+                          mask="0000000000"
                           id="signup-phone-number"
                           placeholder={t('registrationForm.phone')}
                           error={errors?.phoneNumber}
@@ -329,8 +331,9 @@ const RegistrationForm = ({t}) => {
                     name="businessId"
                     control={control}
                     render={({field, formState}) =>
-                      <FormInput
+                      <NumberInput
                         name="businessId"
+                        mask={Number}
                         id="signup-business-id"
                         placeholder={t('registrationForm.businessId')}
                         error={errors?.businessId}

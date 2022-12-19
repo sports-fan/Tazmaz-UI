@@ -7,13 +7,13 @@ import Signup from './Auth/Signup';
 import Dashboard from './Dashboard';
 
 const Pages = () => {
-  const isAuthenticated = Boolean(sessionStorage.getItem('access_token'))
+  const isAuthenticated = Boolean(localStorage.getItem('access_token'))
   return (
     <Routes>
       <Route
         path='/'
         element={
-          <PrivateRoute isAuthenticated={() => Boolean(sessionStorage.getItem('access_token'))} component={Dashboard} />
+          <PrivateRoute isAuthenticated={() => Boolean(localStorage.getItem('access_token'))} component={Dashboard} />
         }
       />
       <Route

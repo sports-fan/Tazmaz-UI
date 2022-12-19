@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const Dashboard = () => {
   const navigate = useNavigate()
   useEffect(() => {
-    if (sessionStorage.getItem("access_token") === null) {
+    if (localStorage.getItem("access_token") === null) {
       navigate('/auth/login')
     }
   }, [navigate])

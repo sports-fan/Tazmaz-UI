@@ -43,7 +43,7 @@ const TwofaForm = ({t}) => {
 
   // redirects to login page if not logged in.
   useEffect(() => {
-    if (sessionStorage.getItem("twofaId") === null) {
+    if (localStorage.getItem("twofaId") === null) {
       navigate('/auth/login')
     }
   }, [navigate])
@@ -59,7 +59,7 @@ const TwofaForm = ({t}) => {
         "content-type": 'application/json'
       },
       data: {
-        twofaId: sessionStorage.getItem('twofaId'),
+        twofaId: localStorage.getItem('twofaId'),
       },
     })
     .then(res => {
@@ -85,15 +85,15 @@ const TwofaForm = ({t}) => {
         "content-type": 'application/json'
       },
       data: {
-        twofaId: sessionStorage.getItem('twofaId'),
+        twofaId: localStorage.getItem('twofaId'),
         code: data.passcode
       },
     })
     .then(res => {
       if (res.data.success) {
-        sessionStorage.setItem('access_token', res.data.access_token)
-        sessionStorage.setItem('refresh_token', res.data.refresh_token)
-        sessionStorage.removeItem('twofaId')
+        localStorage.setItem('access_token', res.data.access_token)
+        localStorage.setItem('refresh_token', res.data.refresh_token)
+        localStorage.removeItem('twofaId')
         navigate('/')
       } else {
         setError(res.data.message)
@@ -107,6 +107,7 @@ const TwofaForm = ({t}) => {
 
   // handler for going back
   const handleBack = useCallback(() => {
+    localStorage.removeItem('twofaId')
     navigate('/auth/login')
   }, [navigate])
 

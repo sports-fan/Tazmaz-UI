@@ -125,7 +125,7 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       if (res.data.success) {
-        sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        localStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
         setError(res.data.message)
@@ -155,7 +155,7 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       if (res.data.success) {
-        sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        localStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
         setError(res.data.message)
@@ -189,7 +189,7 @@ const LoginForm = ({t}) => {
     })
     .then(res => {
       if (res.data.success) {
-        sessionStorage.setItem('twofaId', res.data.data.twofaId);
+        localStorage.setItem('twofaId', res.data.data.twofaId);
         navigate("/auth/login/2fa")
       } else {
         setError(res.data.message)
