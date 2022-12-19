@@ -14,7 +14,7 @@ const Signup = () => {
         path='/2'
         element={
           <PrivateRoute
-            isAuthenticated={() => Boolean(sessionStorage.getItem("verifiedEmail"))}
+            isAuthenticated={() => Boolean(localStorage.getItem("verifiedEmail"))}
             redirectTo="/auth/signup/1"
             component={RegistrationForm}
           />
@@ -24,7 +24,7 @@ const Signup = () => {
         path='/3'
         element={
           <PrivateRoute
-            isAuthenticated={() => Boolean(sessionStorage.getItem("userId"))}
+            isAuthenticated={() => Boolean(localStorage.getItem("userId"))}
             redirectTo="/auth/signup/1"
             component={SelectSubscription}
           />
@@ -34,7 +34,7 @@ const Signup = () => {
         path='/4'
         element={
           <PrivateRoute
-            isAuthenticated={() => sessionStorage.getItem("PassedStage3")}
+            isAuthenticated={() => localStorage.getItem("PassedStage3")}
             redirectTo="/auth/signup/1"
             component={Welcome}
           />

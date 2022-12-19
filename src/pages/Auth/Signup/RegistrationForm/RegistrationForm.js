@@ -39,7 +39,7 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   phonePrefix: yup.string().required(""),
   phoneNumber: yup.string()
-    // .matches(/^[0-9]\w{8}$/, 'only numbers, 9 digits')
+    .matches(/^[0-9]/, "only numbers")
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
@@ -67,7 +67,7 @@ const RegistrationForm = ({t}) => {
     defaultValues: {
       firstName: '',
       lastName: '',
-      email: sessionStorage.getItem('verifiedEmail'),
+      email: localStorage.getItem('verifiedEmail'),
       password: '',
       phonePrefix: '',
       phoneNumber: '',
@@ -119,8 +119,8 @@ const RegistrationForm = ({t}) => {
   
   // handler for registration
   const handleRegister = useCallback(data => {
-    const registerType = sessionStorage.getItem("registerType") || "DEFAULT"
-    const providerAccessToken = sessionStorage.getItem("providerAccessToken") || undefined
+    const registerType = localStorage.getItem("registerType") || "DEFAULT"
+    const providerAccessToken = localStorage.getItem("providerAccessToken") || undefined
 
     axios({
       url: '/public/register',
@@ -143,9 +143,9 @@ const RegistrationForm = ({t}) => {
     .then(res => {
       console.log(res.data)
       if (res.data.success) {
-        sessionStorage.setItem("userId", res.data.result.account.userId)
-        sessionStorage.setItem('accessToken', res.data.access_token)
-        sessionStorage.setItem('refreshToken', res.data.refresh_token)
+        localStorage.setItem("userId", res.data.result.account.userId)
+        localStorage.setItem('accessToken', res.data.access_token)
+        localStorage.setItem('refreshToken', res.data.refresh_token)
         navigate("/auth/signup/3")
       } else {
         setAlertInfo({
@@ -164,6 +164,7 @@ const RegistrationForm = ({t}) => {
   }, [navigate])
 
   const handleBack = useCallback(() => {
+    localStorage.removeItem('verifiedEmail')
     navigate("/auth/signup/1")
   }, [navigate])
 

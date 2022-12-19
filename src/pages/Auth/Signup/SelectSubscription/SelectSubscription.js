@@ -48,7 +48,7 @@ const SelectSubscription = ({t}) => {
   // handler for submitting coupon code
   const handleSubmitCoupon = useCallback((data) => {
     const couponCode = data.coupon
-    const accessToken = sessionStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem("accessToken")
     axios({
       url: '/business/subscription/validate-copoun',
       method: "POST",
@@ -77,7 +77,7 @@ const SelectSubscription = ({t}) => {
   
   // handler for clicking subscription
   const handleSubscriptionClick = useCallback((id) => {
-    const accessToken = sessionStorage.getItem("accessToken")
+    const accessToken = localStorage.getItem("accessToken")
     axios({
       url: '/business/subscription/change',
       method: "POST",
@@ -91,7 +91,7 @@ const SelectSubscription = ({t}) => {
     })
     .then(res => {
       if (res.data.success) {
-        sessionStorage.setItem("PassedStage3", true)
+        localStorage.setItem("PassedStage3", true)
         navigate('/auth/signup/4')
       } else {
         setError( res.data.message)
