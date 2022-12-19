@@ -107,6 +107,7 @@ const TwofaForm = ({t}) => {
 
   // handler for going back
   const handleBack = useCallback(() => {
+    localStorage.removeItem('twofaId')
     navigate('/auth/login')
   }, [navigate])
 
