@@ -243,7 +243,7 @@ const RegistrationForm = ({t}) => {
                         render={({field, formState}) =>
                         <NumberInput
                           name="phoneNumber"
-                          mask="00000000"
+                          mask="0000000"
                           id="signup-phone-number"
                           placeholder={t('registrationForm.phone')}
                           error={errors?.phoneNumber}
