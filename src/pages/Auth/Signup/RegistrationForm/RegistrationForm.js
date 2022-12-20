@@ -40,7 +40,7 @@ const schema = yup.object({
     .required("מספר עוסק/ת.ז. שגוי"),
   phonePrefix: yup.string().required(""),
   phoneNumber: yup.string()
-    .min(9, '9 numbers required')
+    .min(7, 'חייב להכיל 7 ספרות')
     .required("מספר עוסק/ת.ז. שגוי"),
   role: yup.string().required("מספר עוסק/ת.ז. שגוי"),
   businessName: yup.string().required("מספר עוסק/ת.ז. שגוי"),
@@ -166,6 +166,10 @@ const RegistrationForm = ({t}) => {
 
   const handleBack = useCallback(() => {
     localStorage.removeItem('verifiedEmail')
+    if (localStorage.getItem('registerType')) {
+      localStorage.removeItem('registerType')
+      localStorage.removeItem('providerAccessToken')
+    }
     navigate("/auth/signup/1")
   }, [navigate])
 
@@ -239,7 +243,7 @@ const RegistrationForm = ({t}) => {
                         render={({field, formState}) =>
                         <NumberInput
                           name="phoneNumber"
-                          mask="0000000000"
+                          mask="00000000"
                           id="signup-phone-number"
                           placeholder={t('registrationForm.phone')}
                           error={errors?.phoneNumber}
