@@ -76,13 +76,16 @@ const theme = createTheme({
           width: '100%',
           height: 50,
           borderRadius: 8,
-          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+          "> input:focus ~ .MuiOutlinedInput-notchedOutline": {
             borderWidth: 1,
             borderColor: primary
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: primary
-          },
+            borderColor: primary,
+            "@media (max-width: 500px)": {
+              borderColor: secondary
+            }
+          }
         },
       },
     },

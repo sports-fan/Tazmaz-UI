@@ -4,12 +4,10 @@ const UseScrollToTop = ({ children }) => {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      left: 0,
-      behavior: "smooth",
     })
   }, [children])
 
-  return children || null
+  return <div style={{minWidth: 375}}>{children}</div> || null
 }
 
 export default UseScrollToTop

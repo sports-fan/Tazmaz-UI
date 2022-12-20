@@ -19,15 +19,13 @@ const cacheRtl = createCache({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <>
-    <CacheProvider value={cacheRtl}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </CacheProvider>
-  </>
+  <CacheProvider value={cacheRtl}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
+  </CacheProvider>
 )
 
 // If you want to start measuring performance in your app, pass a function

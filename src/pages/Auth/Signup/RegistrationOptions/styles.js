@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: 26
     },
-    marginTop: 95
+    marginTop: 95,
   },
   leftBGColor: {
     backgroundColor: '#413B71',
@@ -62,7 +62,7 @@ export default makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginTop: 69
+    marginTop: 64
   },
   u: {
     color: theme.palette.primary.main,

@@ -61,7 +61,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: 0
     },
-    marginTop: 54
+    marginTop: 48
   },
   subscriptions: {
     [theme.breakpoints.down('sm')]: {

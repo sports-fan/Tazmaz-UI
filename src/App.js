@@ -43,14 +43,12 @@ function App() {
   }, [])
 
   return (
-    <React.Fragment>
-      <AuthContext.Provider value={data}>
-        <CssBaseline />
-        <Suspense fallback={<Loader />}>
-          <Pages />
-        </Suspense>
-      </AuthContext.Provider>
-    </React.Fragment>
+    <AuthContext.Provider value={data}>
+      <CssBaseline />
+      <Suspense fallback={<Loader />}>
+        <Pages />
+      </Suspense>
+    </AuthContext.Provider>
   );
 }
 

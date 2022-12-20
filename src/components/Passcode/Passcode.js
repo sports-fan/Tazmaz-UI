@@ -13,7 +13,6 @@ const Passcode = ({ field, name, error, className, numInputs = 6 }) => {
   }, [setActiveIndex])
 
   const handleKeydown = useCallback((index) => (event) => {
-    console.log(event.keyCode)
     let newValue;
     let newIndex;
     const values = (field.value || '').split('')

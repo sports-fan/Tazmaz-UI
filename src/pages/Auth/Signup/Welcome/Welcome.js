@@ -14,7 +14,7 @@ const Welcome = ({t}) => {
   const classes = useStyles()
   const matches = useMediaQuery('(max-width:600px)');
   return (
-    <div>
+    <div className={classes.container}>
       <SelectSubscriptionHeader stepNum={3}/> {/* header of stage 4 */}
       <SelectSubscriptionLayout className={classes.mainDiv}> {/* body of stage 4 */}
         <div className={classes.main}>

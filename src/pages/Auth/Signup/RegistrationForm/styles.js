@@ -31,7 +31,7 @@ export default makeStyles(theme => ({
   },
   formActions: {
     [theme.breakpoints.down('sm')]: {
-      marginTop: 58,
+      marginTop: 50,
       marginBottom: 50
     },
     marginTop: 71,

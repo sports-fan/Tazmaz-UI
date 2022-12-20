@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles"
 
 export default makeStyles((theme) => ({
   container: {
-    minHeight: 1080
+    minHeight: 812
   },
   main: {
     display: 'flex',
@@ -25,9 +25,8 @@ export default makeStyles((theme) => ({
   },
   bottom: {
     [theme.breakpoints.down('sm')]: {
-      marginBottom: 0
+      marginBottom: 7
     },
     marginBottom: 45
-
   }
 }))
