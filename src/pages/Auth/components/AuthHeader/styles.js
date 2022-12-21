@@ -16,11 +16,14 @@ export default makeStyles(theme => ({
     paddingBottom: 73
   },
   loginLogo: {
-    [theme.breakpoints.down('lg')]: {
-      right: 30
-    },
     [theme.breakpoints.down('xl')]: {
       right: 60
+    },
+    [theme.breakpoints.down('lg')]: {
+      right: 10
+    },
+    [theme.breakpoints.down('md')]: {
+      right: 30
     },
     [theme.breakpoints.down('sm')]: {
       top: 28,
@@ -31,11 +34,14 @@ export default makeStyles(theme => ({
     right: 86
   },
   logo: {
-    [theme.breakpoints.down('lg')]: {
-      right: 30
-    },
     [theme.breakpoints.down('xl')]: {
-      right: 60
+      right: 50
+    },
+    [theme.breakpoints.down('lg')]: {
+      right: 10
+    },
+    [theme.breakpoints.down('md')]: {
+      right: 40
     },
     [theme.breakpoints.down('sm')]: {
       top: 54,
@@ -64,11 +70,14 @@ export default makeStyles(theme => ({
     right: 90
   },
   backToHome: {
-    [theme.breakpoints.down('lg')]: {
-      left: 30,
-    },
     [theme.breakpoints.down('xl')]: {
       left: 50,
+    },
+    [theme.breakpoints.down('lg')]: {
+      left: 10,
+    },
+    [theme.breakpoints.down('lg')]: {
+      left: 40,
     },
     [theme.breakpoints.down('sm')]: {
       left: 20,
@@ -82,6 +91,9 @@ export default makeStyles(theme => ({
     top: 41,
   },
   backToHomeDark: {
+    [theme.breakpoints.down('lg')]: {
+      left: 15,
+    },
     [theme.breakpoints.down('sm')]: {
       left: 20,
       top: 48

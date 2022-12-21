@@ -70,7 +70,7 @@ const RegistrationOptions = ({t}) => {
   }, [])
 
   const handlePolicy = useCallback(() => {
-    window.open('/termsofservice','_blank').focus()
+    window.open('/privacypolicy','_blank').focus()
   }, [])
 
   const setMessage = useCallback(() => {
@@ -196,14 +196,16 @@ const RegistrationOptions = ({t}) => {
                   {/* Terms and policy */}
                   <div className={classes.termAndPolicy}>
                     <div className={classes.forgotText}>
-                      <Typography variant='body2'>
+                      <Typography mr={0.5} variant='body2'>
                         {t('registrationOption.confirm')}
                       </Typography>
                       <div className={classes.underlined}>
-                        <Typography variant='body2'>
+                        <Typography mr={0.5} variant='body2'>
                           <u className={classes.u} onClick={handleTerms}>
                             {t('registrationOption.terms')}  
                           </u>
+                        </Typography>
+                        <Typography variant='body2'>
                           <u className={classes.u} onClick={handlePolicy}>
                             {t('registrationOption.policy')}  
                           </u> 
