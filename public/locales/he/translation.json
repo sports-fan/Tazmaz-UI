@@ -1,0 +1,74 @@
+{
+  "common": {
+    "backToHome": "חזרה לדף הבית",
+    "loginUsing": "התחברות באמצעות",
+    "leftSideDescription": "3-5 דקות ביום ואתם מסודרים",
+    "step1": "פרטי עסק",
+    "step2": "בחירת מנוי",
+    "step3": "ברוכים הבאים",
+    "required": "מספר עוסק/ת.ז. שגוי"
+  },
+  "login": {
+    "miyabaMichorev": "ברוכים הבאים,",
+    "description": "TazMaz היועצת הפיננסית לעסק שלך",
+    "caramelizeTheSync": "תכרעמל הסינכ",
+    "manageTheBusiness": "לניהול העסק",
+    "forgetYourPassword": "שכחת את הסיסמא שלך?",
+    "notRegistered": "עדיין לא רשומים?",
+    "forQuickRegistration": "להרשמה מהירה",
+    "email": "שם משתמש/אימייל",
+    "password": "סיסמא"
+  },
+  "2fa": {
+    "description": "ברגעים אלו ממש נשלח למכשירך קוד סודי בן 4 ספרות לצורך אימות. אנא הכנס/י את הקוד להשלמת תהליך ההתחברות.",
+    "button1": "חזור",
+    "button2": "אישור והתחברות",
+    "message": "לא קיבלת קוד סודי?",
+    "boldMessage": "לחץ כאן"
+  },
+  "registrationOption": {
+    "email": "הזנת אימייל ",
+    "button": "שלב הבא",
+    "policy": "ומדיניות הפרטיות",
+    "terms": "תנאיהשירות",
+    "termsAndPolicy": "תנאיהשירות ומדיניות הפרטיות",
+    "confirm": "בהרשמה אני מאשר/ת שאני מקבל/ת את",
+    "connect": "להתחברות",
+    "registered": "נרשמת כבר בעבר?"
+  },
+  "registrationForm": {
+    "description1": "בוא נכיר",
+    "description2": "יאללה מתחילים!",
+    "password": "בחירת סיסמא",
+    "phone": "מספר טלפון",
+    "firstName": "שם פרטי",
+    "lastName": "שם משפחה",
+    "role": "תפקיד",
+    "businessName": "שם העסק",
+    "businessId": "ח.פ./מס עוסק",
+    "sector": "ענף/תחום",
+    "button1": "המשך",
+    "button2": "חזרה",
+    "leftSideDescription": "היועצת הפיננסית מוכנה לפעולה!"
+  },
+  "subscription": {
+    "description": "תבחרו את המנוי המתאים ביותר עבורכם",
+    "monthly": "חודשי",
+    "yearly": "שנתי",
+    "30%": "חיסכו 30%",
+    "couponButton": "מימוש קוד הטבה",
+    "couponCancel": "לבטל קופון",
+    "couponInput": "הזנת קוד הטבה",
+    "couponLabel": "רגע, יש לך אולי קוד הטבה?",
+    "couponLabel2": "רגע, יש לך אולי קוד הטבה?",
+    "header": "הכי פופולרי",
+    "subButton": "יאללה, מתאים לי"
+  },
+  "welcome": {
+    "des1": "יוהוו!",
+    "des2": "סיימנו את כל השלבים",
+    "des3": "היועצת מוכנה לצאת לפעולה!",
+    "buttonLeft": "אני רוצה להציג את העסק",
+    "buttonRight": "סיימתי, אני רוצה לצאת לדרך"
+  }
+}
